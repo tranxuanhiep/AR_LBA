@@ -8,7 +8,7 @@ import Favorites from "../screens/favorites/Favorites";
 import Searchs from "../screens/searchs/Searchs";
 import HomeList from "../screens/homes/HomeList";
 import Notifications from "../screens/notifications/Notifications";
-import TabBar from '../components/customesTabBar/TabBar'
+import TabBar from "../components/customesTabBar/TabBar";
 export const HomeStack = StackNavigator({
   HomeMap: {
     screen: HomeMap,
@@ -111,10 +111,10 @@ export const NotificationStack = StackNavigator({
 export const HomeScreenRouter = TabNavigator(
   {
     Home: { screen: HomeStack },
-    Searchs: { screen: SearchStack },
-    Notifications: { screen: NotificationStack },
     Favorites: { screen: FavoriteStack },
-    Authentications: { screen: AuthenticationStack }
+    Notifications: { screen: NotificationStack },
+    Authentications: { screen: AuthenticationStack },
+    Searchs: { screen: SearchStack }
   },
   {
     tabBarPosition: "bottom",
