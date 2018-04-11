@@ -62,7 +62,7 @@ export default class TabBar extends React.Component {
           }}
         >
           <TouchableOpacity>
-            <Image source={require("../../images/TabBar/HomeChoose.png")} />
+            <Image source={require("../../images/TabBar/camera.png")} />
           </TouchableOpacity>
         </View>
         <View
