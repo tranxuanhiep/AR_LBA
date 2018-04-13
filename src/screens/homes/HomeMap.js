@@ -1,16 +1,12 @@
 import React from "react";
-import {
-  StyleSheet,
-  Dimensions,
-  View
-} from "react-native";
+import { StyleSheet, Dimensions, View } from "react-native";
 import Polyline from "@mapbox/polyline";
 import MapView, { Marker } from "react-native-maps";
 import Axios from "axios";
-import CalloutStore from '../../components/customesMap/MarkerCallOut'
+import CalloutStore from "../../components/customesMap/MarkerCallOut";
 // import FloatingButton from "../../components/floatingButton/index";
 const { width, height } = Dimensions.get("window");
-
+import DropdownAlert from "react-native-dropdownalert";
 const ASPECT_RATIO = width / height;
 
 export default class HomeMap extends React.Component {
@@ -49,15 +45,24 @@ export default class HomeMap extends React.Component {
         this.setState({ coords: coords });
       })
       .catch(error => {
-        console.log(error);
+        this.dropdown.alertWithType(error.name.toLowerCase(), error.name, error.message+"\nCan't get direction. Please connect network");
       });
-  }   
+  }
   componentWillReceiveProps() {
     this.mapRef.fitToElements(true);
+  }
+  onClose(data) {
+    // data = {type, title, message, action}
+    // action means how the alert was closed.
+    // returns: automatic, programmatic, tap, pan or cancel
   }
   render() {
     return (
       <View style={{ flex: 1 }}>
+        <DropdownAlert
+          ref={ref => (this.dropdown = ref)}
+          onClose={data => this.onClose(data)}
+        />
         <MapView
           ref={ref => {
             this.mapRef = ref;
@@ -98,9 +103,9 @@ export default class HomeMap extends React.Component {
                 );
               }}
             >
-            <MapView.Callout>
-              <CalloutStore marker={marker}/>
-            </MapView.Callout>
+              <MapView.Callout>
+                <CalloutStore marker={marker} />
+              </MapView.Callout>
             </MapView.Marker>
           ))}
           <MapView.Polyline

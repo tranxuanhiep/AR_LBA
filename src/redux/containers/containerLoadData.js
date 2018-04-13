@@ -16,15 +16,9 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
-    getLocationUser: (latitude, longitude) => {
-      getStoreByRadius(2, latitude, longitude).then(reasonJson => {
-        let success = reasonJson.data.message.success;
-        if (success) {
-          let arrayMarker = reasonJson.data.data.StoreDetailsRadianViewModel;
+    getLocationUser: (latitude, longitude, arrayMarker) => {
           dispatch(loadPromotionsOpenApp(arrayMarker));
           dispatch(trackingLocation(latitude, longitude));
-        }
-      });
     }
   };
 };
