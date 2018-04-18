@@ -14,4 +14,9 @@ export const API_GET_STORE_BY_RADIUS =
   "http://lbawebserver.us-east-1.elasticbeanstalk.com/api/GetStoreDetailsByRadian";
 export const API_GET_ORDINARY_PROMOTIONS =
   "http://lbawebserver.us-east-1.elasticbeanstalk.com/api/GetPromotions";
-  export const CHECK_TOKEN = "http://lbawebserver.us-east-1.elasticbeanstalk.com/api/Token";
+export const CHECK_TOKEN =
+  "http://lbawebserver.us-east-1.elasticbeanstalk.com/api/Token";
+export const GET_PROFILE_SIGNIN_WITH_FACEBOOK =
+  "https://graph.facebook.com/v2.5/me?fields=id,name,birthday,gender,email,first_name,last_name,picture{url}&access_token=";
+export const GET_PROFILE_SIGNIN_WITH_GOOGLE =
+  "https://www.googleapis.com/plus/v1/people/107648527285522717037?fields=birthday%2Cgender&key=AIzaSyB9lTSgPuDkJ51GNNvxv2sMZk9QUgmGxGo";
