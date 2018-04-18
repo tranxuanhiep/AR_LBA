@@ -1,9 +1,15 @@
 import React from "react";
-import { View, TouchableOpacity, Dimensions, Image } from "react-native";
+import {
+  View,
+  TouchableOpacity,
+  Dimensions,
+  Image,
+  NativeModules
+} from "react-native";
 import Colors from "../../colors/Colors";
 import Styles from "../../stylesheets/StyleTabBar";
 const { width, height } = Dimensions.get("screen");
-
+const activityStarter = NativeModules.ActivityStarter;
 export default class TabBar extends React.Component {
   render() {
     return (
@@ -12,8 +18,8 @@ export default class TabBar extends React.Component {
           backgroundColor: "#f2f2f2",
           flexDirection: "row",
           justifyContent: "space-between",
-          paddingTop:10,
-          paddingBottom:10
+          paddingTop: 10,
+          paddingBottom: 10
         }}
       >
         <View
@@ -61,7 +67,13 @@ export default class TabBar extends React.Component {
             alignItems: "center"
           }}
         >
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              activityStarter.navigateToExample(
+                JSON.stringify(this.props.arrayMarker)
+              );
+            }}
+          >
             <Image source={require("../../images/TabBar/camera.png")} />
           </TouchableOpacity>
         </View>

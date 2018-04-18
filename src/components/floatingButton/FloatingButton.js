@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import { Icon } from 'native-base';
-import Styles from '../../StyleSheets/StyleFloatingButton';
+import Styles from '../../stylesheets/StyleFloatingButton';
 
 const FloatingButton = (props) => {
   return (

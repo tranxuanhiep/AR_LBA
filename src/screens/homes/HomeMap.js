@@ -4,7 +4,7 @@ import Polyline from "@mapbox/polyline";
 import MapView, { Marker } from "react-native-maps";
 import Axios from "axios";
 import CalloutStore from "../../components/customesMap/MarkerCallOut";
-// import FloatingButton from "../../components/floatingButton/index";
+import FloatingButton from "../../components/floatingButton/FloatingButton";
 const { width, height } = Dimensions.get("window");
 import DropdownAlert from "react-native-dropdownalert";
 const ASPECT_RATIO = width / height;
@@ -45,7 +45,11 @@ export default class HomeMap extends React.Component {
         this.setState({ coords: coords });
       })
       .catch(error => {
-        this.dropdown.alertWithType(error.name.toLowerCase(), error.name, error.message+"\nCan't get direction. Please connect network");
+        this.dropdown.alertWithType(
+          error.name.toLowerCase(),
+          error.name,
+          error.message + "\nCan't get direction. Please connect network"
+        );
       });
   }
   componentWillReceiveProps() {
@@ -114,6 +118,12 @@ export default class HomeMap extends React.Component {
             strokeColor="#1E90FF"
           />
         </MapView>
+        <FloatingButton
+          icon="list"
+          onPress={() => {
+            this.props.navigation.navigate("HomeList");
+          }}
+        />
       </View>
     );
   }

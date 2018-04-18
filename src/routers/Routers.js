@@ -8,7 +8,7 @@ import Favorites from "../screens/favorites/Favorites";
 import Searchs from "../screens/searchs/Searchs";
 import HomeList from "../screens/homes/HomeList";
 import Notifications from "../screens/notifications/Notifications";
-import TabBar from "../components/customesTabBar/TabBar";
+import TabBar from "../redux/containers/containerTabbar";
 export const HomeStack = StackNavigator({
   HomeMap: {
     screen: HomeMap,

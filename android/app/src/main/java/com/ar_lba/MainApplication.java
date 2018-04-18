@@ -37,7 +37,8 @@ public class MainApplication extends Application implements ReactApplication {
             new RNGoogleSigninPackage(),
               new FBSDKPackage(mCallbackManager),
             new MapsPackage(),
-            new SplashScreenReactPackage()
+            new SplashScreenReactPackage(),
+              new ActivityStarterReactPackage()
       );
     }
 
