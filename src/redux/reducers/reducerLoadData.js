@@ -1,6 +1,7 @@
 import {
-  LOAD_PROMOTIONS_OPEN_APP,
-  TRACKING_LOCATION
+  FETCH_STORES_FAILED,
+  FETCH_STORES_SUCCESS,
+  GET_LOCATION_USER
 } from "../actions/actionsType/actionsTypeLoadData";
 const stateDefault = {
   longitude: 0,
@@ -9,17 +10,19 @@ const stateDefault = {
 };
 const reducerLoadData = (state = stateDefault, action) => {
   switch (action.type) {
-    case TRACKING_LOCATION:
+    case FETCH_STORES_SUCCESS: {
+      return { ...state, arrayMarker: action.arrayMarker };
+    }
+    case FETCH_STORES_FAILED:
+      return { ...state, arrayMarker: [] };
+    case GET_LOCATION_USER:
       return {
         ...state,
         latitude: action.latitude,
         longitude: action.longitude
       };
-    case LOAD_PROMOTIONS_OPEN_APP:
-      return { ...state, arrayMarker: action.arrayMarker };
     default:
       return state; //state does not change
   }
 };
-
 export default reducerLoadData;

@@ -2,8 +2,9 @@ import LoadData from "../../LoadData";
 import getStoreByRadius from "../../api/functionsApi/getStoreByRadius";
 
 import {
-  trackingLocation,
-  loadPromotionsOpenApp
+  fetchStoresAction,
+  fetchStoresFailedAction,
+  fetchStoresSucccessAction
 } from "../actions/allActions/allActionsLoadData";
 import { connect } from "react-redux";
 
@@ -16,9 +17,8 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
-    getLocationUser: (latitude, longitude, arrayMarker) => {
-          dispatch(loadPromotionsOpenApp(arrayMarker));
-          dispatch(trackingLocation(latitude, longitude));
+    onFetchStores: (latitude, longitude) => {
+      dispatch(fetchStoresAction(latitude, longitude));
     }
   };
 };

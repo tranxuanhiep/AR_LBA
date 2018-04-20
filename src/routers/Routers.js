@@ -1,8 +1,6 @@
 import { StackNavigator, TabNavigator } from "react-navigation";
 import React from "react";
 import HomeMap from "../redux/containers/containerHomeMap";
-import DetailStore from "../screens/details/DetailStore";
-import DetailPromotion from "../screens/details/DetailPromotion";
 import Authentications from "../screens/authentications/Authentications";
 import Favorites from "../screens/favorites/Favorites";
 import Searchs from "../screens/searchs/Searchs";
@@ -19,21 +17,9 @@ export const HomeStack = StackNavigator({
   HomeList: {
     screen: HomeList,
     navigationOptions: {
-      header: null
+      title: "Home List",
     }
   },
-  DetailStore: {
-    screen: DetailStore,
-    navigationOptions: {
-      header: null
-    }
-  },
-  DetailPromotion: {
-    screen: DetailPromotion,
-    navigationOptions: {
-      header: null
-    }
-  }
 });
 
 export const SearchStack = StackNavigator({
@@ -43,18 +29,6 @@ export const SearchStack = StackNavigator({
       header: null
     }
   },
-  DetailStore: {
-    screen: DetailStore,
-    navigationOptions: {
-      header: null
-    }
-  },
-  DetailPromotion: {
-    screen: DetailPromotion,
-    navigationOptions: {
-      header: null
-    }
-  }
 });
 
 export const AuthenticationStack = StackNavigator({
@@ -73,18 +47,6 @@ export const FavoriteStack = StackNavigator({
       header: null
     }
   },
-  DetailStore: {
-    screen: DetailStore,
-    navigationOptions: {
-      header: null
-    }
-  },
-  DetailPromotion: {
-    screen: DetailPromotion,
-    navigationOptions: {
-      header: null
-    }
-  }
 });
 
 export const NotificationStack = StackNavigator({
@@ -94,18 +56,6 @@ export const NotificationStack = StackNavigator({
       header: null
     }
   },
-  DetailStore: {
-    screen: DetailStore,
-    navigationOptions: {
-      header: null
-    }
-  },
-  DetailPromotion: {
-    screen: DetailPromotion,
-    navigationOptions: {
-      header: null
-    }
-  }
 });
 
 export const HomeScreenRouter = TabNavigator(

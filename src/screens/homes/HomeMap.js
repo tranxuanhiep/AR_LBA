@@ -55,17 +55,11 @@ export default class HomeMap extends React.Component {
   componentWillReceiveProps() {
     this.mapRef.fitToElements(true);
   }
-  onClose(data) {
-    // data = {type, title, message, action}
-    // action means how the alert was closed.
-    // returns: automatic, programmatic, tap, pan or cancel
-  }
   render() {
     return (
       <View style={{ flex: 1 }}>
         <DropdownAlert
           ref={ref => (this.dropdown = ref)}
-          onClose={data => this.onClose(data)}
         />
         <MapView
           ref={ref => {
@@ -107,7 +101,9 @@ export default class HomeMap extends React.Component {
                 );
               }}
             >
-              <MapView.Callout>
+              <MapView.Callout onPress={()=>{
+                
+              }} >
                 <CalloutStore marker={marker} />
               </MapView.Callout>
             </MapView.Marker>

@@ -63,7 +63,6 @@ export class LoginAnimation extends Component {
   }
 
   async _signIn() {
-    console.log("Signin google");
     await GoogleSignin.signIn()
       .then(user => {
         getProfileSigninWithGoogle(user.accessToken).then(Data => {
@@ -140,7 +139,6 @@ export class LoginAnimation extends Component {
     AsyncStorage.removeItem("@UserName");
   }
   render() {
-    console.log(this.state.user);
     if (this.state.type === 0) {
       return (
         <View style={styles.container}>
