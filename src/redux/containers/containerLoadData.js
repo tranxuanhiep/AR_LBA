@@ -1,5 +1,4 @@
 import LoadData from "../../LoadData";
-import getStoreByRadius from "../../api/functionsApi/getStoreByRadius";
 
 import {
   fetchStoresAction,

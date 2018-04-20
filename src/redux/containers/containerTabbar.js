@@ -6,4 +6,7 @@ const mapStateToProps = state => {
     arrayMarker: state.reducerLoadData.arrayMarker
   };
 };
-export default connect(mapStateToProps)(TabBar);
+const mapDispatchToProps = dispatch => {
+  return {};
+};
+export default connect(mapStateToProps, mapDispatchToProps)(TabBar);

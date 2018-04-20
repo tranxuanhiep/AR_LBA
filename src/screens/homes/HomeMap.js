@@ -1,31 +1,17 @@
 import React from "react";
-import { StyleSheet, Dimensions, View } from "react-native";
-import Polyline from "@mapbox/polyline";
+import { StyleSheet, View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
+import Polyline from "@mapbox/polyline";
+import CalloutStore from "../../redux/containers/containerMarkerCallout";
+import FloatingButton from "../../redux/containers/containerFloattingButton";
 import Axios from "axios";
-import CalloutStore from "../../components/customesMap/MarkerCallOut";
-import FloatingButton from "../../components/floatingButton/FloatingButton";
-const { width, height } = Dimensions.get("window");
-import DropdownAlert from "react-native-dropdownalert";
-const ASPECT_RATIO = width / height;
+
 
 export default class HomeMap extends React.Component {
   constructor(props) {
     super(props);
-    this.mapRef = null;
     this.state = { coords: [] };
-  }
-
-  fitBottomTwoMarkers(startLoc, destinationLoc) {
-    this.mapRef.fitToCoordinates([startLoc, destinationLoc], {
-      edgePadding: {
-        top: 400,
-        right: 250,
-        bottom: 50,
-        left: 250
-      },
-      animated: true
-    });
+    this.mapRef = null;
   }
 
   async getDirections(startLoc, destinationLoc) {
@@ -43,14 +29,22 @@ export default class HomeMap extends React.Component {
           };
         });
         this.setState({ coords: coords });
+        console.log(JSON.stringify(coords));
       })
       .catch(error => {
-        this.dropdown.alertWithType(
-          error.name.toLowerCase(),
-          error.name,
-          error.message + "\nCan't get direction. Please connect network"
-        );
       });
+  }
+
+  fitBottomTwoMarkers(startLoc, destinationLoc) {
+    this.mapRef.fitToCoordinates([startLoc, destinationLoc], {
+      edgePadding: {
+        top: 400,
+        right: 250,
+        bottom: 50,
+        left: 250
+      },
+      animated: true
+    });
   }
   componentWillReceiveProps() {
     this.mapRef.fitToElements(true);
@@ -58,9 +52,6 @@ export default class HomeMap extends React.Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <DropdownAlert
-          ref={ref => (this.dropdown = ref)}
-        />
         <MapView
           ref={ref => {
             this.mapRef = ref;
@@ -85,10 +76,11 @@ export default class HomeMap extends React.Component {
                       : require("../../images/none.png")
               }
               onPress={() => {
-                this.getDirections(
-                  "" + this.props.latitude + "," + this.props.longitude,
-                  "" + marker.Store_Latitude + "," + marker.Store_Longitude
-                );
+                const startLoc =
+                  this.props.latitude + "," + this.props.longitude;
+                const destinationLoc =
+                  marker.Store_Latitude + "," + marker.Store_Longitude;
+                this.getDirections(startLoc, destinationLoc);
                 this.fitBottomTwoMarkers(
                   {
                     latitude: this.props.latitude,
@@ -101,9 +93,11 @@ export default class HomeMap extends React.Component {
                 );
               }}
             >
-              <MapView.Callout onPress={()=>{
-                
-              }} >
+              <MapView.Callout
+                onPress={() => {
+                  this.props.navigation.navigate("StoreTab");
+                }}
+              >
                 <CalloutStore marker={marker} />
               </MapView.Callout>
             </MapView.Marker>

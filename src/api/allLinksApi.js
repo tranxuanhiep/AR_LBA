@@ -20,3 +20,4 @@ export const GET_PROFILE_SIGNIN_WITH_FACEBOOK =
   "https://graph.facebook.com/v2.5/me?fields=id,name,birthday,gender,email,first_name,last_name,picture{url}&access_token=";
 export const GET_PROFILE_SIGNIN_WITH_GOOGLE =
   "https://www.googleapis.com/plus/v1/people/107648527285522717037?fields=birthday%2Cgender&key=AIzaSyB9lTSgPuDkJ51GNNvxv2sMZk9QUgmGxGo";
+  
