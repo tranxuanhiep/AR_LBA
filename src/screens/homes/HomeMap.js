@@ -100,6 +100,7 @@ export default class HomeMap extends React.Component {
                     this.props.longitude
                   );
                   this.props.onFetchRatingStore(marker.Store_ID, Username, 1);
+                  this.props.onFetchPromotionsStore(81, Username);
                   this.props.navigation.navigate("StoreTab");
                 }}
               >

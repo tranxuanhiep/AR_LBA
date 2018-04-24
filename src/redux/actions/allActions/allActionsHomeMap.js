@@ -4,7 +4,10 @@ import {
   FETCH_INFORMATION_STORE_FAILED,
   FETCH_RATING_STORE,
   FETCH_RATING_STORE_FAILED,
-  FETCH_RATING_STORE_SUCCESS
+  FETCH_RATING_STORE_SUCCESS,
+  FETCH_PROMOTIONS_STORE,
+  FETCH_PROMOTIONS_STORE_FAILED,
+  FETCH_PROMOTIONS_STORE_SUCCESS
 } from "../actionsType/actionsTypeHomeMap";
 
 export const fetchInformationStoreAction = (idStore, latitude, longitude) => {
@@ -29,4 +32,16 @@ export const fetchInRatingStoreSucccessAction = listRatingStore => {
 
 export const fetchInRatingStoreFailedAction = error => {
   return { type: FETCH_RATING_STORE_FAILED, error };
+};
+
+export const fetchInPromotionsStoreAction = (idStore, Username) => {
+  return { type: FETCH_PROMOTIONS_STORE, idStore, Username };
+};
+
+export const fetchInPromotionsStoreSucccessAction = promotionsofStore => {
+  return { type: FETCH_PROMOTIONS_STORE_SUCCESS, promotionsofStore };
+};
+
+export const fetchInPromotionsStoreFailedAction = error => {
+  return { type: FETCH_PROMOTIONS_STORE_FAILED, error };
 };

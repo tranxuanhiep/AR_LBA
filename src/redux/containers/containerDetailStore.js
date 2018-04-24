@@ -1,17 +1,15 @@
 import DetailStore from "../../screens/storeDetail/DetailStore";
 import { connect } from "react-redux";
-import {
-  RatingStore
-} from "../actions/allActions/allActionsDetailStore";
+import { RatingStore } from "../actions/allActions/allActionsDetailStore";
 const mapStateToProps = state => {
   return {
     informationStore: state.reducerHomeMap.informationStore,
-    listRatingStore: state.reducerHomeMap.listRatingStore
+    listRatingStore: state.reducerHomeMap.listRatingStore,
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
-    onAddRating: (newRating) => {
+    onAddRating: newRating => {
       dispatch(RatingStore(newRating));
     }
   };

@@ -2,7 +2,7 @@ import PromotionsOfStore from "../../screens/storeDetail/PromotionsOfStore";
 import { connect } from "react-redux";
 
 const mapStateToProps = state => {
-  return {};
+  return { promotionsofStore: state.reducerHomeMap.promotionsofStore };
 };
 const mapDispatchToProps = dispatch => {
   return {};
