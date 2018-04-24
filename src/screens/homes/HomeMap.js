@@ -1,11 +1,11 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, AsyncStorage } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import Polyline from "@mapbox/polyline";
 import CalloutStore from "../../redux/containers/containerMarkerCallout";
 import FloatingButton from "../../redux/containers/containerFloattingButton";
 import Axios from "axios";
-
+import { Item } from "native-base";
 
 export default class HomeMap extends React.Component {
   constructor(props) {
@@ -29,10 +29,8 @@ export default class HomeMap extends React.Component {
           };
         });
         this.setState({ coords: coords });
-        console.log(JSON.stringify(coords));
       })
-      .catch(error => {
-      });
+      .catch(error => {});
   }
 
   fitBottomTwoMarkers(startLoc, destinationLoc) {
@@ -94,7 +92,14 @@ export default class HomeMap extends React.Component {
               }}
             >
               <MapView.Callout
-                onPress={() => {
+                onPress={async () => {
+                  const Username = await AsyncStorage.getItem("@UserName");
+                  this.props.onFetchInformationStore(
+                    marker.Store_ID,
+                    this.props.latitude,
+                    this.props.longitude
+                  );
+                  this.props.onFetchRatingStore(marker.Store_ID, Username, 1);
                   this.props.navigation.navigate("StoreTab");
                 }}
               >

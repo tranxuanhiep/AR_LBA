@@ -8,3 +8,4 @@ const PromotionDetail = async (promotionID, username) => {
   });
 };
 export default PromotionDetail;
+ 

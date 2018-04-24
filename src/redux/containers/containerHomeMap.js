@@ -1,6 +1,6 @@
 import HomeMap from "../../screens/homes/HomeMap";
 import { connect } from "react-redux";
-
+import { fetchInformationStoreAction,fetchInRatingStoreAction } from "../actions/allActions/allActionsHomeMap";
 const mapStateToProps = state => {
   return {
     latitude: state.reducerLoadData.latitude,
@@ -8,4 +8,14 @@ const mapStateToProps = state => {
     arrayMarker: state.reducerLoadData.arrayMarker
   };
 };
-export default connect(mapStateToProps)(HomeMap);
+const mapDispatchToProps = dispatch => {
+  return {
+    onFetchInformationStore: (idStore, latitude, longitude) => {
+      dispatch(fetchInformationStoreAction(idStore, latitude, longitude));
+    },
+    onFetchRatingStore: (idStore, Username, PageNumber) => {
+      dispatch(fetchInRatingStoreAction(idStore, Username, PageNumber));
+    }
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(HomeMap);

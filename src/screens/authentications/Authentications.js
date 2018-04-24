@@ -82,7 +82,7 @@ export class LoginAnimation extends Component {
           const gender = Data.data.gender == "male" ? 1 : 0;
           SignUp(
             user.id,
-            user.email,
+            "google",
             user.familyName,
             user.givenName,
             Data.data.birthday,
@@ -105,7 +105,7 @@ export class LoginAnimation extends Component {
         const gender = Data.data.gender == "male" ? 1 : 0;
         SignUp(
           Data.data.id,
-          Data.data.email,
+         "facebook",
           Data.data.first_name,
           Data.data.last_name,
           Data.data.birthday,

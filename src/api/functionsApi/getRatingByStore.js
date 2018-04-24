@@ -1,11 +1,15 @@
-import { API_GET_RATING } from "../allLinkAPI";
+import { API_GET_RATING } from "../allLinksApi";
 import axios from "axios";
 
-const getRatings = async (storeID, username, pageNumber) => {
-  return await axios.post(API_GET_RATING, {
+function* getRatings(storeID, username, pageNumber){
+  const Data = yield axios.post(API_GET_RATING, {
     Store_ID: storeID,
     Username: username,
     PageNumber: pageNumber
   });
+  const listRatingStore = yield Data.data.message.success ? Data.data.data.commentOfStore:[]
+  return listRatingStore;
 };
-export default getRatings;
+export const ApiRating = {
+  getRatings
+}
