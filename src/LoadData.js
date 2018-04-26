@@ -4,7 +4,7 @@ import {
   StatusBar,
   PermissionsAndroid
 } from "react-native";
-import Main from "./screens/Main";
+import Main from "./redux/containers/containerMain";
 
 async function requestCameraPermission() {
   try {

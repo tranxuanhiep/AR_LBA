@@ -1,7 +1,11 @@
 import { GET_PROFILE_SIGNIN_WITH_FACEBOOK } from "../allLinksApi";
 import Axios from "axios";
 
-const getProfileSigninWithFacebook = async (token) => {
-  return await Axios.get(GET_PROFILE_SIGNIN_WITH_FACEBOOK + token);
+function* getProfileSigninWithFacebook (token) {
+  console.log("API FB")
+  const Data = yield Axios.get(GET_PROFILE_SIGNIN_WITH_FACEBOOK + token);
+  return Data.data;
 };
-export default getProfileSigninWithFacebook;
+export const Apifb={
+  getProfileSigninWithFacebook
+}

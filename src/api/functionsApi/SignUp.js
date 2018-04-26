@@ -1,15 +1,15 @@
 import { API_SIGN_UP } from "../allLinksApi";
 import Axios from "axios";
 
-const signUp = async (
+function* signUp(
   userName,
   password,
   customer_FirstName,
   customer_LastName,
   customer_DOB,
   customer_Gender
-) => {
-  return await Axios.post(API_SIGN_UP, {
+) {
+  const Data = yield Axios.post(API_SIGN_UP, {
     Username: userName,
     Password: password,
     Customer_FirstName: customer_FirstName,
@@ -17,5 +17,6 @@ const signUp = async (
     Customer_DOB: customer_DOB,
     Customer_Gender: customer_Gender
   });
-};
-export default signUp;
+  return Data.data.message.success;
+}
+export const ApiSignin = { signUp };

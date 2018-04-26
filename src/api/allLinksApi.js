@@ -36,6 +36,4 @@ export const API_POST_COMMENT =
   "http://lbawebserver.us-east-1.elasticbeanstalk.com/api/PostCommentPromotion";
 export const API_FAVORITE =
   "http://lbawebserver.us-east-1.elasticbeanstalk.com/api/PostFavoritePromotion";
-export const API_UNFAVORITE =
-  "http://lbawebserver.us-east-1.elasticbeanstalk.com/api/UnFavoritePromotion";
-  export const API_GETPICTURE_USER_FACEBOOK = "https://graph.facebook.com/v2.5/me?fields=picture{url}";
+export const API_GETPICTURE_USER_FACEBOOK = "https://graph.facebook.com/v2.5/me?fields=picture{url}";

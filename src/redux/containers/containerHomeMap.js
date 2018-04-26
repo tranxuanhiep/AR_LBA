@@ -9,7 +9,8 @@ const mapStateToProps = state => {
   return {
     latitude: state.reducerLoadData.latitude,
     longitude: state.reducerLoadData.longitude,
-    arrayMarker: state.reducerLoadData.arrayMarker
+    arrayMarker: state.reducerLoadData.arrayMarker,
+    proFile: state.reducerMain.proFile
   };
 };
 const mapDispatchToProps = dispatch => {

@@ -5,6 +5,7 @@ const mapStateToProps = state => {
   return {
     informationStore: state.reducerHomeMap.informationStore,
     listRatingStore: state.reducerHomeMap.listRatingStore,
+    proFile: state.reducerMain.proFile
   };
 };
 const mapDispatchToProps = dispatch => {

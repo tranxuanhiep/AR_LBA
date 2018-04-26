@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, AsyncStorage } from "react-native";
+import { StyleSheet, View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import Polyline from "@mapbox/polyline";
 import CalloutStore from "../../redux/containers/containerMarkerCallout";
@@ -93,7 +93,10 @@ export default class HomeMap extends React.Component {
             >
               <MapView.Callout
                 onPress={async () => {
-                  const Username = await AsyncStorage.getItem("@UserName");
+                  let Username = "";
+                  if (this.props.proFile != []) {
+                    Username = this.props.proFile.id;
+                  }
                   this.props.onFetchInformationStore(
                     marker.Store_ID,
                     this.props.latitude,

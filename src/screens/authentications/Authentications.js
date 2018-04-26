@@ -4,142 +4,33 @@ import {
   TouchableOpacity,
   Text,
   StyleSheet,
-  Image,
-  AsyncStorage
+  Image
 } from "react-native";
-import getProfileSigninWithFacebook from "../../api/functionsApi/getProfileSigninWithFacebook";
-import getProfileSigninWithGoogle from "../../api/functionsApi/getProfileSigninWithGoogle";
 import { GoogleSignin, GoogleSigninButton } from "react-native-google-signin";
-import SignUp from "../../api/functionsApi/SignUp";
 const FBSDK = require("react-native-fbsdk");
 const { LoginButton, AccessToken, LoginManager } = FBSDK;
 
 export class LoginAnimation extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { user: null, type: 0 };
-  }
-
-  componentDidMount() {
-    this._setupSignin();
-  }
-
-  async _setupSignin() {
-    try {
-      AccessToken.getCurrentAccessToken().then(data => {
-        if (data != null) this.LoadDataFacebook(data.accessToken);
-      });
-    } catch (err) {
-      console.log("Play services error", err.code, err.message);
-    }
-    try {
-      await GoogleSignin.hasPlayServices({ autoResolve: true });
-      await GoogleSignin.configure({
-        webClientId:
-          "121505823634-ecmbqk8qhgvoe60ctvvd7jofkt469i53.apps.googleusercontent.com",
-        offlineAccess: false
-      });
-      const user = await GoogleSignin.currentUserAsync();
-      getProfileSigninWithGoogle(user.accessToken)
-        .then(Data => {
-          this.setState({
-            type: 1,
-            user: {
-              id: user.id,
-              name: user.name,
-              birthday: Data.data.birthday,
-              gender: Data.data.gender,
-              email: user.email,
-              first_name: user.familyName,
-              last_name: user.givenName,
-              picture: { data: { url: user.photo } }
-            }
-          });
-        })
-        .catch(error => console.log(error));
-    } catch (err) {
-      console.log("Play services error", err.code, err.message);
-    }
-  }
-
   async _signIn() {
     await GoogleSignin.signIn()
       .then(user => {
-        getProfileSigninWithGoogle(user.accessToken).then(Data => {
-          this.setState({
-            type: 1,
-            user: {
-              id: user.id,
-              name: user.name,
-              birthday: Data.data.birthday,
-              gender: Data.data.gender,
-              email: user.email,
-              first_name: user.familyName,
-              last_name: user.givenName,
-              picture: { data: { url: user.photo } }
-            }
-          });
-          const gender = Data.data.gender == "male" ? 1 : 0;
-          SignUp(
-            user.id,
-            "google",
-            user.familyName,
-            user.givenName,
-            Data.data.birthday,
-            gender
-          ).catch(error => {
-            console.log(error);
-          });
-          AsyncStorage.setItem("@UserName", user.id);
-        });
+        this.props.onSigninFBorGG();
       })
       .catch(err => {
         console.log("WRONG SIGNIN", err);
       })
-      .catch(error => console.log(error));
-  }
-  SignFacebook(token) {
-    getProfileSigninWithFacebook(token)
-      .then(Data => {
-        this.setState({ type: 2, user: Data.data });
-        const gender = Data.data.gender == "male" ? 1 : 0;
-        SignUp(
-          Data.data.id,
-         "facebook",
-          Data.data.first_name,
-          Data.data.last_name,
-          Data.data.birthday,
-          gender
-        )
-          .then(Data => console.log(Data.data))
-          .catch(error => {
-            console.log(error);
-          });
-        AsyncStorage.setItem("@UserName", Data.data.id);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
-  LoadDataFacebook(token) {
-    getProfileSigninWithFacebook(token)
-      .then(Data => this.setState({ type: 2, user: Data.data }))
-      .catch(error => {
-        console.log(error);
-      });
   }
   _signOut() {
     GoogleSignin.revokeAccess()
       .then(() => GoogleSignin.signOut())
       .then(() => {
-        this.setState({ type: 0, user: null });
+        this.props.onSignoutFBorGG();
       })
       .catch(error => console.log(error))
       .done();
-    AsyncStorage.removeItem("@UserName");
   }
   render() {
-    if (this.state.type === 0) {
+    if (this.props.types === 0) {
       return (
         <View style={styles.container}>
           <Image
@@ -154,13 +45,7 @@ export class LoginAnimation extends Component {
               this._signIn();
             }}
           />
-          <Text
-            style={{
-              marginTop: 10,
-              marginBottom: 10,
-              fontWeight: "bold"
-            }}
-          >
+          <Text style={{ marginTop: 10, marginBottom: 10, fontWeight: "bold" }}>
             ---------------Sign In---------------
           </Text>
           <LoginButton
@@ -172,10 +57,7 @@ export class LoginAnimation extends Component {
               } else if (result.isCancelled) {
                 alert("login is cancelled.");
               } else {
-                AccessToken.getCurrentAccessToken().then(data => {
-                  const { accessToken } = data;
-                  this.SignFacebook(accessToken);
-                });
+                this.props.onSigninFBorGG();
               }
             }}
             onLogoutFinished={() =>
@@ -189,19 +71,25 @@ export class LoginAnimation extends Component {
       );
     }
 
-    if (this.state.type === 1) {
+    if (this.props.types === 1) {
       return (
         <View style={styles.container}>
           <Image
             style={{ width: 100, height: 100 }}
-            source={{ uri: this.state.user.picture.data.url }}
+            source={{ uri: this.props.proFile.picture.data.url }}
           />
-          <Text style={{ fontSize: 18, fontWeight: "bold", marginBottom: 20 }}>
-            Welcome {this.state.user.name}
+          <Text
+            style={{
+              fontSize: 18,
+              fontWeight: "bold",
+              marginBottom: 20
+            }}
+          >
+            Welcome {this.props.proFile.name}
           </Text>
-          <Text>Your email is: {this.state.user.email}</Text>
-          <Text>Gender: {this.state.user.gender}</Text>
-          <Text>Birthday: {this.state.user.birthday}</Text>
+          <Text>Your email is: {this.props.proFile.email}</Text>
+          <Text>Gender: {this.props.proFile.gender}</Text>
+          <Text>Birthday: {this.props.proFile.birthday}</Text>
           <TouchableOpacity
             onPress={() => {
               this._signOut();
@@ -217,25 +105,30 @@ export class LoginAnimation extends Component {
         </View>
       );
     }
-    if (this.state.type === 2) {
+    if (this.props.types === 2) {
       return (
         <View style={styles.container}>
           <Image
             style={{ width: 100, height: 100 }}
-            source={{ uri: this.state.user.picture.data.url }}
+            source={{ uri: this.props.proFile.picture.data.url }}
           />
-          <Text style={{ fontSize: 18, fontWeight: "bold", marginBottom: 20 }}>
-            Welcome {this.state.user.name}
+          <Text
+            style={{
+              fontSize: 18,
+              fontWeight: "bold",
+              marginBottom: 20
+            }}
+          >
+            Welcome {this.props.proFile.name}
           </Text>
-          <Text>Your email is: {this.state.user.email}</Text>
-          <Text>Gender: {this.state.user.gender}</Text>
-          <Text>Birthday: {this.state.user.birthday}</Text>
+          <Text>Your email is: {this.props.proFile.email}</Text>
+          <Text>Gender: {this.props.proFile.gender}</Text>
+          <Text>Birthday: {this.props.proFile.birthday}</Text>
           <View style={{ marginTop: 50 }}>
             <LoginButton
               style={{ height: 40, width: 120 }}
               onLogoutFinished={() => {
-                AsyncStorage.removeItem("@UserName");
-                this.setState({ type: 0, user: null });
+                this.props.onSignoutFBorGG();
               }}
             />
           </View>

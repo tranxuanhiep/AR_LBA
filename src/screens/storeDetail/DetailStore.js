@@ -8,8 +8,7 @@ import {
   KeyboardAvoidingView,
   TextInput,
   StyleSheet,
-  FlatList,
-  AsyncStorage
+  FlatList
 } from "react-native";
 import moment from "moment";
 import { Card } from "native-base";
@@ -28,21 +27,23 @@ export default class DetailStore extends Component {
     this.setState({ text: text }, this.submit);
 
   submit = async () => {
-    const { text,starCount } = this.state;
-    if (text!=undefined) {
-        const username=await AsyncStorage.getItem("@UserName");
-        this.props.onAddRating({
-          storeID: this.props.informationStore.Store.Store_ID,
-          username: username,
-          comment: text,
-          rating: starCount,
-        });
+    const { text, starCount } = this.state;
+    if (text != undefined) {
+      let username = "";
+      if (this.props.proFile != []) {
+        username = this.props.proFile.id;
+      }
+      this.props.onAddRating({
+        storeID: this.props.informationStore.Store.Store_ID,
+        username: username,
+        comment: text,
+        rating: starCount
+      });
       this.setState({ text: undefined, starCount: 0 });
     } else {
       alert("Please enter your comment first");
     }
   };
-
   onStarRatingPress(rating) {
     this.setState({ starCount: rating });
   }
@@ -73,7 +74,11 @@ export default class DetailStore extends Component {
                 />
                 <View style={{ flexDirection: "column", marginLeft: 10 }}>
                   <Text
-                    style={{ fontSize: 15, fontWeight: "bold", color: "#000" }}
+                    style={{
+                      fontSize: 15,
+                      fontWeight: "bold",
+                      color: "#000"
+                    }}
                   >
                     {this.props.informationStore.Store.Store_Name.replace(
                       /(^|\s)\S/g,
@@ -128,7 +133,7 @@ export default class DetailStore extends Component {
                       style={{ height: 30, width: 30 }}
                       source={require("../../images/phone.png")}
                     />
-                    <Text>contract</Text>
+                    <Text style={{ marginLeft: 10 }}>contract</Text>
                   </View>
                 </TouchableOpacity>
               </View>
@@ -173,7 +178,11 @@ export default class DetailStore extends Component {
                   source={require("../../images/distance.png")}
                 />
                 <Text
-                  style={{ marginLeft: 10, fontWeight: "bold", color: "#000" }}
+                  style={{
+                    marginLeft: 10,
+                    fontWeight: "bold",
+                    color: "#000"
+                  }}
                 >
                   {this.props.informationStore.Store.Distance}
                 </Text>
@@ -189,7 +198,11 @@ export default class DetailStore extends Component {
                   source={require("../../images/time.png")}
                 />
                 <Text
-                  style={{ marginLeft: 10, fontWeight: "bold", color: "#000" }}
+                  style={{
+                    marginLeft: 10,
+                    fontWeight: "bold",
+                    color: "#000"
+                  }}
                 >
                   {this.props.informationStore.Store.Duration}
                 </Text>
@@ -293,16 +306,10 @@ export default class DetailStore extends Component {
                 </View>
               )}
             />
-            <View style={{alignContent:"center",alignItems:"center"}}>
-            <TouchableOpacity
-              onPress={()=>{
-
-              }}
-            >
-              <Text>
-                see more...
-              </Text>
-            </TouchableOpacity>
+            <View style={{ alignContent: "center", alignItems: "center" }}>
+              <TouchableOpacity onPress={() => {}}>
+                <Text>see more...</Text>
+              </TouchableOpacity>
             </View>
           </Card>
         </ScrollView>
