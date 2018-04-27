@@ -9,6 +9,7 @@ import {
 } from "./sagasHomeMap";
 import { watchAddnewRating } from "./sagasDetailStore";
 import { watchFetchProFileUser } from "./sagasMain";
+import { watchFavorite } from "./sagasPromotionofStore";
 export default function* rootSaga() {
   yield all([
     fork(watchFetchStores),
@@ -16,6 +17,7 @@ export default function* rootSaga() {
     fork(watchFetchRatingStore),
     fork(watchAddnewRating),
     fork(watchFetchPromotionsofStore),
-    fork(watchFetchProFileUser)
+    fork(watchFetchProFileUser),
+    fork(watchFavorite)
   ]);
 }

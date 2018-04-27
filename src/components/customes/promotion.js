@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import { relativeTimeRounding } from "moment";
 import PhotoGrid from "react-native-thumbnail-grid";
 const { height, width } = Dimensions.get("screen");
 import moment from "moment";
 const FBSDK = require("react-native-fbsdk");
-import { Image, FlatList, ScrollView, View, Dimensions } from "react-native";
+import { Image, Dimensions, Alert } from "react-native";
 import {
   Card,
   CardItem,
@@ -38,7 +37,7 @@ shareLinkWithShareDialog = () => {
       }
     );
 };
-export const promotion = item => {
+export const promotion = (item, props) => {
   state = {
     shareLinkContent: {
       contentTitle: "promotion aaaaa",
@@ -84,7 +83,25 @@ export const promotion = item => {
           <Button
             transparent
             onPress={() => {
-              alert("Aaaa");
+              if (props.proFile.id == null) {
+                Alert.alert(
+                  "Rating",
+                  "You need to be logged in to perform this function.",
+                  [
+                    {
+                      text: "Cancel",
+                      onPress: () => console.log("Cancel Pressed"),
+                      style: "cancel"
+                    },
+                    {
+                      text: "OK",
+                      onPress: () =>
+                        props.navigation.navigate("Authentications")
+                    }
+                  ],
+                  { cancelable: false }
+                );
+              } else props.favorite(item.Promotion_ID, props.proFile.id, item.Store_Details_ID);
             }}
           >
             <Image

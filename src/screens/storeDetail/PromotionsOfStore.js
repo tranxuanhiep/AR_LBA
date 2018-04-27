@@ -11,18 +11,19 @@ import {
   Body,
   Right
 } from "native-base";
-import {promotion} from "../../components/customes/promotion"
+import { promotion } from "../../components/customes/promotion";
 
 export default class PromotionsOfStore extends Component {
   render() {
     const { promotionsofStore } = this.props;
+    const propsPromotion = this.props;
     if (promotionsofStore != [])
       return (
         <FlatList
           keyExtractor={(item, index) => index}
           data={promotionsofStore}
-          renderItem={({ item }) => 
-            promotion(item)
+          renderItem={({item}) =>
+            promotion(item, propsPromotion)
           }
         />
       );

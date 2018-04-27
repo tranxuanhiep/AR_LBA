@@ -8,7 +8,8 @@ import {
   KeyboardAvoidingView,
   TextInput,
   StyleSheet,
-  FlatList
+  FlatList,
+  Alert
 } from "react-native";
 import moment from "moment";
 import { Card } from "native-base";
@@ -22,7 +23,26 @@ export default class DetailStore extends Component {
     super(props);
     this.state = { starCount: 0, text: undefined };
   }
-  onChangeText = text => this.setState({ text: text });
+  onChangeText = text => {
+    if (this.props.proFile.id == null) {
+      Alert.alert(
+        "Rating",
+        "You need to be logged in to perform this function.",
+        [
+          {
+            text: "Cancel",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel"
+          },
+          {
+            text: "OK",
+            onPress: () => this.props.navigation.navigate("Authentications")
+          }
+        ],
+        { cancelable: false }
+      );
+    } else this.setState({ text: text });
+  };
   onSubmitEditing = ({ nativeEvent: { text } }) =>
     this.setState({ text: text }, this.submit);
 
@@ -30,6 +50,7 @@ export default class DetailStore extends Component {
     const { text, starCount } = this.state;
     if (text != undefined) {
       let username = "";
+      console.log(this.props.proFile);
       if (this.props.proFile != []) {
         username = this.props.proFile.id;
       }
@@ -45,7 +66,26 @@ export default class DetailStore extends Component {
     }
   };
   onStarRatingPress(rating) {
-    this.setState({ starCount: rating });
+    if (this.props.proFile.id == null) {
+      Alert.alert(
+        "Rating",
+        "You need to be logged in to perform this function.",
+        [
+          {
+            text: "Cancel",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel"
+          },
+          {
+            text: "OK",
+            onPress: () => this.props.navigation.navigate("Authentications")
+          }
+        ],
+        { cancelable: false }
+      );
+    } else {
+      this.setState({ starCount: rating });
+    }
   }
   render() {
     if (this.props.informationStore.Store != null)
