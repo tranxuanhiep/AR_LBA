@@ -101,7 +101,12 @@ export const promotion = (item, props) => {
                   ],
                   { cancelable: false }
                 );
-              } else props.favorite(item.Promotion_ID, props.proFile.id, item.Store_Details_ID);
+              } else
+                props.favorite(
+                  item.Promotion_ID,
+                  props.proFile.id,
+                  item.Store_Details_ID
+                );
             }}
           >
             <Image
@@ -112,7 +117,7 @@ export const promotion = (item, props) => {
                   : require("../../images/TabBar/FavoriteNull.png")
               }
             />
-            <Text>{item.TotalFavorite} Favorite</Text>
+            <Text style={{ fontSize: 11 }}>{item.TotalFavorite} Favorite</Text>
           </Button>
         </Left>
         <Body>
@@ -121,7 +126,7 @@ export const promotion = (item, props) => {
               style={{ height: 20, width: 20 }}
               source={require("../../images/comment.png")}
             />
-            <Text>{item.TotalComment} Comments</Text>
+            <Text style={{ fontSize: 11 }}>{item.TotalComment} Comments</Text>
           </Button>
         </Body>
         <Right>
@@ -135,7 +140,7 @@ export const promotion = (item, props) => {
               style={{ height: 20, width: 20 }}
               source={require("../../images/share.png")}
             />
-            <Text> Share</Text>
+            <Text style={{ fontSize: 11 }}> Share</Text>
           </Button>
         </Right>
       </CardItem>

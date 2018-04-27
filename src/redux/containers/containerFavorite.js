@@ -2,7 +2,9 @@ import Favorites from "../../screens/favorites/Favorites";
 import { connect } from "react-redux";
 
 const mapStateToProps = state => {
-  return {};
+  return {
+    proFile:state.reducerMain.proFile
+  };
 };
 const mapDispatchToProps = dispatch => {
   return {};

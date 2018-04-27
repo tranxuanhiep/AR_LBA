@@ -15,6 +15,7 @@ export class LoginAnimation extends Component {
     await GoogleSignin.signIn()
       .then(user => {
         this.props.onSigninFBorGG();
+        this.props.navigation.navigate("HomeMap");
       })
       .catch(err => {
         console.log("WRONG SIGNIN", err);
@@ -25,6 +26,7 @@ export class LoginAnimation extends Component {
       .then(() => GoogleSignin.signOut())
       .then(() => {
         this.props.onSignoutFBorGG();
+        this.props.navigation.navigate("HomeMap");
       })
       .catch(error => console.log(error))
       .done();
@@ -58,6 +60,7 @@ export class LoginAnimation extends Component {
                 alert("login is cancelled.");
               } else {
                 this.props.onSigninFBorGG();
+                this.props.navigation.navigate("HomeMap");
               }
             }}
             onLogoutFinished={() =>
@@ -129,6 +132,7 @@ export class LoginAnimation extends Component {
               style={{ height: 40, width: 120 }}
               onLogoutFinished={() => {
                 this.props.onSignoutFBorGG();
+                this.props.navigation.navigate("HomeMap");
               }}
             />
           </View>

@@ -22,9 +22,7 @@ export default class PromotionsOfStore extends Component {
         <FlatList
           keyExtractor={(item, index) => index}
           data={promotionsofStore}
-          renderItem={({item}) =>
-            promotion(item, propsPromotion)
-          }
+          renderItem={({ item }) => promotion(item, propsPromotion)}
         />
       );
     else return <View />;
