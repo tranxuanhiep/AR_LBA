@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="com.ar_lba.TabActivity"
+    android:orientation="vertical">
+    <ImageView
+        android:id="@+id/imageNull"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/nonepromotion"
+        />
+    <ProgressBar
+        android:id="@+id/load"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:background = "@drawable/custom_progress_bar"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rcPromotion"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+    </android.support.v7.widget.RecyclerView>
+</RelativeLayout>

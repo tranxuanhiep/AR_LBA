@@ -5,6 +5,7 @@ package com.ar_lba;
  */
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -83,6 +84,14 @@ public class AROverlayView extends View {
             return true;
         }if(event.getAction() == MotionEvent.ACTION_UP){
             Log.d("TouchEven ", "ID = " + checkTouchOn(event));
+            if(checkTouchOn(event)!=""){
+                Intent a = new Intent(getContext(), TabActivity.class);
+                a.putExtra("IDSTORE",checkTouchOn(event));
+                a.putExtra("LAT",String.valueOf(currentLocation.getLatitude()));
+                a.putExtra("LNG",String.valueOf(currentLocation.getLongitude()));
+                Log.d("123456 ", "ID = " + checkTouchOn(event)+"__"+currentLocation.getLatitude()+"__"+currentLocation.getLongitude());
+                context.startActivity(a);
+            }
             return false;
         }
         return super.onTouchEvent(event);

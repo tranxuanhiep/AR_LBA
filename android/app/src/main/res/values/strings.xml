@@ -2,4 +2,6 @@
     <string name="app_name">Location-based Advertising</string>
     <string name="facebook_app_id">1679836998801460</string>
     <string name="fb_login_protocol_scheme">fb1679836998801460</string>
+    <string name="show_more">Show more...</string>
+    <string name="show_less">Show less.</string>
 </resources>
