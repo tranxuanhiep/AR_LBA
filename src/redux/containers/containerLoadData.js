@@ -3,7 +3,7 @@ import LoadData from "../../LoadData";
 import {
   fetchStoresAction,
   fetchStoresFailedAction,
-  fetchStoresSucccessAction
+  fetchStoresSucccessAction,
 } from "../actions/allActions/allActionsLoadData";
 import { connect } from "react-redux";
 

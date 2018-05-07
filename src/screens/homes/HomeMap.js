@@ -119,7 +119,6 @@ export default class HomeMap extends React.Component {
                 longitude: parseFloat(marker.Store_Longitude)
               }
             );
-            console.log(a);
             if (a <= parseInt(this.state.selectedRadius)) {
              return (<MapView.Marker
                 key={marker.Store_ID}

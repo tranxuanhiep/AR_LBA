@@ -11,6 +11,8 @@ import { watchAddnewRating } from "./sagasDetailStore";
 import { watchFetchProFileUser } from "./sagasMain";
 import { watchFavorite } from "./sagasPromotionofStore";
 import { watchFetchFavoriteByUser } from "./sagasFavorite";
+import { watchFetchPromotions } from "./sagasAllPromotions"
+import { watchFetchTopPromotions } from "./sagasTopPromotions"
 export default function* rootSaga() {
   yield all([
     fork(watchFetchStores),
@@ -20,6 +22,8 @@ export default function* rootSaga() {
     fork(watchFetchPromotionsofStore),
     fork(watchFetchProFileUser),
     fork(watchFavorite),
-    fork(watchFetchFavoriteByUser)
+    fork(watchFetchFavoriteByUser),
+    fork(watchFetchPromotions),
+    fork(watchFetchTopPromotions)
   ]);
 }

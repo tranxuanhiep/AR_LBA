@@ -2,7 +2,7 @@ import {
   FETCH_STORES,
   FETCH_STORES_SUCCESS,
   FETCH_STORES_FAILED,
-  GET_LOCATION_USER
+  GET_LOCATION_USER,
 } from "../actionsType/actionsTypeLoadData";
 
 export const fetchStoresAction = (latitude, longitude) => {

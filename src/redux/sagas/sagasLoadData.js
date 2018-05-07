@@ -2,7 +2,7 @@ import {
   FETCH_STORES_FAILED,
   FETCH_STORES_SUCCESS,
   GET_LOCATION_USER,
-  FETCH_STORES
+  FETCH_STORES,
 } from "../actions/actionsType/actionsTypeLoadData";
 import SplashScreen from "react-native-splash-screen";
 import { put, takeEvery, takeLatest } from "redux-saga/effects";
@@ -29,3 +29,5 @@ function* fetchStores(action) {
 export function* watchFetchStores() {
   yield takeEvery(FETCH_STORES, fetchStores);
 }
+
+
