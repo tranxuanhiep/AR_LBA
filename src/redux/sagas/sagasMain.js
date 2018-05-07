@@ -7,6 +7,8 @@ import { Apifb } from "../../api/functionsApi/getProfileSigninWithFacebook";
 import { ApiGG } from "../../api/functionsApi/getProfileSigninWithGoogle";
 import { ApiSignin } from "../../api/functionsApi/SignUp";
 import { GoogleSignin, GoogleSigninButton } from "react-native-google-signin";
+import {NativeModules} from "react-native";
+const activityStarter = NativeModules.ActivityStarter;
 const FBSDK = require("react-native-fbsdk");
 const { LoginButton, AccessToken, LoginManager } = FBSDK;
 function* fetchProFileUser(action) {
@@ -15,6 +17,9 @@ function* fetchProFileUser(action) {
     if (data != null) {
       const proFile = yield Apifb.getProfileSigninWithFacebook(
         data.accessToken
+      );
+      activityStarter.asynStore(
+        JSON.stringify(proFile.id)
       );
       yield put({ type: GET_PROFILE_USER, proFile: proFile, types: 2 });
       const gender = yield proFile.gender == "male" ? 1 : 0;
@@ -49,6 +54,9 @@ function* fetchProFileUser(action) {
         user.givenName,
         Data.data.birthday,
         gender
+      );
+      activityStarter.asynStore(
+        JSON.stringify(proFile.id)
       );
     yield put({
       type: GET_PROFILE_USER,

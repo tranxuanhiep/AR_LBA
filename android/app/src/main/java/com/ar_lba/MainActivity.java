@@ -16,6 +16,8 @@ public class MainActivity extends ReactActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SplashScreen.show(this);  // here
+        Intent intent = new Intent(this,TimeCountDown.class);
+        startService(intent);
         super.onCreate(savedInstanceState);
     }
     /**

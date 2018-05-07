@@ -89,7 +89,6 @@ public class AROverlayView extends View {
                 a.putExtra("IDSTORE",checkTouchOn(event));
                 a.putExtra("LAT",String.valueOf(currentLocation.getLatitude()));
                 a.putExtra("LNG",String.valueOf(currentLocation.getLongitude()));
-                Log.d("123456 ", "ID = " + checkTouchOn(event)+"__"+currentLocation.getLatitude()+"__"+currentLocation.getLongitude());
                 context.startActivity(a);
             }
             return false;

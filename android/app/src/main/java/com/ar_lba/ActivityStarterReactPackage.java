@@ -5,6 +5,8 @@ package com.ar_lba;
 /**
  * Created by hilbert on 09/03/2018.
  */
+        import android.content.SharedPreferences;
+
         import com.facebook.react.ReactPackage;
         import com.facebook.react.bridge.NativeModule;
         import com.facebook.react.bridge.ReactApplicationContext;

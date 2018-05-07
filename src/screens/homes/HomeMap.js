@@ -12,7 +12,7 @@ export default class HomeMap extends React.Component {
     super(props);
     this.state = { coords: [] };
     this.mapRef = null;
-  }
+  } 
 
   async getDirections(startLoc, destinationLoc) {
     await Axios.get(

@@ -10,7 +10,7 @@ function* fetchFavoriteByUser(action) {
   try {
     const favoriteByUser = yield ApiFavorite.FavoriteByUser(action.Username);
     yield put({ type: FETCH_FAVORITE_SUCCESS, favoriteByUser });
-  } catch (error) {
+  } catch (error) { 
     yield put({ type: FETCH_FAVORITE_FAILED, error });
   }
 }
