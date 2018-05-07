@@ -27,19 +27,40 @@ export default class PromotionsOfStore extends Component {
     if (promotionsofStore != []) {
       return (
         <View>
-          <Text>Promotion Progressing</Text>
+          <View
+            style={{ backgroundColor: 'white', marginBottom: 5, height: 35 }}
+          >
+            <Text
+              style={{ marginLeft: 5 }}>
+              Promotion Progressing
+            </Text>
+          </View>
           <FlatList
             keyExtractor={(item, index) => index}
             data={promotionsofStore.promotionProgressing}
             renderItem={({ item }) => promotion(item, propsPromotion, 0)}
           />
-          <Text>Promotion Future</Text>
+          <View
+            style={{ backgroundColor: 'white', marginBottom: 5, height: 35 }}
+          >
+            <Text
+              style={{ marginLeft: 5 }}>
+              Promotion Future
+            </Text>
+          </View>
           <FlatList
             keyExtractor={(item, index) => index}
             data={promotionsofStore.promotionFuture}
             renderItem={({ item }) => promotion(item, propsPromotion, 0)}
           />
-          <Text>Promotion Past</Text>
+          <View
+            style={{ backgroundColor: 'white', marginBottom: 5, height: 35 }}
+          >
+            <Text
+              style={{ marginLeft: 5 }}>
+              Promotion Past
+            </Text>
+          </View>
           <FlatList
             keyExtractor={(item, index) => index}
             data={promotionsofStore.promotionPast}

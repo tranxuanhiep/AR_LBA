@@ -126,9 +126,9 @@ export default class PromotionsOfStore extends Component {
                     <View style={stylesa.contentContainer}>
                       <Text>
                         <Text style={[stylesa.text, stylesa.name]}>
-                          {item.Customer_FirstName}{" "}{item.Customer_LastName+": "}
+                          {item.FullName+": "}
                         </Text>
-                        <Text style={stylesa.text}>{item.Comment_Content}</Text>
+                        <Text style={stylesa.text}>{item.Comment}</Text>
                       </Text>
                       <TimeAgo time={item.Time_Log} />
                     </View>
