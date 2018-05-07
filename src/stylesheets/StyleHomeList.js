@@ -9,7 +9,8 @@ export default StyleSheet.create({
         height:200,
         width:width/2-15,
         backgroundColor:'white',
-        borderRadius:3
+        borderRadius:3,
+        
     },
     TopMain: {
         flexDirection: 'column',

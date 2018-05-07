@@ -40,25 +40,14 @@ shareLinkWithShareDialog = () => {
 };
 export const promotion = (item, props, type) => {
   const listImage = item.Promotion_Image.split(",");
-  state = {
-    shareLinkContent: {
-      contentTitle: "promotion aaaaa",
-      contentType: "link",
-      contentImage:
-        "https://s3-ap-southeast-1.amazonaws.com/capstone2/18-04-12-07-26-162034_22-01.jpg",
-      contentUrl:
-        "https://s3-ap-southeast-1.amazonaws.com/capstone2/foody-mobile-foody-banh-trang-nuo-873-635998520650984455.jpg",
-      contentDescription: "Wow, check out this great site!"
-    }
-  };
   return (
     <Card style={{ flex: 0 }}>
       <CardItem>
         <Left>
           <Thumbnail source={{ uri: item.Store_ImageLink }} />
           <Body>
-            <Text>{item.Store_Name}</Text>
-            <TimeAgo time={item.Promotion_Created} />
+            <Text style={{fontWeight:'bold'}} >{item.Store_Name}</Text>
+            <TimeAgo style={{fontSize:13,fontStyle:'italic'}} time={item.Promotion_Created} />
           </Body>
         </Left>
       </CardItem>
@@ -77,11 +66,11 @@ export const promotion = (item, props, type) => {
           <Text style={{ fontSize: 15, fontWeight: "bold" }}>
             {item.Promotion_Title}
           </Text>
-          <Text style={{ fontSize: 15, fontWeight: "bold" }}>
-            {new Date(item.Promotion_DateStart).toDateString()} --{" "}
+          <Text style={{ fontSize: 12, fontWeight: "bold" }}>
+            {new Date(item.Promotion_DateStart).toDateString()} –{" "}
             {new Date(item.Promotion_DateEnd).toDateString()}
           </Text>
-          <Text style={{ fontSize: 15 }}>{item.Promotion_Description}</Text>
+          <Text style={{ fontSize: 12 }}>{item.Promotion_Description}</Text>
         </Body>
       </CardItem>
       <CardItem>

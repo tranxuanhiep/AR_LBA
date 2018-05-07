@@ -31,7 +31,7 @@ export default class PromotionsOfStore extends Component {
             style={{ backgroundColor: 'white', marginBottom: 5, height: 35 }}
           >
             <Text
-              style={{ marginLeft: 5 }}>
+              style={{ marginLeft: 10,marginTop:5, fontWeight:'bold'  }}>
               Promotion Progressing
             </Text>
           </View>
@@ -44,7 +44,7 @@ export default class PromotionsOfStore extends Component {
             style={{ backgroundColor: 'white', marginBottom: 5, height: 35 }}
           >
             <Text
-              style={{ marginLeft: 5 }}>
+              style={{  marginLeft: 10,marginTop:5, fontWeight:'bold'  }}>
               Promotion Future
             </Text>
           </View>
@@ -57,7 +57,7 @@ export default class PromotionsOfStore extends Component {
             style={{ backgroundColor: 'white', marginBottom: 5, height: 35 }}
           >
             <Text
-              style={{ marginLeft: 5 }}>
+              style={{  marginLeft: 10,marginTop:5, fontWeight:'bold' }}>
               Promotion Past
             </Text>
           </View>

@@ -10,8 +10,10 @@ import {
   StyleSheet,
   FlatList,
   Alert,
-  ActivityIndicator
+  ActivityIndicator,
+  Dimensions
 } from "react-native";
+const { width, height } = Dimensions.get('window');
 import moment from "moment";
 import TimeAgo from "react-native-timeago";
 import { Card } from "native-base";
@@ -124,7 +126,7 @@ export default class DetailStore extends Component {
             <PhotoGrid
               height={300}
               source={this.props.informationStore.imageList}
-              onPressImage={() => {}}
+              onPressImage={() => { }}
             />
           </Card>
           <Card>
@@ -161,10 +163,10 @@ export default class DetailStore extends Component {
                       l => l.toUpperCase()
                     )}
                   </Text>
-                  <Text style={{ fontSize: 10, width:200 }}>
+                  <Text style={{ fontSize: 10, width: 200 }}>
                     {this.props.informationStore.Store.Store_Street}
                   </Text>
-                  <View style={{ flexDirection: "row" }}>
+                  <View style={{ flexDirection: "row", alignItems:'center',justifyContent:'flex-start' }}>
                     <StarRating
                       disabled={false}
                       maxStars={5}
@@ -172,8 +174,8 @@ export default class DetailStore extends Component {
                       fullStarColor={"#FFCC00"}
                       starSize={15}
                     />
-                    <Text style={{ marginLeft: 10 }}>
-                      ({this.props.informationStore.Store.NumberOfRating})
+                    <Text style={{ marginLeft: 5, fontSize:12, marginBottom:3, fontStyle:'italic' }}>
+                      ({this.props.informationStore.Store.NumberOfRating} {this.props.informationStore.Store.NumberOfRating<=2?" review":" reviews"})
                     </Text>
                   </View>
                 </View>
@@ -181,17 +183,17 @@ export default class DetailStore extends Component {
               <View>
                 <View style={{ flexDirection: "row" }}>
                   <Image
-                    style={{ height: 25, width: 25 }}
+                    style={{ height: 23, width: 23, marginRight:30 }}
                     source={
                       this.props.informationStore.open
                         ? require("../../images/open.png")
                         : require("../../images/close.png")
                     }
                   />
-                  <Text style={{ marginLeft: 10 }}>
+                  {/* <Text style={{ marginLeft: 10 }}>
                     {this.props.informationStore.Store.Store_OpenTime} --{" "}
                     {this.props.informationStore.Store.Store_CloseTime}
-                  </Text>
+                  </Text> */}
                 </View>
 
                 <TouchableOpacity
@@ -204,17 +206,16 @@ export default class DetailStore extends Component {
                 >
                   <View style={{ flexDirection: "row" }}>
                     <Image
-                      style={{ height: 30, width: 30 }}
+                      style={{ height: 23, width: 23, marginRight:30, marginTop:10 }}
                       source={require("../../images/phone.png")}
                     />
-                    <Text style={{ marginLeft: 10 }}>contract</Text>
                   </View>
                 </TouchableOpacity>
               </View>
             </View>
           </Card>
           <Card>
-            <View style={{ height: 100, opacity: 0.6 }}>
+            <View style={{ height: 120, opacity: 0.6 }}>
               <MapView
                 style={{ ...StyleSheet.absoluteFillObject }}
                 region={{
@@ -247,7 +248,8 @@ export default class DetailStore extends Component {
                     height: 20,
                     width: 20,
                     marginTop: 10,
-                    marginLeft: 10
+                    marginLeft: 10,
+                    tintColor:'black'
                   }}
                   source={require("../../images/distance.png")}
                 />
@@ -264,10 +266,11 @@ export default class DetailStore extends Component {
               <View style={{ flexDirection: "row", alignItems: "baseline" }}>
                 <Image
                   style={{
-                    height: 20,
-                    width: 20,
+                    height: 16,
+                    width: 16,
                     marginTop: 10,
-                    marginLeft: 10
+                    marginLeft: 10,
+                    tintColor:'black'
                   }}
                   source={require("../../images/time.png")}
                 />
@@ -288,15 +291,34 @@ export default class DetailStore extends Component {
                     width: 20,
                     marginTop: 10,
                     marginLeft: 10,
-                    marginBottom: 10
+                    marginBottom: 10,
+                    tintColor:'black'
                   }}
                   source={require("../../images/price.png")}
                 />
                 <Text
                   style={{ marginLeft: 10, fontWeight: "bold", color: "#000" }}
                 >
-                  {this.props.informationStore.Store.Store_PriceMin} VND --{" "}
+                  {this.props.informationStore.Store.Store_PriceMin} VND – {" "}
                   {this.props.informationStore.Store.Store_PriceMax} VND
+                </Text>
+              </View>
+              <View style={{ flexDirection: "row", alignItems: "baseline" }}>
+                <Image
+                  style={{
+                    height: 17,
+                    width: 17,
+                    marginLeft: 12,
+                    marginBottom: 10,
+                    tintColor:'black'
+                  }}
+                  source={require("../../images/timeOpenClose.png")}
+                />
+                <Text
+                  style={{ marginLeft: 11, fontWeight: "bold", color: "#000" }}
+                >
+                  {this.props.informationStore.Store.Store_OpenTime}' – {" "}
+                  {this.props.informationStore.Store.Store_CloseTime}'
                 </Text>
               </View>
             </View>
@@ -310,7 +332,7 @@ export default class DetailStore extends Component {
           <Card>
             {this.props.listRatingStore.Rated != true ? (
               <View>
-                <View style={{ paddingLeft: 10, flexDirection: "row" }}>
+                <View style={{ paddingLeft: 10, flexDirection: "row", alignItems:'center',justifyContent:'flex-start' }}>
                   <StarRating
                     disabled={false}
                     maxStars={5}
@@ -346,8 +368,8 @@ export default class DetailStore extends Component {
                 </KeyboardAvoidingView>
               </View>
             ) : (
-              <Text style={{fontWeight:"bold",marginLeft: 10}} >You have rated this Shop</Text>
-            )}
+                <Text style={{ fontWeight: "bold", marginLeft: 10 }} >You have rated this Shop</Text>
+              )}
           </Card>
           <Card>
             <FlatList
@@ -382,25 +404,25 @@ export default class DetailStore extends Component {
                   </View>
                 </View>
               )}
-              // onEndReached={() =>
-              //   this.setState({ isLoadingMore: true }, () => this.fetchMore())
-              // }
-              // ListFooterComponent={() => {
-              //   return (
-              //     this.state.isLoadingMore && (
-              //       <View style={{ flex: 1, padding: 10 }}>
-              //         <ActivityIndicator size="small" />
-              //       </View>
-              //     )
-              //   );
-              // }}
+            // onEndReached={() =>
+            //   this.setState({ isLoadingMore: true }, () => this.fetchMore())
+            // }
+            // ListFooterComponent={() => {
+            //   return (
+            //     this.state.isLoadingMore && (
+            //       <View style={{ flex: 1, padding: 10 }}>
+            //         <ActivityIndicator size="small" />
+            //       </View>
+            //     )
+            //   );
+            // }}
             />
           </Card>
         </ScrollView>
       );
     else
       return (
-        <View style={{ flex: 1, backgroundColor: "#F5FCFF" }}>
+        <View style={{ flex: 1, backgroundColor: "silver", alignItems:'center', justifyContent:'center', flexDirection:'column' }}>
           <ActivityIndicator size="large" />
         </View>
       );
