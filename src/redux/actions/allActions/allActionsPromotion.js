@@ -7,7 +7,6 @@ import {
   FETCH_TOP_PROMOTIONS,
   FETCH_TOP_PROMOTIONS_SUCCESS,
   FFETCH_TOP_PROMOTIONS_FAILED,
-
   FETCH_COMMENT_PROMOTION,
   FETCH_COMMENT_PROMOTION_FAILED,
   FETCH_COMMENT_PROMOTION_SUCCESS,
@@ -33,7 +32,7 @@ export const onFetchDetailPromotion = (idPromotion, userName, idStore) => {
   return { type: FAVORFETCH_DETAIL_PROMOTIONITE, idPromotion, userName, idStore };
 };
 
-<<<<<<< HEAD
+
 export const fetchPromotionsAction = (latitude, longitude) => {
   return { type: FETCH_PROMOTIONS, latitude, longitude };
 };
@@ -56,9 +55,9 @@ export const fetchTopPromotionsSucccessAction = arrayTopPromotions => {
 
 export const fetchTopPromotionsFailedAction = error => {
   return { type: FFETCH_TOP_PROMOTIONS_FAILED, error };
-=======
+};
 export const onFetchDetailPromotionFaled = (error) => {
-  return { type: FETCH_DETAIL_PROMOTION_FAILED, error};
+  return { type: FETCH_DETAIL_PROMOTION_FAILED, error };
 };
 
 export const onFetchDetailPromotionSuccess = (dataPromotion) => {
@@ -67,5 +66,4 @@ export const onFetchDetailPromotionSuccess = (dataPromotion) => {
 
 export const onFavorite = (idPromotion, userName, idStore) => {
   return { type: FAVORITE, idPromotion, userName, idStore };
->>>>>>> 1f007dcec02e440c07c4b2bbf2f0afcf8004540a
 };
