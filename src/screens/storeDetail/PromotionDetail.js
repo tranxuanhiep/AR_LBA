@@ -1,12 +1,5 @@
 import React, { Component } from "react";
-import {
-  Image,
-  FlatList,
-  ScrollView,
-  View,
-  Dimensions,
-  ActivityIndicator
-} from "react-native";
+import { Image, FlatList, ScrollView, View, Dimensions } from "react-native";
 import {
   Card,
   CardItem,
@@ -21,22 +14,16 @@ import {
 import { promotion } from "../../components/customes/promotion";
 
 export default class PromotionsOfStore extends Component {
+  componentDidMount(){
+    
+  }
   render() {
     const { promotionsofStore } = this.props;
     const propsPromotion = this.props;
     if (promotionsofStore != [])
       return (
-        <FlatList
-          keyExtractor={(item, index) => index}
-          data={promotionsofStore}
-          renderItem={({ item }) => promotion(item, propsPromotion, 0)}
-        />
+         promotion(item, propsPromotion, 0)
       );
-    else
-      return (
-        <View style={{ backgroundColor: "#F5FCFF" }}>
-          <ActivityIndicator size="large" />
-        </View>
-      );
+    else return <View />;
   }
 }

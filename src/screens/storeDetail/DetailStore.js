@@ -9,7 +9,8 @@ import {
   TextInput,
   StyleSheet,
   FlatList,
-  Alert
+  Alert,
+  ActivityIndicator
 } from "react-native";
 import moment from "moment";
 import TimeAgo from "react-native-timeago";
@@ -22,7 +23,32 @@ import MapView, { Marker } from "react-native-maps";
 export default class DetailStore extends Component {
   constructor(props) {
     super(props);
-    this.state = { starCount: 0, text: undefined };
+    this.fetchMore = this._fetchMore.bind(this);
+    this.fetchData = this._fetchData.bind(this);
+    this.state = {
+      starCount: 0,
+      text: undefined,
+      page: 2,
+      isLoading: true,
+      isLoadingMore: false
+    };
+  }
+
+  _fetchMore() {
+    this.fetchData();
+    this.setState({
+      isLoadingMore: false
+    });
+  }
+  _fetchData() {
+    this.props.onFetchRatingStore(
+      this.props.informationStore.Store.Store_ID,
+      this.props.proFile.id,
+      this.state.page
+    );
+    this.setState({
+      page: this.state.page + 1
+    });
   }
   onChangeText = text => {
     if (this.props.proFile.id == null) {
@@ -51,7 +77,6 @@ export default class DetailStore extends Component {
     const { text, starCount } = this.state;
     if (text != undefined) {
       let username = "";
-      console.log(this.props.proFile);
       if (this.props.proFile != []) {
         username = this.props.proFile.id;
       }
@@ -61,7 +86,10 @@ export default class DetailStore extends Component {
         comment: text,
         rating: starCount
       });
-      this.setState({ text: undefined, starCount: 0 });
+      this.setState({
+        text: undefined,
+        starCount: 0
+      });
     } else {
       alert("Please enter your comment first");
     }
@@ -92,6 +120,13 @@ export default class DetailStore extends Component {
     if (this.props.informationStore.Store != null)
       return (
         <ScrollView style={{ backgroundColor: "#F5FCFF" }}>
+          <Card>
+            <PhotoGrid
+              height={300}
+              source={this.props.informationStore.imageList}
+              onPressImage={() => {}}
+            />
+          </Card>
           <Card>
             <View
               style={{
@@ -269,47 +304,52 @@ export default class DetailStore extends Component {
             </View>
           </Card>
           <Card>
-            <PhotoGrid
-              height={300}
-              source={this.props.informationStore.imageList}
-              onPressImage={() => {}}
-            />
+            <Text style={{ marginLeft: 10, marginRight: 10 }}>
+              {this.props.informationStore.Store.Store_Description}
+            </Text>
           </Card>
+
           <Card>
-            <Text>{this.props.informationStore.Store.Store_Description}</Text>
-          </Card>
-          <Card>
-            <View style={{ flexDirection: "row" }}>
-              <StarRating
-                disabled={false}
-                maxStars={5}
-                rating={this.state.starCount}
-                selectedStar={rating => this.onStarRatingPress(rating)}
-                fullStarColor={"#FFCC00"}
-              />
-            </View>
-            <KeyboardAvoidingView behavior="position">
-              <View style={styles.container}>
-                <TextInput
-                  placeholder="Add a comment and rating..."
-                  keyboardType="twitter"
-                  style={styles.input}
-                  value={this.state.text}
-                  onChangeText={this.onChangeText}
-                  onSubmitEditing={this.onSubmitEditing}
-                />
-                <TouchableOpacity style={styles.button} onPress={this.submit}>
-                  <Text
-                    style={[
-                      styles.text,
-                      !this.state.text ? styles.inactive : []
-                    ]}
-                  >
-                    Post
-                  </Text>
-                </TouchableOpacity>
+            {this.props.listRatingStore.Rated != true ? (
+              <View>
+                <View style={{ paddingLeft: 10, flexDirection: "row" }}>
+                  <StarRating
+                    disabled={false}
+                    maxStars={5}
+                    rating={this.state.starCount}
+                    selectedStar={rating => this.onStarRatingPress(rating)}
+                    fullStarColor={"#FFCC00"}
+                  />
+                </View>
+                <KeyboardAvoidingView behavior="position">
+                  <View style={styles.container}>
+                    <TextInput
+                      placeholder="Add a comment and rating..."
+                      keyboardType="twitter"
+                      style={styles.input}
+                      value={this.state.text}
+                      onChangeText={this.onChangeText}
+                      onSubmitEditing={this.onSubmitEditing}
+                    />
+                    <TouchableOpacity
+                      style={styles.button}
+                      onPress={this.submit}
+                    >
+                      <Text
+                        style={[
+                          styles.text,
+                          !this.state.text ? styles.inactive : []
+                        ]}
+                      >
+                        Post
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                </KeyboardAvoidingView>
               </View>
-            </KeyboardAvoidingView>
+            ) : (
+              <Text style={{fontWeight:"bold",marginLeft: 10}} >You have rated this Shop</Text>
+            )}
           </Card>
           <Card>
             <FlatList
@@ -344,16 +384,28 @@ export default class DetailStore extends Component {
                   </View>
                 </View>
               )}
+              // onEndReached={() =>
+              //   this.setState({ isLoadingMore: true }, () => this.fetchMore())
+              // }
+              // ListFooterComponent={() => {
+              //   return (
+              //     this.state.isLoadingMore && (
+              //       <View style={{ flex: 1, padding: 10 }}>
+              //         <ActivityIndicator size="small" />
+              //       </View>
+              //     )
+              //   );
+              // }}
             />
-            <View style={{ alignContent: "center", alignItems: "center" }}>
-              <TouchableOpacity onPress={() => {}}>
-                <Text>see more...</Text>
-              </TouchableOpacity>
-            </View>
           </Card>
         </ScrollView>
       );
-    else return <View style={{ backgroundColor: "#F5FCFF" }} />;
+    else
+      return (
+        <View style={{ flex: 1, backgroundColor: "#F5FCFF" }}>
+          <ActivityIndicator size="large" />
+        </View>
+      );
   }
 }
 

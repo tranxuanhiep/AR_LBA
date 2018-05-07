@@ -9,6 +9,7 @@ import Notifications from "../redux/containers/containerNotifications";
 import TabBar from "../redux/containers/containerTabbar";
 import DetailStore from "../redux/containers/containerDetailStore";
 import PromotionsOfStore from "../redux/containers/containerPromotionsOfStore";
+import DetailPromotion from "../redux/containers/containerDetailPromotion";
 
 export const DetailStoreStack = StackNavigator({
   DetailStore: {
@@ -22,6 +23,12 @@ export const DetailStoreStack = StackNavigator({
 export const PromotionsOfStoreStack = StackNavigator({
   PromotionsOfStore: {
     screen: PromotionsOfStore,
+    navigationOptions: {
+      header: null
+    }
+  },
+  DetailPromotion: {
+    screen: DetailPromotion,
     navigationOptions: {
       header: null
     }
@@ -54,6 +61,12 @@ export const HomeStack = StackNavigator({
   },
   StoreTab: {
     screen: StoreTab,
+    navigationOptions: {
+      header: null
+    }
+  },
+  Searchs: {
+    screen: Searchs,
     navigationOptions: {
       header: null
     }

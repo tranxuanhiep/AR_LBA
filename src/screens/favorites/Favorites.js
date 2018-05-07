@@ -5,7 +5,6 @@ export default class Favorites extends Component {
   componentDidMount() {
     if (this.props.proFile.id != null)
       this.props.onFetchFavoriteByUser(this.props.proFile.id);
-      console.log(this.props.proFile.id);
   }
   render() {
     if (this.props.favoriteByUser != []) {
@@ -14,7 +13,7 @@ export default class Favorites extends Component {
         <FlatList
           keyExtractor={(item, index) => index}
           data={this.props.favoriteByUser}
-          renderItem={({ item }) => promotion(item, propsPromotion)}
+          renderItem={({ item }) => promotion(item, propsPromotion,1)}
         />
       );
     }

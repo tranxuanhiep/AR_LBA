@@ -3,6 +3,7 @@ import PhotoGrid from "react-native-thumbnail-grid";
 const { height, width } = Dimensions.get("screen");
 import TimeAgo from "react-native-timeago";
 const FBSDK = require("react-native-fbsdk");
+import viewPromotion from "../../api/functionsApi/postViewPromotion";
 import { Image, Dimensions, Alert } from "react-native";
 import {
   Card,
@@ -37,7 +38,7 @@ shareLinkWithShareDialog = () => {
       }
     );
 };
-export const promotion = (item, props) => {
+export const promotion = (item, props, type) => {
   const listImage = item.Promotion_Image.split(",");
   state = {
     shareLinkContent: {
@@ -67,7 +68,11 @@ export const promotion = (item, props) => {
             height={200}
             width={width * 0.9}
             source={listImage}
-            onPressImage={() => {}}
+            onPressImage={() => {
+              viewPromotion(item.Promotion_ID, props.proFile.id).then(Data => {
+                alert(Data.data.message.success);
+              });
+            }}
           />
           <Text style={{ fontSize: 15, fontWeight: "bold" }}>
             {item.Promotion_Title}
@@ -102,12 +107,14 @@ export const promotion = (item, props) => {
                   ],
                   { cancelable: false }
                 );
-              } else
+              } else {
                 props.favorite(
                   item.Promotion_ID,
                   props.proFile.id,
                   item.Store_Details_ID
                 );
+                
+              }
             }}
           >
             <Image

@@ -1,10 +1,14 @@
-import { API_GET_COMMENTS } from "../allLinkAPI";
+import { API_GET_COMMENTS } from "../allLinksApi";
 import axios from "axios";
 
-const GetComments = async (promotionID, pageNumber) => {
-  return await axios.post(API_GET_COMMENTS, {
+function* GetComments(promotionID, pageNumber) {
+  const Data = yield axios.post(API_GET_COMMENTS, {
     Promotion_ID: promotionID,
     PageNumber: pageNumber
   });
-};
-export default GetComments;
+  const listCommentPromotion = yield Data.data.message.success
+    ? Data.data.data
+    : [];
+  return listCommentPromotion;
+}
+export const ApiCommentPromotion = { GetComments };

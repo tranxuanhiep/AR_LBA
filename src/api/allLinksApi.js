@@ -40,3 +40,5 @@ export const API_GETPICTURE_USER_FACEBOOK =
   "https://graph.facebook.com/v2.5/me?fields=picture{url}";
 export const API_FAVORITE_BY_USER =
   "http://lbawebserver.us-east-1.elasticbeanstalk.com/api/GetPromotionFavoriteOfUser";
+export const API_VIEW_PROMOTION =
+  "http://lbawebserver.us-east-1.elasticbeanstalk.com/api/PostPromotionView";
