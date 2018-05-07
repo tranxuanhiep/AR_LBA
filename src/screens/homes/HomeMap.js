@@ -47,7 +47,6 @@ export default class HomeMap extends React.Component {
   _handleResults(results) {
     this.setState({ results });
   }
-
   async getDirections(startLoc, destinationLoc) {
     await Axios.get(
       `https://maps.googleapis.com/maps/api/directions/json?origin=${startLoc}&destination=${destinationLoc}`

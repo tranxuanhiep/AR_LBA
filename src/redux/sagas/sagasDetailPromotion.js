@@ -36,6 +36,28 @@ function* Favorite(action) {
 export function* watchFavorite() {
   yield takeEvery(FAVORITE, Favorite);
 }
+function* CommnetsPromotion(action) {
+  try {
+    const check = yield ApiFavorite.Favorite(
+      action.idPromotion,
+      action.userName
+    );
+    if (check === true) {
+      yield put({
+        type: FETCH_PROMOTIONS_STORE,
+        idStore: action.idStore,
+        Username: action.userName
+      });
+      yield put({
+        type: FETCH_FAVORITE,
+        Username: action.userName
+      });
+    }
+  } catch (error) {}
+}
+export function* watchFavorite() {
+  yield takeEvery(FAVORITE, Favorite);
+}
 function* DetailPromotion(action) {
   try {
     const informationPromotion = yield ApiDetailPromotion.PromotionDetail(
