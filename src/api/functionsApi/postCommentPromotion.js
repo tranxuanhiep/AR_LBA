@@ -1,13 +1,14 @@
-import { API_FAVORITE } from "../allLinksApi";
+import { API_POST_COMMENT } from "../allLinksApi";
 import axios from "axios";
 
-function* Favorite(Promotion_ID, Username) {
-  const Data = yield axios.post(API_FAVORITE, {
+function* Comment(Promotion_ID, Username,text) {
+  const Data = yield axios.post(API_POST_COMMENT, {
     Promotion_ID: Promotion_ID,
-    Username: Username
+    Username: Username,
+    Comment_Content:text
   });
-  const Favorite = yield Data.data.message.success;
+  const success = yield Data.data.message.success;
 
-  return Favorite;
+  return success;
 }
-export const ApiFavorite = { Favorite };
+export const ApiComment = { Comment };

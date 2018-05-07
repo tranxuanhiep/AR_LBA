@@ -7,12 +7,17 @@ import {
   FETCH_RATING_STORE_SUCCESS,
   FETCH_PROMOTIONS_STORE_FAILED,
   FETCH_PROMOTIONS_STORE_SUCCESS,
-  FETCH_PROMOTIONS_STORE
+  FETCH_PROMOTIONS_STORE,
+  FETCH_SEARCH_SUCCESS,
+  FETCH_SEARCH_FAILED,
+  FETCH_SEARCH
 } from "../actions/actionsType/actionsTypeHomeMap";
 const stateDefault = {
   informationStore: [],
   listRatingStore: [],
-  promotionsofStore: []
+  promotionsofStore: [],
+  dataSearch:[],
+  isLoading:false
 };
 const reducerHomeMap = (state = stateDefault, action) => {
   switch (action.type) {
@@ -31,6 +36,14 @@ const reducerHomeMap = (state = stateDefault, action) => {
     }
     case FETCH_PROMOTIONS_STORE_FAILED:
       return { ...state, promotionsofStore: [] };
+    case FETCH_SEARCH_SUCCESS: {
+      return { ...state, dataSearch: action.dataSearch, isLoading: false };
+    }
+    case FETCH_SEARCH: {
+      return { ...state, isLoading: true };
+    }
+    case FETCH_SEARCH_FAILED:
+      return { ...state, dataSearch: [], isLoading: false };
     default:
       return state; //state does not change
   }

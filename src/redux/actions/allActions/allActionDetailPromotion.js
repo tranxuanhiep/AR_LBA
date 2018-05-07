@@ -8,8 +8,8 @@ import {
   POST_COMMENT_PROMOTION
 } from "../actionsType/actionsTypeDetailPromotion";
 
-export const fetchDetailPromotionAction = (ID_Promotion, Username) => {
-  return { type: FETCH_DETAIL_PROMOTION, ID_Promotion, Username };
+export const fetchDetailPromotionAction = (promotionID, Username) => {
+  return { type: FETCH_DETAIL_PROMOTION, promotionID, Username };
 };
 
 export const fetchDetailPromotionSucccessAction = informationPromotion => {
@@ -20,8 +20,8 @@ export const fetchDetailPromotionFailedAction = error => {
   return { type: FETCH_DETAIL_PROMOTION_FAILED, error };
 };
 
-export const fetchCommentPromotionAction = (ID_Promotion, PageNumber) => {
-  return { type: FETCH_COMMENT_PROMOTION, ID_Promotion, PageNumber };
+export const fetchCommentPromotionAction = (promotionID, PageNumber) => {
+  return { type: FETCH_COMMENT_PROMOTION, promotionID, PageNumber };
 };
 
 export const fetchCommentPromotionSucccessAction = listCommentPromotion => {
@@ -32,6 +32,6 @@ export const fetchCommentPromotionFailedAction = error => {
   return { type: FETCH_COMMENT_PROMOTION_FAILED, error };
 };
 
-export const postCommentPromotionAction = (ID_Promotion, Username, Comment) => {
-  return { type: POST_COMMENT_PROMOTION, ID_Promotion, Username, Comment };
+export const postCommentPromotionAction = (promotionID, Username, Comment) => {
+  return { type: POST_COMMENT_PROMOTION, promotionID, Username, Comment };
 };

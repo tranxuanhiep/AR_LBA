@@ -1,8 +1,8 @@
 import { delay } from "redux-saga";
 import { all, fork } from "redux-saga/effects";
 
-import { watchFetchStores } from "./sagasLoadData";
-import { watchFetchInformationStore } from "./sagasHomeMap";
+import { watchFetchStores, watchFetchAllStores } from "./sagasLoadData";
+import { watchFetchInformationStore, watchFetchSearch } from "./sagasHomeMap";
 import {
   watchFetchRatingStore,
   watchFetchPromotionsofStore
@@ -11,8 +11,12 @@ import { watchAddnewRating } from "./sagasDetailStore";
 import { watchFetchProFileUser } from "./sagasMain";
 import { watchFavorite } from "./sagasPromotionofStore";
 import { watchFetchFavoriteByUser } from "./sagasFavorite";
+
 import { watchFetchPromotions } from "./sagasAllPromotions"
 import { watchFetchTopPromotions } from "./sagasTopPromotions"
+
+import { watchDetailPromotion,watchComment } from "./sagasDetailPromotion";
+
 export default function* rootSaga() {
   yield all([
     fork(watchFetchStores),
@@ -24,6 +28,10 @@ export default function* rootSaga() {
     fork(watchFavorite),
     fork(watchFetchFavoriteByUser),
     fork(watchFetchPromotions),
-    fork(watchFetchTopPromotions)
+    fork(watchFetchTopPromotions),
+    fork(watchFetchAllStores),
+    fork(watchFetchSearch),
+    fork(watchDetailPromotion),
+    fork(watchComment)
   ]);
 }

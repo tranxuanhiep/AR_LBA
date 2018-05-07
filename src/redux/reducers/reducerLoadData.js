@@ -2,11 +2,15 @@ import {
   FETCH_STORES_FAILED,
   FETCH_STORES_SUCCESS,
   GET_LOCATION_USER,
+
+  FETCH_ALL_STORES_SUCCESS,
+  FETCH_ALL_STORES_FAILED
 } from "../actions/actionsType/actionsTypeLoadData";
 const stateDefault = {
   longitude: 0,
   latitude: 0,
   arrayMarker: [],
+  arrayAllMarker: []
 };
 const reducerLoadData = (state = stateDefault, action) => {
   switch (action.type) {
@@ -15,6 +19,11 @@ const reducerLoadData = (state = stateDefault, action) => {
     }
     case FETCH_STORES_FAILED:
       return { ...state, arrayMarker: [] };
+    case FETCH_ALL_STORES_SUCCESS: {
+      return { ...state, arrayAllMarker: action.arrayAllMarker };
+    }
+    case FETCH_ALL_STORES_FAILED:
+      return { ...state, arrayAllMarker: [] };
     case GET_LOCATION_USER:
       return {
         ...state,
