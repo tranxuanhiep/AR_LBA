@@ -129,7 +129,12 @@ export const promotion = (item, props, type) => {
           </Button>
         </Left>
         <Body>
-          <Button transparent>
+          <Button transparent
+            onPress={()=>{
+              props.onFetchDetailPromotion(item.Promotion_ID, props.proFile.id);
+              props.navigation.navigate("DetailPromotion");
+            }}
+          >
             <Image
               style={{ height: 20, width: 20 }}
               source={require("../../images/comment.png")}

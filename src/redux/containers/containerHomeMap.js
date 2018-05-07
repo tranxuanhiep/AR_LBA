@@ -3,14 +3,17 @@ import { connect } from "react-redux";
 import {
   fetchInformationStoreAction,
   fetchInRatingStoreAction,
-  fetchInPromotionsStoreAction
+  fetchInPromotionsStoreAction,
+  fetchSearchAction
 } from "../actions/allActions/allActionsHomeMap";
 const mapStateToProps = state => {
   return {
     latitude: state.reducerLoadData.latitude,
     longitude: state.reducerLoadData.longitude,
-    arrayMarker: state.reducerLoadData.arrayMarker,
-    proFile: state.reducerMain.proFile
+    arrayAllMarker: state.reducerLoadData.arrayAllMarker,
+    proFile: state.reducerMain.proFile,
+    dataSearch: state.reducerHomeMap.dataSearch,
+    isLoading: state.reducerHomeMap.isLoading
   };
 };
 const mapDispatchToProps = dispatch => {
@@ -23,6 +26,9 @@ const mapDispatchToProps = dispatch => {
     },
     onFetchPromotionsStore: (idStore, Username) => {
       dispatch(fetchInPromotionsStoreAction(idStore, Username));
+    },
+    onFetchSearch: search => {
+      dispatch(fetchSearchAction(search));
     }
   };
 };

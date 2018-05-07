@@ -7,7 +7,9 @@ import {
   Modal,
   Picker,
   PickerItem,
-  Dimensions
+  Dimensions,
+  Text,
+  ActivityIndicator
 } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import Polyline from "@mapbox/polyline";
@@ -16,20 +18,29 @@ import FloatingButton from "../../redux/containers/containerFloattingButton";
 import geolib from "geolib";
 import Axios from "axios";
 const { height, width } = Dimensions.get("screen");
-import { Item } from "native-base";
+import { Item, Card } from "native-base";
 import SearchBar from "react-native-searchbar";
+import ViewStore from "../../api/functionsApi/postViewStore";
 
 export default class HomeMap extends React.Component {
   constructor(props) {
     super(props);
     dataRadius = ["2000", "1500", "1000", "500", "300", "200", "100"];
+    dataCatalog = [
+      { id: 0, value: "All" },
+      { id: 1, value: "Food & Drink" },
+      { id: 2, value: "Fashion" },
+      { id: 3, value: "Entertainment place" },
+      { id: 4, value: "Other" }
+    ];
     this.state = {
       coords: [],
-      results: [],
+      results: "",
       modalVisible: false,
       selectedRadius: "2000",
       textInputValue: "",
-      language: ""
+      selectedCatalog: "All",
+      idCatalog: 0
     };
     this.mapRef = null;
     this._handleResults = this._handleResults.bind(this);
@@ -41,11 +52,20 @@ export default class HomeMap extends React.Component {
     }
     return items;
   }
+  renderItemPickerCatalog() {
+    items = [];
+    for (let item of dataCatalog) {
+      items.push(
+        <Picker.Item key={item.id} label={item.value} value={item.value} />
+      );
+    }
+    return items;
+  }
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
   }
-  _handleResults(results) {
-    this.setState({ results });
+  _handleResults() {
+    this.props.onFetchSearch(this.state.results);
   }
   async getDirections(startLoc, destinationLoc) {
     await Axios.get(
@@ -81,24 +101,6 @@ export default class HomeMap extends React.Component {
     this.mapRef.fitToElements(true);
   }
   render() {
-    let index = 0;
-    const data = [
-      { key: index++, section: true, label: "Fruits" },
-      { key: index++, label: "Red Apples" },
-      { key: index++, label: "Cherries" },
-      { key: index++, label: "Cranberries" },
-      { key: index++, label: "Pink Grapefruit" },
-      { key: index++, label: "Raspberries" },
-      { key: index++, section: true, label: "Vegetables" },
-      { key: index++, label: "Beets" },
-      { key: index++, label: "Red Peppers" },
-      { key: index++, label: "Radishes" },
-      { key: index++, label: "Radicchio" },
-      { key: index++, label: "Red Onions" },
-      { key: index++, label: "Red Potatoes" },
-      { key: index++, label: "Rhubarb" },
-      { key: index++, label: "Tomatoes" }
-    ];
     return (
       <View style={{ flex: 1 }}>
         <MapView
@@ -108,73 +110,90 @@ export default class HomeMap extends React.Component {
           style={{ ...StyleSheet.absoluteFillObject }}
           showsUserLocation
         >
-          {this.props.arrayMarker.map(marker => {
-            var a = geolib.getDistance(
-              {
-                latitude: this.props.latitude,
-                longitude: this.props.longitude
-              },
-              {
-                latitude: parseFloat(marker.Store_Latitude),
-                longitude: parseFloat(marker.Store_Longitude)
-              }
-            );
-            console.log(a);
-            if (a <= parseInt(this.state.selectedRadius)) {
-             return (<MapView.Marker
-                key={marker.Store_ID}
-                coordinate={{
+          {this.props.arrayAllMarker != [] ? (
+            this.props.arrayAllMarker.map(marker => {
+              var a = geolib.getDistance(
+                {
+                  latitude: this.props.latitude,
+                  longitude: this.props.longitude
+                },
+                {
                   latitude: parseFloat(marker.Store_Latitude),
                   longitude: parseFloat(marker.Store_Longitude)
-                }}
-                image={
-                  marker.StoreCatalog_ID === 1
-                    ? require("../../images/coffee.png")
-                    : marker.StoreCatalog_ID === 2
-                      ? require("../../images/cloth.png")
-                      : marker.StoreCatalog_ID === 3
-                        ? require("../../images/entertainment.png")
-                        : require("../../images/none.png")
                 }
-                onPress={() => {
-                  const startLoc =
-                    this.props.latitude + "," + this.props.longitude;
-                  const destinationLoc =
-                    marker.Store_Latitude + "," + marker.Store_Longitude;
-                  this.getDirections(startLoc, destinationLoc);
-                  this.fitBottomTwoMarkers(
-                    {
-                      latitude: this.props.latitude,
-                      longitude: this.props.longitude
-                    },
-                    {
+              );
+              if (
+                a <= parseInt(this.state.selectedRadius) &&
+                (marker.StoreCatalog_ID == this.state.idCatalog ||
+                  this.state.idCatalog == 0)
+              ) {
+                return (
+                  <MapView.Marker
+                    key={marker.Store_ID}
+                    coordinate={{
                       latitude: parseFloat(marker.Store_Latitude),
                       longitude: parseFloat(marker.Store_Longitude)
+                    }}
+                    image={
+                      marker.StoreCatalog_ID === 1
+                        ? require("../../images/coffee.png")
+                        : marker.StoreCatalog_ID === 2
+                          ? require("../../images/cloth.png")
+                          : marker.StoreCatalog_ID === 3
+                            ? require("../../images/entertainment.png")
+                            : require("../../images/none.png")
                     }
-                  );
-                }}
-              >
-                <MapView.Callout
-                  onPress={async () => {
-                    let Username = "";
-                    if (this.props.proFile != []) {
-                      Username = this.props.proFile.id;
-                    }
-                    this.props.onFetchInformationStore(
-                      marker.Store_ID,
-                      this.props.latitude,
-                      this.props.longitude
-                    );
-                    this.props.onFetchRatingStore(marker.Store_ID, Username, 1);
-                    this.props.onFetchPromotionsStore(81, Username);
-                    this.props.navigation.navigate("StoreTab");
-                  }}
-                >
-                  <CalloutStore marker={marker} />
-                </MapView.Callout>
-              </MapView.Marker>);
-            }
-          })}
+                    onPress={() => {
+                      const startLoc =
+                        this.props.latitude + "," + this.props.longitude;
+                      const destinationLoc =
+                        marker.Store_Latitude + "," + marker.Store_Longitude;
+                      this.getDirections(startLoc, destinationLoc);
+                      this.fitBottomTwoMarkers(
+                        {
+                          latitude: this.props.latitude,
+                          longitude: this.props.longitude
+                        },
+                        {
+                          latitude: parseFloat(marker.Store_Latitude),
+                          longitude: parseFloat(marker.Store_Longitude)
+                        }
+                      );
+                    }}
+                  >
+                    <MapView.Callout
+                      onPress={async () => {
+                        let Username = "";
+                        if (this.props.proFile != []) {
+                          Username = this.props.proFile.id;
+                        }
+                        this.props.onFetchInformationStore(
+                          marker.Store_ID,
+                          this.props.latitude,
+                          this.props.longitude
+                        );
+                        this.props.onFetchRatingStore(
+                          marker.Store_ID,
+                          Username,
+                          1
+                        );
+                        this.props.onFetchPromotionsStore(
+                          marker.Store_ID,
+                          Username
+                        );
+                        ViewStore(marker.Store_ID, Username);
+                        this.props.navigation.navigate("StoreTab");
+                      }}
+                    >
+                      <CalloutStore marker={marker} />
+                    </MapView.Callout>
+                  </MapView.Marker>
+                );
+              }
+            })
+          ) : (
+            <View />
+          )}
           <MapView.Polyline
             coordinates={this.state.coords}
             strokeWidth={4}
@@ -190,8 +209,12 @@ export default class HomeMap extends React.Component {
           >
             <SearchBar
               ref={ref => (this.searchBar = ref)}
-              data={this.props.arrayMarker}
-              handleResults={this._handleResults}
+              handleChangeText={input => {
+                this.setState({ results: input });
+              }}
+              onSubmitEditing={() => {
+                this._handleResults();
+              }}
               showOnLoad
               backButton={() => {
                 this.setModalVisible(false);
@@ -200,58 +223,111 @@ export default class HomeMap extends React.Component {
                 this.setModalVisible(false);
               }}
             />
-            {this.state.results.map((result, i) => {
-              return (
-                <Text key={i}>
-                  {typeof result === "object" && !(result instanceof Array)
-                    ? "gold object!"
-                    : result.toString()}
-                </Text>
-              );
-            })}
+            <View style={{ marginTop: 60 }}>
+              {this.props.isLoading ? (
+                <ActivityIndicator size="large" />
+              ) : (
+                this.props.dataSearch.map(item => {
+                  return (
+                    <TouchableOpacity
+                      onPress={() => {
+                        let Username = "";
+                        if (this.props.proFile != []) {
+                          Username = this.props.proFile.id;
+                        }
+                        this.props.onFetchInformationStore(
+                          item.Store_ID,
+                          this.props.latitude,
+                          this.props.longitude
+                        );
+                        this.props.onFetchRatingStore(
+                          item.Store_ID,
+                          Username,
+                          1
+                        );
+                        this.props.onFetchPromotionsStore(
+                          item.Store_ID,
+                          Username
+                        );
+                        this.setModalVisible(false);
+                        ViewStore(item.Store_ID, Username);
+                        this.props.navigation.navigate("StoreTab");
+                      }}
+                    >
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          marginLeft: 10,
+                          marginBottom: 10
+                        }}
+                      >
+                        <Image
+                          style={{ height: 50, width: 50 }}
+                          source={{ uri: item.Store_ImageLink }}
+                        />
+                        <View style={{ marginLeft: 10 }}>
+                          <Text style={{ fontWeight: "bold" }}>
+                            {" "}
+                            {item.Store_Name}{" "}
+                          </Text>
+                          <Text style={{ fontStyle: "italic" }}>
+                            {item.Store_Street}
+                          </Text>
+                        </View>
+                      </View>
+                    </TouchableOpacity>
+                  );
+                })
+              )}
+            </View>
           </Modal>
         </View>
         <View
           style={{
+            backgroundColor: "#f2f2f2",
             position: "absolute",
-            top: 10,
-            Left: 10,
             flexDirection: "row",
-            justifyContent: "space-between"
+            justifyContent: "space-between",
+            width: width
           }}
         >
-          <Picker
-            selectedValue={this.state.language}
-            style={{ height: 50, width: width / 3 }}
-            onValueChange={(itemValue, itemIndex) =>
-              this.setState({ language: itemValue })
-            }
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
-            <Picker.Item label="Java" value="java" />
-            <Picker.Item label="JavaScript" value="js" />
-          </Picker>
-          <Picker
-            selectedValue={this.state.selectedRadius}
-            style={{ height: 50, width: width / 2.5 }}
-            onValueChange={value => this.setState({ selectedRadius: value })}
-          >
-            {this.renderItemPickerRadius()}
-          </Picker>
-        </View>
-        <View style={{ position: "absolute", top: 10, right: 10 }}>
-          <TouchableOpacity
-            onPress={() => {
-              // this.searchBar.show();
-              this.setModalVisible(true);
-            }}
-          >
-            <Image
-              style={{ height: 50, width: 50 }}
-              source={{
-                uri: "https://image.flaticon.com/icons/png/128/174/174315.png"
+            <Picker
+              selectedValue={this.state.selectedCatalog}
+              style={{ height: 50, width: width / 2.5 }}
+              onValueChange={(itemValue, itemIndex) =>
+                this.setState({
+                  selectedCatalog: itemValue,
+                  idCatalog: itemIndex
+                })
+              }
+            >
+              {this.renderItemPickerCatalog()}
+            </Picker>
+            <Picker
+              selectedValue={this.state.selectedRadius}
+              style={{ height: 50, width: width / 2.5 }}
+              onValueChange={value => this.setState({ selectedRadius: value })}
+            >
+              {this.renderItemPickerRadius()}
+            </Picker>
+          </View>
+          <View style={{ top: 10, right: 10 }}>
+            <TouchableOpacity
+              onPress={() => {
+                this.setModalVisible(true);
               }}
-            />
-          </TouchableOpacity>
+            >
+              <Image
+                style={{ height: 30, width: 30 }}
+                source={{
+                  uri: "https://image.flaticon.com/icons/png/128/174/174315.png"
+                }}
+              />
+            </TouchableOpacity>
+          </View>
         </View>
         <FloatingButton
           icon="list"

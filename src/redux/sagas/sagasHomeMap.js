@@ -7,13 +7,17 @@ import {
   FETCH_RATING_STORE_FAILED,
   FETCH_PROMOTIONS_STORE,
   FETCH_PROMOTIONS_STORE_FAILED,
-  FETCH_PROMOTIONS_STORE_SUCCESS
+  FETCH_PROMOTIONS_STORE_SUCCESS,
+  FETCH_SEARCH_SUCCESS,
+  FETCH_SEARCH_FAILED,
+  FETCH_SEARCH
 } from "../actions/actionsType/actionsTypeHomeMap";
 import { put, takeEvery, takeLatest } from "redux-saga/effects";
 import { Api } from "../../api/functionsApi/getInformatioinStore";
 
 import { ApiRating } from "../../api/functionsApi/getRatingByStore";
 import { ApiPromotions } from "../../api/functionsApi/getPromotionsByIdStore";
+import { ApiSearch } from "../../api/functionsApi/getSearch";
 
 function* fetchInformationStore(action) {
   try {
@@ -60,4 +64,18 @@ function* fetchPromotionsofStore(action) {
 }
 export function* watchFetchPromotionsofStore() {
   yield takeEvery(FETCH_PROMOTIONS_STORE, fetchPromotionsofStore);
+}
+
+function* fetchSearh(action) {
+  try {
+    const dataSearch = yield ApiSearch.getDataSearch(
+      action.search
+    );
+    yield put({ type: FETCH_SEARCH_SUCCESS, dataSearch });
+  } catch (error) {
+    yield put({ type: FETCH_SEARCH_FAILED, error });
+  }
+}
+export function* watchFetchSearch() {
+  yield takeEvery(FETCH_SEARCH, fetchSearh);
 }

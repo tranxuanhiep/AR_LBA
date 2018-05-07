@@ -1,6 +1,7 @@
 import PromotionDetail from "../../screens/storeDetail/PromotionDetail";
 import { connect } from "react-redux";
-import { postCommentPromotionAction } from "../actions/allActions/allActionDetailPromotion";
+import { postCommentPromotionAction, fetchDetailPromotionAction } from "../actions/allActions/allActionDetailPromotion";
+import { onFavorite } from "../actions/allActions/allActionsPromotion";
 const mapStateToProps = state => {
   return {
     informationPromotion: state.reducerDetailPromotion.informationPromotion,
@@ -10,9 +11,13 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
-    onpostCommentPromotion: (idPromotion, Username, Comment) => {
-      dispatch(postCommentPromotionAction(idPromotion, Username, Comment));
-    }
+    onpostCommentPromotion: (promotionID, Username, Comment) => {
+      dispatch(postCommentPromotionAction(promotionID, Username, Comment));
+    },
+    favorite: (idPromotion, userName, idStore) => {
+      dispatch(onFavorite(idPromotion, userName, idStore));
+       dispatch(fetchDetailPromotionAction(idPromotion, userName));
+    },
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(PromotionDetail);

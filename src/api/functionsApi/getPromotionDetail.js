@@ -6,7 +6,7 @@ function* PromotionDetail(promotionID, username){
     Promotion_ID: promotionID,
     Username: username
   });
-  const informationPromotion = yield Data.data.message.success ?  Data.data.data:[]
+  const informationPromotion = yield Data.data.message.success ?  Data.data.data : null
   return informationPromotion
 };
 export const ApiDetailPromotion = { PromotionDetail };

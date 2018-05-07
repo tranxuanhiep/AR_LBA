@@ -161,10 +161,8 @@ export default class DetailStore extends Component {
                       l => l.toUpperCase()
                     )}
                   </Text>
-                  <Text style={{ fontSize: 10 }}>
-                    {this.props.informationStore.Store.Store_Street},{" "}
-                    {this.props.informationStore.Store.Store_Ward},{" "}
-                    {this.props.informationStore.Store.Store_District}
+                  <Text style={{ fontSize: 10, width:200 }}>
+                    {this.props.informationStore.Store.Store_Street}
                   </Text>
                   <View style={{ flexDirection: "row" }}>
                     <StarRating

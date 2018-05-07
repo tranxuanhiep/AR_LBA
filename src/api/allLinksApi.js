@@ -42,3 +42,9 @@ export const API_FAVORITE_BY_USER =
   "http://lbawebserver.us-east-1.elasticbeanstalk.com/api/GetPromotionFavoriteOfUser";
 export const API_VIEW_PROMOTION =
   "http://lbawebserver.us-east-1.elasticbeanstalk.com/api/PostPromotionView";
+export const API_GET_ALL_STORE =
+  "http://lbawebserver.us-east-1.elasticbeanstalk.com/api/GetAllStoreDetailsByRadian";
+export const API_SEARCH =
+  "http://lbawebserver.us-east-1.elasticbeanstalk.com/api/Search";
+export const API_VIEW_STORE =
+  "http://lbawebserver.us-east-1.elasticbeanstalk.com/api/PostStoreView";

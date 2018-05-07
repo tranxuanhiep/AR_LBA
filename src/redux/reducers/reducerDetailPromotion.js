@@ -8,21 +8,28 @@ import {
   POST_COMMENT_PROMOTION
 } from "../actions/actionsType/actionsTypeDetailPromotion";
 const stateDefault = {
-  informationPromotion: [],
-  listCommentPromotion: []
+  informationPromotion: null,
+  listCommentPromotion: null,
+  isLoading:false
 };
 const reducerHomeMap = (state = stateDefault, action) => {
   switch (action.type) {
     case FETCH_DETAIL_PROMOTION_SUCCESS: {
-      return { ...state, informationPromotion: action.informationPromotion };
+      return { ...state, informationPromotion: action.informationPromotion};
+    }
+    case FETCH_COMMENT_PROMOTION: {
+      return { ...state,  isLoading: true };
+    }
+    case FETCH_DETAIL_PROMOTION: {
+      return { ...state, isLoading: true };
     }
     case FETCH_DETAIL_PROMOTION_FAILED:
-      return { ...state, informationPromotion: [] };
+      return { ...state, informationPromotion: []};
     case FETCH_COMMENT_PROMOTION_SUCCESS: {
-      return { ...state, listCommentPromotion: action.listCommentPromotion };
+      return { ...state, listCommentPromotion: action.listCommentPromotion, isLoading: false };
     }
     case FETCH_COMMENT_PROMOTION_FAILED:
-      return { ...state, listCommentPromotion: [] };
+      return { ...state, listCommentPromotion: [], isLoading: false };
     default:
       return state; //state does not change
   }

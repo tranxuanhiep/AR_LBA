@@ -5,6 +5,7 @@ import { put, takeEvery, takeLatest } from "redux-saga/effects";
 import { ApiFavorite } from "../../api/functionsApi/postFavorite";
 
 function* Favorite(action) {
+  console.log("Favorite");
   try {
     const check = yield ApiFavorite.Favorite(
       action.idPromotion,

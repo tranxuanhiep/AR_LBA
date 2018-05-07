@@ -27,6 +27,7 @@ export default class LoadData extends Component {
           position => {
             latitude = position.coords.latitude;
             longitude = position.coords.longitude;
+            this.props.onFetchAllStores(latitude, longitude);
             this.props.onFetchStores(latitude, longitude);
           },
           {
