@@ -51,7 +51,7 @@ public class Promotion_Fragment extends Fragment {
         }
         imageNull= view.findViewById(R.id.imageNull);
         rcPromotion = view.findViewById(R.id.rcPromotion);
-        load = view.findViewById(R.id.load);
+        load = view.findViewById(R.id.loadPromotion);
         rcPromotion.setVisibility(View.GONE);
         load.setVisibility(View.VISIBLE);
         rcPromotion.setHasFixedSize(true);
