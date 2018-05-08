@@ -40,14 +40,28 @@ shareLinkWithShareDialog = () => {
 };
 export const promotion = (item, props, type) => {
   const listImage = item.Promotion_Image.split(",");
+  state = {
+    shareLinkContent: {
+      contentTitle: "promotion",
+      contentType: "link",
+      contentImage:
+        "https://s3-ap-southeast-1.amazonaws.com/capstone2/18-04-12-07-26-162034_22-01.jpg",
+      contentUrl:
+        "https://s3-ap-southeast-1.amazonaws.com/capstone2/foody-mobile-foody-banh-trang-nuo-873-635998520650984455.jpg",
+      contentDescription: "Wow, check out this great site!"
+    }
+  };
   return (
     <Card style={{ flex: 0 }}>
       <CardItem>
         <Left>
           <Thumbnail source={{ uri: item.Store_ImageLink }} />
           <Body>
-            <Text style={{fontWeight:'bold'}} >{item.Store_Name}</Text>
-            <TimeAgo style={{fontSize:13,fontStyle:'italic'}} time={item.Promotion_Created} />
+            <Text style={{ fontWeight: "bold" }}>{item.Store_Name}</Text>
+            <TimeAgo
+              style={{ fontSize: 13, fontStyle: "italic" }}
+              time={item.Promotion_Created}
+            />
           </Body>
         </Left>
       </CardItem>
@@ -102,7 +116,6 @@ export const promotion = (item, props, type) => {
                   props.proFile.id,
                   item.Store_Details_ID
                 );
-                
               }
             }}
           >
@@ -118,11 +131,16 @@ export const promotion = (item, props, type) => {
           </Button>
         </Left>
         <Body>
-          <Button transparent
-            onPress={()=>{
-              if(type==0){
-              props.onFetchDetailPromotion(item.Promotion_ID, props.proFile.id);
-              props.navigation.navigate("DetailPromotion");}
+          <Button
+            transparent
+            onPress={() => {
+              if (type == 0) {
+                props.onFetchDetailPromotion(
+                  item.Promotion_ID,
+                  props.proFile.id
+                );
+                props.navigation.navigate("DetailPromotion");
+              }
             }}
           >
             <Image
@@ -136,7 +154,7 @@ export const promotion = (item, props, type) => {
           <Button
             transparent
             onPress={() => {
-              // this.shareLinkWithShareDialog();
+              this.shareLinkWithShareDialog();
             }}
           >
             <Image
