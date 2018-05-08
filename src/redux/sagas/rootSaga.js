@@ -16,6 +16,7 @@ import { watchFetchPromotions } from "./sagasAllPromotions"
 import { watchFetchTopPromotions } from "./sagasTopPromotions"
 
 import { watchDetailPromotion,watchComment } from "./sagasDetailPromotion";
+import { watchFetchNotification } from "./sagasNotification";
 
 export default function* rootSaga() {
   yield all([
@@ -32,6 +33,7 @@ export default function* rootSaga() {
     fork(watchFetchAllStores),
     fork(watchFetchSearch),
     fork(watchDetailPromotion),
-    fork(watchComment)
+    fork(watchComment),
+    fork(watchFetchNotification),
   ]);
 }

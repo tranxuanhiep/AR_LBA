@@ -26,7 +26,7 @@ export default class PromotionsOfStore extends Component {
     const propsPromotion = this.props;
     if (promotionsofStore != []) {
       return (
-        <View>
+        <ScrollView>
           <View
             style={{ backgroundColor: 'white', marginBottom: 5, height: 35 }}
           >
@@ -66,7 +66,7 @@ export default class PromotionsOfStore extends Component {
             data={promotionsofStore.promotionPast}
             renderItem={({ item }) => promotion(item, propsPromotion, 0)}
           />
-        </View>
+        </ScrollView>
       );
     } else
       return (

@@ -9,6 +9,7 @@ function* getNotification(username,radius,Lat, Lng) {
             lng: Lng
         })
     const Notification = yield Data.data.message.success == true ? Data.data.data: [];
+    //alert(JSON.stringify(Data.data.data));
     return Notification;
 }
 export const ApiNotification = {

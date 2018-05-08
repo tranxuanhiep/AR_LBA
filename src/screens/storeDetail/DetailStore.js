@@ -174,7 +174,7 @@ export default class DetailStore extends Component {
                       fullStarColor={"#FFCC00"}
                       starSize={15}
                     />
-                    <Text style={{ marginLeft: 5, fontSize:12, marginBottom:3, fontStyle:'italic' }}>
+                    <Text style={{ marginLeft: 5, fontSize:12, marginBottom:0, fontStyle:'italic' }}>
                       ({this.props.informationStore.Store.NumberOfRating} {this.props.informationStore.Store.NumberOfRating<=2?" review":" reviews"})
                     </Text>
                   </View>

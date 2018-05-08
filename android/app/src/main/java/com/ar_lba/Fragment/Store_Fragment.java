@@ -58,7 +58,6 @@ public class Store_Fragment extends Fragment {
             Id = Integer.parseInt(bundle.getString("ID"));
             Lat = bundle.getString("LAT");
             Lng = bundle.getString("LNG");
-            Log.d("123456 Fragment Store",Id+"__"+Lat+"__"+Lng);
         }
         lnLoad =view.findViewById(R.id.load);
         lnData = view.findViewById(R.id.lnData);

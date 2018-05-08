@@ -75,7 +75,18 @@ export default class HomeList extends React.Component {
                         renderItem={({ item, index }) => {
                             return (
                                 <View style={[styles.TopMain, { margin: 5 }]} >
-                                    <TouchableOpacity>
+                                    <TouchableOpacity
+                                        onPress={() => {
+                                            this.props.onFetchDetailPromotion(item.Promotion_ID, this.props.proFile.id);
+                                            this.props.onFetchInformationStore(
+                                                item.Store_ID,
+                                                this.props.latitude,
+                                                this.props.longitude
+                                            );
+                                            this.props.onFetchPromotionsStore(item.Store_ID, this.props.proFile.id);
+                                            this.props.navigation.navigate("DetailPromotion");
+                                        }}
+                                    >
                                         <View>
                                             {/* Iamge of shop */}
                                             {this.getImageTopPromotions(item.Promotion_Image)}
@@ -177,6 +188,16 @@ export default class HomeList extends React.Component {
                         renderItem={item => (
                             <View style={styles.Main} >
                                 <TouchableOpacity
+                                    onPress={() => {
+                                        this.props.onFetchDetailPromotion(item.Promotion_ID, this.props.proFile.id);
+                                        this.props.onFetchInformationStore(
+                                            item.Store_Details_ID,
+                                            this.props.latitude,
+                                            this.props.longitude
+                                        );
+                                        this.props.onFetchPromotionsStore(item.Store_ID, this.props.proFile.id);
+                                        this.props.navigation.navigate("DetailPromotion");
+                                    }}
                                 >
                                     <View>
                                         {

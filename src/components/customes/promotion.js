@@ -120,8 +120,9 @@ export const promotion = (item, props, type) => {
         <Body>
           <Button transparent
             onPress={()=>{
+              if(type==0){
               props.onFetchDetailPromotion(item.Promotion_ID, props.proFile.id);
-              props.navigation.navigate("DetailPromotion");
+              props.navigation.navigate("DetailPromotion");}
             }}
           >
             <Image
@@ -135,7 +136,7 @@ export const promotion = (item, props, type) => {
           <Button
             transparent
             onPress={() => {
-              this.shareLinkWithShareDialog();
+              // this.shareLinkWithShareDialog();
             }}
           >
             <Image

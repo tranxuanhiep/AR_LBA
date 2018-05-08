@@ -27,7 +27,6 @@ public class AdapterTab extends FragmentStatePagerAdapter {
         Id=ID;
         Lat=LAT;
         Lng=LNG;
-        Log.d("123456 Adapter",Id +"__"+Lat+"__"+Lng);
     }
     @Override
     public Fragment getItem(int position) {

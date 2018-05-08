@@ -3,8 +3,6 @@ package com.ar_lba.model.JsonPromotion;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
-
 /**
  * Created by hanson on 27/04/2018.
  */
@@ -12,16 +10,16 @@ import java.util.ArrayList;
 public class Promotion {
     @SerializedName("data")
     @Expose
-    private ArrayList<PromotionDetail> data;
+    private PromotionProgressing data;
     @SerializedName("message")
     @Expose
     private Message message;
 
-    public ArrayList<PromotionDetail> getData() {
+    public PromotionProgressing getData() {
         return data;
     }
 
-    public void setData(ArrayList<PromotionDetail> data) {
+    public void setData(PromotionProgressing data) {
         this.data = data;
     }
 

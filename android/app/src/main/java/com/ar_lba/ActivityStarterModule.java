@@ -56,7 +56,6 @@ class ActivityStarterModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     void navigateToExample(String Array) {
-        Log.d("test: ",Array);
         Activity activity = getCurrentActivity();
         if (activity != null) {
             Intent intent = new Intent(activity, ARActivity.class);
@@ -72,6 +71,5 @@ class ActivityStarterModule extends ReactContextBaseJavaModule {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(USER_NAME_FOR_TASK_BACKGROUND,Username);
         editor.apply();
-        Log.d("Task: ","GET OK: "+Username);
     }
 }

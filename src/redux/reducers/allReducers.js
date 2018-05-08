@@ -5,13 +5,15 @@ import reducerMain from "./reducerMain";
 import reducerFavorite from "./reducerFavorite";
 import reducerPromotions from "./reducerPromotions"
 import reducerDetailPromotion from "./reducerDetailPromotion";
+import reducerNotification from "./reducerNotification"
 const allReducers = combineReducers({
   reducerLoadData,
   reducerHomeMap,
   reducerMain,
   reducerFavorite,
   reducerDetailPromotion,
-  reducerPromotions
+  reducerPromotions,
+  reducerNotification
   //you can add more reducers here, separated by , !
 });
 export default allReducers;

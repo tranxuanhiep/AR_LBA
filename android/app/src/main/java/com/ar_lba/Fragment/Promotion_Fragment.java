@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.ar_lba.API.PromotionInterface;
 import com.ar_lba.Adapter.PromotionAdapter;
@@ -20,8 +19,6 @@ import com.ar_lba.model.JsonPromotion.Promotion;
 import com.ar_lba.model.JsonPromotion.PromotionDetail;
 import com.ar_lba.model.JsonPromotion.RequestPromotion;
 import com.ar_lba.model.PromotionForRecycle;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +44,6 @@ public class Promotion_Fragment extends Fragment {
         Bundle bundle = getArguments();
         if(bundle!=null){
             Id = Integer.parseInt(bundle.getString("ID"));
-            Log.d("123456 Promotion",Id+"");
         }
         imageNull= view.findViewById(R.id.imageNull);
         rcPromotion = view.findViewById(R.id.rcPromotion);
@@ -71,7 +67,7 @@ public class Promotion_Fragment extends Fragment {
             @Override
             public void onResponse(Call<Promotion> call, Response<Promotion> response) {
 
-                ArrayList<PromotionDetail> arrayList = response.body().getData();
+                ArrayList<PromotionDetail> arrayList = response.body().getData().getPromotionProgressing();
                 if(arrayList.size()>0){
                     List<PromotionForRecycle> promotionList1 = new ArrayList<>();
                     for(int i = 0; i < arrayList.size(); i++){

@@ -83,7 +83,6 @@ public class AROverlayView extends View {
         if(event.getAction() == MotionEvent.ACTION_DOWN){
             return true;
         }if(event.getAction() == MotionEvent.ACTION_UP){
-            Log.d("TouchEven ", "ID = " + checkTouchOn(event));
             if(checkTouchOn(event)!=""){
                 Intent a = new Intent(getContext(), TabActivity.class);
                 a.putExtra("IDSTORE",checkTouchOn(event));
