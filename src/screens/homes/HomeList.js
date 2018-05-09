@@ -195,7 +195,7 @@ export default class HomeList extends React.Component {
                                             this.props.latitude,
                                             this.props.longitude
                                         );
-                                        this.props.onFetchPromotionsStore(item.Store_ID, this.props.proFile.id);
+                                        this.props.onFetchPromotionsStore(item.Store_Details_ID, this.props.proFile.id);
                                         this.props.navigation.navigate("DetailPromotion");
                                     }}
                                 >
