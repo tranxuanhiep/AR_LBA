@@ -117,6 +117,7 @@ export default class HomeList extends React.Component {
                       <View style={styles.TopcoverimageType}>
                         <View style={styles.CoverTopimageType}>
                           <Image
+                            style={styles.imageTypeTop}
                             source={
                               item.StoreCatalog_ID === 1
                                 ? {

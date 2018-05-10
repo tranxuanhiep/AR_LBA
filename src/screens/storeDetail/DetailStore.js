@@ -163,7 +163,7 @@ export default class DetailStore extends Component {
                       l => l.toUpperCase()
                     )}
                   </Text>
-                  <Text style={{ fontSize: 10, width: 200 }}>
+                  <Text style={{ fontSize: 12, width: 200 }}>
                     {this.props.informationStore.Store.Store_Street}
                   </Text>
                   <View
@@ -238,7 +238,7 @@ export default class DetailStore extends Component {
             </View>
           </Card>
           <Card>
-            <View style={{ height: 120, opacity: 0.6, marginLeft:100 }}>
+            <View style={{ height: 120, marginLeft:100 }}>
               <MapView
                 style={{ ...StyleSheet.absoluteFillObject }}
                 region={{
@@ -305,7 +305,7 @@ export default class DetailStore extends Component {
                 />
                 <Text
                   style={{
-                    marginLeft: 10,
+                    marginLeft: 14,
                     fontWeight: "bold",
                     color: "#000"
                   }}

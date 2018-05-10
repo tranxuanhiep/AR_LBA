@@ -7,6 +7,7 @@ import Searchs from "../redux/containers/containerSearch";
 import HomeList from "../redux/containers/containerHomeList";
 import Notifications from "../redux/containers/containerNotifications";
 import TabBar from "../redux/containers/containerTabbar";
+import TabBarStore from "../components/customesTabBar/TabBarStore";
 import DetailStore from "../redux/containers/containerDetailStore";
 import PromotionsOfStore from "../redux/containers/containerPromotionsOfStore";
 import DetailPromotion from "../redux/containers/containerDetailPromotion";
@@ -40,9 +41,16 @@ export const StoreTab = TabNavigator(
     DetailStore: { screen: DetailStoreStack },
     PromotionsOfStore: { screen: PromotionsOfStoreStack }
   },
+  // {
+  //   tabBarPosition: "top",
+  //   swipeEnabled: false
+  // }
   {
     tabBarPosition: "top",
-    swipeEnabled: false
+    swipeEnabled: false,
+    tabBarComponent: props => {
+      return <TabBarStore {...props} />;
+    }
   }
 );
 
