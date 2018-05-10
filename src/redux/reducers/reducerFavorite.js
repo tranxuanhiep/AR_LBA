@@ -4,15 +4,25 @@ import {
   FETCH_FAVORITE_SUCCESS
 } from "../actions/actionsType/actionTypeFavorite";
 const stateDefault = {
-  favoriteByUser: []
+  favoriteByUser: [],
+  isLoadingFavorite: false
 };
 const reducerFavorite = (state = stateDefault, action) => {
   switch (action.type) {
     case FETCH_FAVORITE_SUCCESS: {
-      return { ...state, favoriteByUser: action.favoriteByUser };
+      console.log("favorite success");
+      return {
+        ...state,
+        favoriteByUser: action.favoriteByUser,
+        isLoadingFavorite: false
+      };
+    }
+    case FETCH_FAVORITE: {
+      console.log("favorite")
+      return { ...state, isLoadingFavorite: true };
     }
     case FETCH_FAVORITE_FAILED:
-      return { ...state, favoriteByUser: [] };
+      return { ...state, favoriteByUser: [], isLoadingFavorite: false };
     default:
       return state; //state does not change
   }

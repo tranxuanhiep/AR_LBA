@@ -9,7 +9,8 @@ import {
 const mapStateToProps = state => {
   return {
     proFile: state.reducerMain.proFile,
-    favoriteByUser: state.reducerFavorite.favoriteByUser
+    favoriteByUser: state.reducerFavorite.favoriteByUser,
+    isLoadingFavorite: state.reducerFavorite.isLoadingFavorite
   };
 };
 const mapDispatchToProps = dispatch => {

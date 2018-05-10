@@ -24,7 +24,7 @@ export default class PromotionsOfStore extends Component {
   render() {
     const { promotionsofStore } = this.props;
     const propsPromotion = this.props;
-    if (promotionsofStore != []) {
+    if (!this.props.isLoadingListPromotions) {
       return (
         <ScrollView>
           <View

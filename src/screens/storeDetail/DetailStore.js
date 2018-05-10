@@ -13,7 +13,7 @@ import {
   ActivityIndicator,
   Dimensions
 } from "react-native";
-const { width, height } = Dimensions.get('window');
+const { width, height } = Dimensions.get("window");
 import moment from "moment";
 import TimeAgo from "react-native-timeago";
 import { Card } from "native-base";
@@ -119,310 +119,358 @@ export default class DetailStore extends Component {
     }
   }
   render() {
-    if (this.props.informationStore.Store != null)
-      return (
-        <ScrollView style={{ backgroundColor: "#F5FCFF" }}>
-          <Card>
-            <PhotoGrid
-              height={300}
-              source={this.props.informationStore.imageList}
-              onPressImage={() => { }}
-            />
-          </Card>
-          <Card>
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center"
-              }}
-            >
+    if (!this.props.isLoadingStore) {
+        return (
+          <ScrollView style={{ backgroundColor: "#F5FCFF" }}>
+            <Card>
+              <PhotoGrid
+                height={300}
+                source={this.props.informationStore.imageList}
+                onPressImage={() => {}}
+              />
+            </Card>
+            <Card>
               <View
                 style={{
                   flexDirection: "row",
-                  alignItems: "center",
-                  marginTop: 10
+                  justifyContent: "space-between",
+                  alignItems: "center"
                 }}
               >
-                <Image
-                  style={{ height: 50, width: 50, borderRadius: 25 }}
-                  source={{
-                    uri: this.props.informationStore.Store.Store_ImageLink
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    marginTop: 10
                   }}
-                />
-                <View style={{ flexDirection: "column", marginLeft: 10 }}>
-                  <Text
-                    style={{
-                      fontSize: 15,
-                      fontWeight: "bold",
-                      color: "#000"
+                >
+                  <Image
+                    style={{ height: 50, width: 50, borderRadius: 25 }}
+                    source={{
+                      uri: this.props.informationStore.Store.Store_ImageLink
                     }}
-                  >
-                    {this.props.informationStore.Store.Store_Name.replace(
-                      /(^|\s)\S/g,
-                      l => l.toUpperCase()
-                    )}
-                  </Text>
-                  <Text style={{ fontSize: 10, width: 200 }}>
-                    {this.props.informationStore.Store.Store_Street}
-                  </Text>
-                  <View style={{ flexDirection: "row", alignItems:'center',justifyContent:'flex-start' }}>
-                    <StarRating
-                      disabled={false}
-                      maxStars={5}
-                      rating={this.props.informationStore.Store.Average_Rating}
-                      fullStarColor={"#FFCC00"}
-                      starSize={15}
-                    />
-                    <Text style={{ marginLeft: 5, fontSize:12, marginBottom:0, fontStyle:'italic' }}>
-                      ({this.props.informationStore.Store.NumberOfRating} {this.props.informationStore.Store.NumberOfRating<=2?" review":" reviews"})
+                  />
+                  <View style={{ flexDirection: "column", marginLeft: 10 }}>
+                    <Text
+                      style={{
+                        fontSize: 15,
+                        fontWeight: "bold",
+                        color: "#000"
+                      }}
+                    >
+                      {this.props.informationStore.Store.Store_Name.replace(
+                        /(^|\s)\S/g,
+                        l => l.toUpperCase()
+                      )}
                     </Text>
+                    <Text style={{ fontSize: 10, width: 200 }}>
+                      {this.props.informationStore.Store.Store_Street}
+                    </Text>
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "flex-start"
+                      }}
+                    >
+                      <StarRating
+                        disabled={false}
+                        maxStars={5}
+                        rating={
+                          this.props.informationStore.Store.Average_Rating
+                        }
+                        fullStarColor={"#FFCC00"}
+                        starSize={15}
+                      />
+                      <Text
+                        style={{
+                          marginLeft: 5,
+                          fontSize: 12,
+                          marginBottom: 0,
+                          fontStyle: "italic"
+                        }}
+                      >
+                        ({this.props.informationStore.Store.NumberOfRating}{" "}
+                        {this.props.informationStore.Store.NumberOfRating <= 2
+                          ? " review"
+                          : " reviews"})
+                      </Text>
+                    </View>
                   </View>
                 </View>
-              </View>
-              <View>
-                <View style={{ flexDirection: "row" }}>
-                  <Image
-                    style={{ height: 23, width: 23, marginRight:30 }}
-                    source={
-                      this.props.informationStore.open
-                        ? require("../../images/open.png")
-                        : require("../../images/close.png")
-                    }
-                  />
-                  {/* <Text style={{ marginLeft: 10 }}>
+                <View>
+                  <View style={{ flexDirection: "row" }}>
+                    <Image
+                      style={{ height: 23, width: 23, marginRight: 30 }}
+                      source={
+                        this.props.informationStore.open
+                          ? require("../../images/open.png")
+                          : require("../../images/close.png")
+                      }
+                    />
+                    {/* <Text style={{ marginLeft: 10 }}>
                     {this.props.informationStore.Store.Store_OpenTime} --{" "}
                     {this.props.informationStore.Store.Store_CloseTime}
                   </Text> */}
-                </View>
-
-                <TouchableOpacity
-                  onPress={() => {
-                    Communications.phonecall(
-                      this.props.informationStore.Store.Store_PhoneNumber,
-                      true
-                    );
-                  }}
-                >
-                  <View style={{ flexDirection: "row" }}>
-                    <Image
-                      style={{ height: 23, width: 23, marginRight:30, marginTop:10 }}
-                      source={require("../../images/phone.png")}
-                    />
                   </View>
-                </TouchableOpacity>
+
+                  <TouchableOpacity
+                    onPress={() => {
+                      Communications.phonecall(
+                        this.props.informationStore.Store.Store_PhoneNumber,
+                        true
+                      );
+                    }}
+                  >
+                    <View style={{ flexDirection: "row" }}>
+                      <Image
+                        style={{
+                          height: 23,
+                          width: 23,
+                          marginRight: 30,
+                          marginTop: 10
+                        }}
+                        source={require("../../images/phone.png")}
+                      />
+                    </View>
+                  </TouchableOpacity>
+                </View>
               </View>
-            </View>
-          </Card>
-          <Card>
-            <View style={{ height: 120, opacity: 0.6 }}>
-              <MapView
-                style={{ ...StyleSheet.absoluteFillObject }}
-                region={{
-                  latitude: parseFloat(
-                    this.props.informationStore.Store.Store_Latitude
-                  ),
-                  longitude: parseFloat(
-                    this.props.informationStore.Store.Store_Longitude
-                  ),
-                  latitudeDelta: 0.002,
-                  longitudeDelta: 0.002
-                }}
-              >
-                <Marker
-                  coordinate={{
+            </Card>
+            <Card>
+              <View style={{ height: 120, opacity: 0.6 }}>
+                <MapView
+                  style={{ ...StyleSheet.absoluteFillObject }}
+                  region={{
                     latitude: parseFloat(
                       this.props.informationStore.Store.Store_Latitude
                     ),
                     longitude: parseFloat(
                       this.props.informationStore.Store.Store_Longitude
-                    )
-                  }}
-                />
-              </MapView>
-            </View>
-            <View style={{ flexDirection: "column", position: "absolute" }}>
-              <View style={{ flexDirection: "row", alignItems: "baseline" }}>
-                <Image
-                  style={{
-                    height: 20,
-                    width: 20,
-                    marginTop: 10,
-                    marginLeft: 10,
-                    tintColor:'black'
-                  }}
-                  source={require("../../images/distance.png")}
-                />
-                <Text
-                  style={{
-                    marginLeft: 10,
-                    fontWeight: "bold",
-                    color: "#000"
+                    ),
+                    latitudeDelta: 0.002,
+                    longitudeDelta: 0.002
                   }}
                 >
-                  {this.props.informationStore.Store.Distance}
-                </Text>
-              </View>
-              <View style={{ flexDirection: "row", alignItems: "baseline" }}>
-                <Image
-                  style={{
-                    height: 16,
-                    width: 16,
-                    marginTop: 10,
-                    marginLeft: 10,
-                    tintColor:'black'
-                  }}
-                  source={require("../../images/time.png")}
-                />
-                <Text
-                  style={{
-                    marginLeft: 10,
-                    fontWeight: "bold",
-                    color: "#000"
-                  }}
-                >
-                  {this.props.informationStore.Store.Duration}
-                </Text>
-              </View>
-              <View style={{ flexDirection: "row", alignItems: "baseline" }}>
-                <Image
-                  style={{
-                    height: 20,
-                    width: 20,
-                    marginTop: 10,
-                    marginLeft: 10,
-                    marginBottom: 10,
-                    tintColor:'black'
-                  }}
-                  source={require("../../images/price.png")}
-                />
-                <Text
-                  style={{ marginLeft: 10, fontWeight: "bold", color: "#000" }}
-                >
-                  {this.props.informationStore.Store.Store_PriceMin} VND – {" "}
-                  {this.props.informationStore.Store.Store_PriceMax} VND
-                </Text>
-              </View>
-              <View style={{ flexDirection: "row", alignItems: "baseline" }}>
-                <Image
-                  style={{
-                    height: 17,
-                    width: 17,
-                    marginLeft: 12,
-                    marginBottom: 10,
-                    tintColor:'black'
-                  }}
-                  source={require("../../images/timeOpenClose.png")}
-                />
-                <Text
-                  style={{ marginLeft: 11, fontWeight: "bold", color: "#000" }}
-                >
-                  {this.props.informationStore.Store.Store_OpenTime}' – {" "}
-                  {this.props.informationStore.Store.Store_CloseTime}'
-                </Text>
-              </View>
-            </View>
-          </Card>
-          <Card>
-            <Text style={{ marginLeft: 10, marginRight: 10 }}>
-              {this.props.informationStore.Store.Store_Description}
-            </Text>
-          </Card>
-
-          <Card>
-            {this.props.listRatingStore.Rated != true ? (
-              <View>
-                <View style={{ paddingLeft: 10, flexDirection: "row", alignItems:'center',justifyContent:'flex-start' }}>
-                  <StarRating
-                    disabled={false}
-                    maxStars={5}
-                    rating={this.state.starCount}
-                    selectedStar={rating => this.onStarRatingPress(rating)}
-                    fullStarColor={"#FFCC00"}
+                  <Marker
+                    coordinate={{
+                      latitude: parseFloat(
+                        this.props.informationStore.Store.Store_Latitude
+                      ),
+                      longitude: parseFloat(
+                        this.props.informationStore.Store.Store_Longitude
+                      )
+                    }}
                   />
-                </View>
-                <KeyboardAvoidingView behavior="position">
-                  <View style={styles.container}>
-                    <TextInput
-                      placeholder="Add a comment and rating..."
-                      keyboardType="twitter"
-                      style={styles.input}
-                      value={this.state.text}
-                      onChangeText={this.onChangeText}
-                      onSubmitEditing={this.onSubmitEditing}
-                    />
-                    <TouchableOpacity
-                      style={styles.button}
-                      onPress={this.submit}
-                    >
-                      <Text
-                        style={[
-                          styles.text,
-                          !this.state.text ? styles.inactive : []
-                        ]}
-                      >
-                        Post
-                      </Text>
-                    </TouchableOpacity>
-                  </View>
-                </KeyboardAvoidingView>
+                </MapView>
               </View>
-            ) : (
-                <Text style={{ fontWeight: "bold", marginLeft: 10 }} >You have rated this Shop</Text>
-              )}
-          </Card>
-          <Card>
-            <FlatList
-              keyExtractor={(item, index) => index}
-              data={this.props.listRatingStore.list_comments}
-              renderItem={({ item }) => (
-                <View style={stylesa.container}>
-                  <View style={stylesa.avatarContainer}>
-                    <Image
-                      resizeMode="contain"
-                      style={stylesa.avatar}
-                      source={{ uri: item.Image }}
+              <View style={{ flexDirection: "column", position: "absolute" }}>
+                <View style={{ flexDirection: "row", alignItems: "baseline" }}>
+                  <Image
+                    style={{
+                      height: 20,
+                      width: 20,
+                      marginTop: 10,
+                      marginLeft: 10,
+                      tintColor: "black"
+                    }}
+                    source={require("../../images/distance.png")}
+                  />
+                  <Text
+                    style={{
+                      marginLeft: 10,
+                      fontWeight: "bold",
+                      color: "#000"
+                    }}
+                  >
+                    {this.props.informationStore.Store.Distance}
+                  </Text>
+                </View>
+                <View style={{ flexDirection: "row", alignItems: "baseline" }}>
+                  <Image
+                    style={{
+                      height: 16,
+                      width: 16,
+                      marginTop: 10,
+                      marginLeft: 10,
+                      tintColor: "black"
+                    }}
+                    source={require("../../images/time.png")}
+                  />
+                  <Text
+                    style={{
+                      marginLeft: 10,
+                      fontWeight: "bold",
+                      color: "#000"
+                    }}
+                  >
+                    {this.props.informationStore.Store.Duration}
+                  </Text>
+                </View>
+                <View style={{ flexDirection: "row", alignItems: "baseline" }}>
+                  <Image
+                    style={{
+                      height: 20,
+                      width: 20,
+                      marginTop: 10,
+                      marginLeft: 10,
+                      marginBottom: 10,
+                      tintColor: "black"
+                    }}
+                    source={require("../../images/price.png")}
+                  />
+                  <Text
+                    style={{
+                      marginLeft: 10,
+                      fontWeight: "bold",
+                      color: "#000"
+                    }}
+                  >
+                    {this.props.informationStore.Store.Store_PriceMin} VND –{" "}
+                    {this.props.informationStore.Store.Store_PriceMax} VND
+                  </Text>
+                </View>
+                <View style={{ flexDirection: "row", alignItems: "baseline" }}>
+                  <Image
+                    style={{
+                      height: 17,
+                      width: 17,
+                      marginLeft: 12,
+                      marginBottom: 10,
+                      tintColor: "black"
+                    }}
+                    source={require("../../images/timeOpenClose.png")}
+                  />
+                  <Text
+                    style={{
+                      marginLeft: 11,
+                      fontWeight: "bold",
+                      color: "#000"
+                    }}
+                  >
+                    {this.props.informationStore.Store.Store_OpenTime}' –{" "}
+                    {this.props.informationStore.Store.Store_CloseTime}'
+                  </Text>
+                </View>
+              </View>
+            </Card>
+            <Card>
+              <Text style={{ marginLeft: 10, marginRight: 10 }}>
+                {this.props.informationStore.Store.Store_Description}
+              </Text>
+            </Card>
+
+            <Card>
+              {this.props.listRatingStore.Rated != true ? (
+                <View>
+                  <View
+                    style={{
+                      paddingLeft: 10,
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "flex-start"
+                    }}
+                  >
+                    <StarRating
+                      disabled={false}
+                      maxStars={5}
+                      rating={this.state.starCount}
+                      selectedStar={rating => this.onStarRatingPress(rating)}
+                      fullStarColor={"#FFCC00"}
                     />
                   </View>
-                  <View style={stylesa.contentContainer}>
-                    <Text>
-                      <Text style={[stylesa.text, stylesa.name]}>
-                        {item.FullName}:
-                      </Text>
-                      <Text style={stylesa.text}>{item.Comment}</Text>
-                    </Text>
-                    <View style={{ flexDirection: "row" }}>
-                      <StarRating
-                        disabled={false}
-                        maxStars={5}
-                        rating={item.Rating_Store}
-                        fullStarColor={"#FFCC00"}
-                        starSize={15}
+                  <KeyboardAvoidingView behavior="position">
+                    <View style={styles.container}>
+                      <TextInput
+                        placeholder="Add a comment and rating..."
+                        keyboardType="twitter"
+                        style={styles.input}
+                        value={this.state.text}
+                        onChangeText={this.onChangeText}
+                        onSubmitEditing={this.onSubmitEditing}
+                      />
+                      <TouchableOpacity
+                        style={styles.button}
+                        onPress={this.submit}
+                      >
+                        <Text
+                          style={[
+                            styles.text,
+                            !this.state.text ? styles.inactive : []
+                          ]}
+                        >
+                          Post
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
+                  </KeyboardAvoidingView>
+                </View>
+              ) : (
+                <Text style={{ fontWeight: "bold", marginLeft: 10 }}>
+                  You have rated this Shop
+                </Text>
+              )}
+            </Card>
+            <Card>
+              <FlatList
+                keyExtractor={(item, index) => index}
+                data={this.props.listRatingStore.list_comments}
+                renderItem={({ item }) => (
+                  <View style={stylesa.container}>
+                    <View style={stylesa.avatarContainer}>
+                      <Image
+                        resizeMode="contain"
+                        style={stylesa.avatar}
+                        source={{ uri: item.Image }}
                       />
                     </View>
-                    <TimeAgo time={item.Time_Log} />
+                    <View style={stylesa.contentContainer}>
+                      <Text>
+                        <Text style={[stylesa.text, stylesa.name]}>
+                          {item.FullName}:
+                        </Text>
+                        <Text style={stylesa.text}>{item.Comment}</Text>
+                      </Text>
+                      <View style={{ flexDirection: "row" }}>
+                        <StarRating
+                          disabled={false}
+                          maxStars={5}
+                          rating={item.Rating_Store}
+                          fullStarColor={"#FFCC00"}
+                          starSize={15}
+                        />
+                      </View>
+                      <TimeAgo time={item.Time_Log} />
+                    </View>
                   </View>
-                </View>
-              )}
-            // onEndReached={() =>
-            //   this.setState({ isLoadingMore: true }, () => this.fetchMore())
-            // }
-            // ListFooterComponent={() => {
-            //   return (
-            //     this.state.isLoadingMore && (
-            //       <View style={{ flex: 1, padding: 10 }}>
-            //         <ActivityIndicator size="small" />
-            //       </View>
-            //     )
-            //   );
-            // }}
-            />
-          </Card>
-        </ScrollView>
-      );
-    else
+                )}
+                // onEndReached={() =>
+                //   this.setState({ isLoadingMore: true }, () => this.fetchMore())
+                // }
+                // ListFooterComponent={() => {
+                //   return (
+                //     this.state.isLoadingMore && (
+                //       <View style={{ flex: 1, padding: 10 }}>
+                //         <ActivityIndicator size="small" />
+                //       </View>
+                //     )
+                //   );
+                // }}
+              />
+            </Card>
+          </ScrollView>
+        );
+    } else
       return (
-        <View style={{ flex: 1, backgroundColor: "silver", alignItems:'center', justifyContent:'center', flexDirection:'column' }}>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: "silver",
+            alignItems: "center",
+            justifyContent: "center",
+            flexDirection: "column"
+          }}
+        >
           <ActivityIndicator size="large" />
         </View>
       );

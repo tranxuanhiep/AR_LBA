@@ -16,24 +16,43 @@ const stateDefault = {
   informationStore: [],
   listRatingStore: [],
   promotionsofStore: [],
-  dataSearch:[],
-  isLoading:false
+  dataSearch: [],
+  isLoading: false,
+  isLoadingStore: false,
+  isLoadingRating: false,
+  isLoadingListPromotions:false
 };
 const reducerHomeMap = (state = stateDefault, action) => {
   switch (action.type) {
     case FETCH_INFORMATION_STORE_SUCCESS: {
-      return { ...state, informationStore: action.informationStore };
+      return {
+        ...state,
+        informationStore: action.informationStore,
+        isLoadingStore: false
+      };
+    }
+    case FETCH_INFORMATION_STORE: {
+      return { ...state, isLoadingStore: true };
     }
     case FETCH_INFORMATION_STORE_FAILED:
-      return { ...state, informationStore: [] };
+      return { ...state, informationStore: [], isLoadingStore: false };
     case FETCH_RATING_STORE_SUCCESS: {
-      return { ...state, listRatingStore: action.listRatingStore };
+      return {
+        ...state,
+        listRatingStore: action.listRatingStore,
+        isLoadingRating: false
+      };
+    }
+    case FETCH_RATING_STORE: {
+      return { ...state, isLoadingRating: true };
     }
     case FETCH_RATING_STORE_FAILED:
-      return { ...state, listRatingStore: [] };
+      return { ...state, listRatingStore: [], isLoadingRating: false };
     case FETCH_PROMOTIONS_STORE_SUCCESS: {
       return { ...state, promotionsofStore: action.promotionsofStore };
     }
+    case FETCH_PROMOTIONS_STORE:
+      return { ...state, isLoadingListPromotions: false };
     case FETCH_PROMOTIONS_STORE_FAILED:
       return { ...state, promotionsofStore: [] };
     case FETCH_SEARCH_SUCCESS: {

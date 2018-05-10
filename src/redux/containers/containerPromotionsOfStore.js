@@ -8,7 +8,8 @@ import {
 const mapStateToProps = state => {
   return {
     promotionsofStore: state.reducerHomeMap.promotionsofStore,
-    proFile: state.reducerMain.proFile
+    proFile: state.reducerMain.proFile,
+    isLoadingListPromotions: state.reducerHomeMap.isLoadingListPromotions
   };
 };
 const mapDispatchToProps = dispatch => {

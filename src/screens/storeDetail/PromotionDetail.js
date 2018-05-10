@@ -9,7 +9,8 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  Alert
+  Alert,
+  ActivityIndicator
 } from "react-native";
 import {
   Card,
@@ -126,7 +127,7 @@ export default class PromotionsOfStore extends Component {
                     <View style={stylesa.contentContainer}>
                       <Text>
                         <Text style={[stylesa.text, stylesa.name]}>
-                          {item.FullName+": "}
+                          {item.FullName + ": "}
                         </Text>
                         <Text style={stylesa.text}>{item.Comment}</Text>
                       </Text>
