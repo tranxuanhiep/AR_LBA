@@ -73,7 +73,6 @@ export const promotion = (item, props, type) => {
             source={listImage}
             onPressImage={() => {
               viewPromotion(item.Promotion_ID, props.proFile.id).then(Data => {
-                alert(Data.data.message.success);
               });
             }}
           />
@@ -138,6 +137,9 @@ export const promotion = (item, props, type) => {
                 props.onFetchDetailPromotion(
                   item.Promotion_ID,
                   props.proFile.id
+                );
+                viewPromotion(item.Promotion_ID, props.proFile.id).then(
+                  Data => {}
                 );
                 props.navigation.navigate("DetailPromotion");
               }
