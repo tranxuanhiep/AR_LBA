@@ -136,6 +136,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-toast-native')
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     compile(project(':react-native-google-signin')) {
         exclude group: "com.google.android.gms"
