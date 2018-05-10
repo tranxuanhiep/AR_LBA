@@ -10,7 +10,6 @@ const stateDefault = {
 const reducerFavorite = (state = stateDefault, action) => {
   switch (action.type) {
     case FETCH_FAVORITE_SUCCESS: {
-      console.log("favorite success");
       return {
         ...state,
         favoriteByUser: action.favoriteByUser,
@@ -18,7 +17,6 @@ const reducerFavorite = (state = stateDefault, action) => {
       };
     }
     case FETCH_FAVORITE: {
-      console.log("favorite")
       return { ...state, isLoadingFavorite: true };
     }
     case FETCH_FAVORITE_FAILED:

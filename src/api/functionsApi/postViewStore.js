@@ -2,7 +2,7 @@ import { API_VIEW_STORE } from "../allLinksApi";
 import axios from "axios";
 
 const viewStore = async (Store_ID, username) => {
-  return await axios.post(API_VIEW_PROMOTION, {
+  return await axios.post(API_VIEW_STORE, {
     Store_ID: Store_ID,
     Username: username
   });
