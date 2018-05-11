@@ -233,8 +233,7 @@ public class ARActivity extends AppCompatActivity implements SensorEventListener
     private void updateLatestLocation(Location location) {
         if (arOverlayView !=null) {
             arOverlayView.updateCurrentLocation(location);
-            tvCurrentLocation.setText(String.format("lat: %s \nlon: %s \naltitude: %s \n",
-                    location.getLatitude(), location.getLongitude(), location.getAltitude()));
+            tvCurrentLocation.setText("");
         }
     }
 
