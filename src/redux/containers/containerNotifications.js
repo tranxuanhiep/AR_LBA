@@ -1,13 +1,10 @@
 import Notifications from "../../screens/notifications/Notifications";
 import { connect } from "react-redux";
+import { fetchNotificationAction } from "../actions/allActions/allActionNotification";
+import { fetchDetailPromotionAction } from "../actions/allActions/allActionDetailPromotion";
 import {
-  fetchNotificationAction
-} from "../actions/allActions/allActionNotification";
-import {
-  fetchDetailPromotionAction
-} from "../actions/allActions/allActionDetailPromotion";
-import {
-  fetchInformationStoreAction,fetchInPromotionsStoreAction
+  fetchInformationStoreAction,
+  fetchInPromotionsStoreAction
 } from "../actions/allActions/allActionsHomeMap";
 
 const mapStateToProps = state => {
@@ -15,7 +12,8 @@ const mapStateToProps = state => {
     latitude: state.reducerLoadData.latitude,
     longitude: state.reducerLoadData.longitude,
     proFile: state.reducerMain.proFile,
-    notification:state.reducerNotification.Notification,
+    notification: state.reducerNotification.Notification,
+    isLoadingNotification: state.reducerNotification.isLoadingNotification
   };
 };
 const mapDispatchToProps = dispatch => {
@@ -31,7 +29,7 @@ const mapDispatchToProps = dispatch => {
     },
     onFetchPromotionsStore: (idStore, Username) => {
       dispatch(fetchInPromotionsStoreAction(idStore, Username));
-    },
+    }
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Notifications);
