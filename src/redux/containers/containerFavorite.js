@@ -6,6 +6,12 @@ import {
   fetchCommentPromotionAction,
   fetchDetailPromotionAction
 } from "../actions/allActions/allActionDetailPromotion";
+import {
+  fetchInformationStoreAction,
+  fetchInRatingStoreAction,
+  fetchInPromotionsStoreAction,
+  fetchSearchAction
+} from "../actions/allActions/allActionsHomeMap";
 const mapStateToProps = state => {
   return {
     proFile: state.reducerMain.proFile,
@@ -26,6 +32,15 @@ const mapDispatchToProps = dispatch => {
     },
     onFetchCommentPromotion: (promotionID, Pagenumber) => {
       dispatch(fetchCommentPromotionAction(promotionID, Pagenumber));
+    },
+    onFetchInformationStore: (idStore, latitude, longitude) => {
+      dispatch(fetchInformationStoreAction(idStore, latitude, longitude));
+    },
+    onFetchRatingStore: (idStore, Username, PageNumber) => {
+      dispatch(fetchInRatingStoreAction(idStore, Username, PageNumber));
+    },
+    onFetchPromotionsStore: (idStore, Username) => {
+      dispatch(fetchInPromotionsStoreAction(idStore, Username));
     }
   };
 };

@@ -18,12 +18,12 @@ const reducerLoadData = (state = stateDefault, action) => {
       return { ...state, arrayMarker: action.arrayMarker };
     }
     case FETCH_STORES_FAILED:
-      return { ...state, arrayMarker: [] };
+      return { ...state };
     case FETCH_ALL_STORES_SUCCESS: {
       return { ...state, arrayAllMarker: action.arrayAllMarker };
     }
     case FETCH_ALL_STORES_FAILED:
-      return { ...state, arrayAllMarker: [] };
+      return { ...state};
     case GET_LOCATION_USER:
       return {
         ...state,

@@ -17,7 +17,7 @@ const reducerFavorite = (state = stateDefault, action) => {
       };
     }
     case FETCH_FAVORITE: {
-      return { ...state, isLoadingFavorite: true };
+      return { ...state, isLoadingFavorite: false };
     }
     case FETCH_FAVORITE_FAILED:
       return { ...state, favoriteByUser: [], isLoadingFavorite: false };

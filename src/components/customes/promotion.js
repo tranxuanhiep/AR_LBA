@@ -72,8 +72,9 @@ export const promotion = (item, props, type) => {
             width={width * 0.9}
             source={listImage}
             onPressImage={() => {
-              viewPromotion(item.Promotion_ID, props.proFile.id).then(Data => {
-              });
+              viewPromotion(item.Promotion_ID, props.proFile.id).then(
+                Data => {}
+              );
             }}
           />
           <Text style={{ fontSize: 15, fontWeight: "bold" }}>
@@ -141,6 +142,18 @@ export const promotion = (item, props, type) => {
                 viewPromotion(item.Promotion_ID, props.proFile.id).then(
                   Data => {}
                 );
+                props.navigation.navigate("DetailPromotion");
+              } else if (type == 1) {
+                props.onFetchDetailPromotion(
+                  item.Promotion_ID,
+                  props.proFile.id
+                );
+                viewPromotion(item.Promotion_ID, props.proFile.id).then(
+                  Data => {}
+                );
+                props.onFetchInformationStore(item.Store_Details_ID, props.proFile.id);
+                props.onFetchRatingStore(item.Store_Details_ID, props.proFile.id, 1);
+                props.onFetchPromotionsStore(item.Store_Details_ID, props.proFile.id);
                 props.navigation.navigate("DetailPromotion");
               }
             }}
