@@ -25,6 +25,7 @@ import {
 } from "native-base";
 import { promotion } from "../../components/customes/promotion";
 import TimeAgo from "react-native-timeago";
+import load from "../../images/load.gif";
 const { width, height } = Dimensions.get('window');
 export default class PromotionsOfStore extends Component {
   constructor(props) {
@@ -79,14 +80,18 @@ export default class PromotionsOfStore extends Component {
     const propsPromotion = this.props;
     if (this.props.isLoading)
       return (
-        <View style={{ 
+        <View style={{
           flex: 1,
           backgroundColor: "white",
           alignItems: "center",
           justifyContent: "center",
           flexDirection: "column"
         }}>
-          <ActivityIndicator size="large" />
+          {/* <ActivityIndicator size="large" /> */}
+          <Image
+            style={{ width: 60, height: 60 }}
+            source={load}
+          />
         </View>
       );
     else {

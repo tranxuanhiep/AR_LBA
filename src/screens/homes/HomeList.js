@@ -14,6 +14,7 @@ import {
 } from "react-native";
 import viewPromotion from "../../api/functionsApi/postViewPromotion";
 const { width, height } = Dimensions.get("window");
+import load from "../../images/load.gif";
 import GridView from "react-native-super-grid";
 import styles from "../../stylesheets/StyleHomeList";
 import distance from "../../images/estimatedistance.png";
@@ -41,8 +42,18 @@ export default class HomeList extends React.Component {
   showLoadingAtTopPromotions() {
     if (this.props.arrayTopPromotions.length == 0) {
       return (
-        <View style={{ flex: 1, marginTop: 10, backgroundColor: "silver" }}>
-          <ActivityIndicator size="large" color={"#ffffff"} />
+        <View style={{
+          height:230,
+          backgroundColor: "white",
+          alignItems: "center",
+          justifyContent: "center",
+          flexDirection: "column"
+        }}>
+          {/* <ActivityIndicator size="large" color={"#ffffff"} /> */}
+          <Image
+            style={{ width: 60, height: 60 }}
+            source={load}
+          />
         </View>
       );
     }
@@ -50,8 +61,18 @@ export default class HomeList extends React.Component {
   showLoadingAtOdinaryPromotions() {
     if (this.props.arrayPromotions.length == 0) {
       return (
-        <View style={{ flex: 1, marginTop: 100, backgroundColor: "silver" }}>
-          <ActivityIndicator size="large" color={"#ffffff"} />
+        <View style={{
+          height:300,
+          backgroundColor: "white",
+          alignItems: "center",
+          justifyContent: "center",
+          flexDirection: "column"
+        }}>
+          {/* <ActivityIndicator size="large" color={"#ffffff"} /> */}
+          <Image
+            style={{ width: 60, height: 60 }}
+            source={load}
+          />
         </View>
       );
     }
@@ -107,7 +128,7 @@ export default class HomeList extends React.Component {
                       viewPromotion(
                         item.Promotion_ID,
                         this.props.proFile.id
-                      ).then(Data => {});
+                      ).then(Data => { });
                     }}
                   >
                     <View>
@@ -121,23 +142,23 @@ export default class HomeList extends React.Component {
                             source={
                               item.StoreCatalog_ID === 1
                                 ? {
-                                    uri:
-                                      "https://png.icons8.com/ios/40/000000/cafe-filled.png"
-                                  }
+                                  uri:
+                                    "https://png.icons8.com/ios/40/000000/cafe-filled.png"
+                                }
                                 : item.StoreCatalog_ID === 2
                                   ? {
-                                      uri:
-                                        "https://png.icons8.com/ios/40/000000/shirt-filled.png"
-                                    }
+                                    uri:
+                                      "https://png.icons8.com/ios/40/000000/shirt-filled.png"
+                                  }
                                   : item.StoreCatalog_ID === 3
                                     ? {
-                                        uri:
-                                          "https://png.icons8.com/ios/40/000000/carousel-filled.png"
-                                      }
+                                      uri:
+                                        "https://png.icons8.com/ios/40/000000/carousel-filled.png"
+                                    }
                                     : {
-                                        uri:
-                                          "https://png.icons8.com/ios/40/000000/inscription-filled.png"
-                                      }
+                                      uri:
+                                        "https://png.icons8.com/ios/40/000000/inscription-filled.png"
+                                    }
                             }
                             style={{
                               width: 30,
@@ -239,7 +260,7 @@ export default class HomeList extends React.Component {
                     viewPromotion(
                       item.Promotion_ID,
                       this.props.proFile.id
-                    ).then(Data => {});
+                    ).then(Data => { });
                   }}
                 >
                   <View>
@@ -270,24 +291,24 @@ export default class HomeList extends React.Component {
                           source={
                             item.StoreCatalog_Name === "Food & Drink"
                               ? {
-                                  uri:
-                                    "https://png.icons8.com/ios/40/000000/cafe-filled.png"
-                                }
+                                uri:
+                                  "https://png.icons8.com/ios/40/000000/cafe-filled.png"
+                              }
                               : item.StoreCatalog_Name === "Fashion"
                                 ? {
-                                    uri:
-                                      "https://png.icons8.com/ios/40/000000/shirt-filled.png"
-                                  }
+                                  uri:
+                                    "https://png.icons8.com/ios/40/000000/shirt-filled.png"
+                                }
                                 : item.StoreCatalog_Name ===
                                   "Entertainment place"
                                   ? {
-                                      uri:
-                                        "https://png.icons8.com/ios/40/000000/carousel-filled.png"
-                                    }
+                                    uri:
+                                      "https://png.icons8.com/ios/40/000000/carousel-filled.png"
+                                  }
                                   : {
-                                      uri:
-                                        "https://png.icons8.com/ios/40/000000/inscription-filled.png"
-                                    }
+                                    uri:
+                                      "https://png.icons8.com/ios/40/000000/inscription-filled.png"
+                                  }
                           }
                           style={styles.imageType}
                         />

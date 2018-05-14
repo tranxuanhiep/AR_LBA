@@ -13,6 +13,7 @@ import {
   ActivityIndicator,
   Dimensions
 } from "react-native";
+import load from "../../images/load.gif";
 const { width, height } = Dimensions.get("window");
 import moment from "moment";
 import TimeAgo from "react-native-timeago";
@@ -238,7 +239,7 @@ export default class DetailStore extends Component {
             </View>
           </Card>
           <Card>
-            <View style={{ height: 120, marginLeft:100 }}>
+            <View style={{ height: 120, marginLeft: 100 }}>
               <MapView
                 style={{ ...StyleSheet.absoluteFillObject }}
                 region={{
@@ -265,7 +266,7 @@ export default class DetailStore extends Component {
               </MapView>
             </View>
             <Image
-              style={{ flexDirection: "column", position: "absolute" ,height: 120, justifyContent: 'flex-start', }}
+              style={{ flexDirection: "column", position: "absolute", height: 120, justifyContent: 'flex-start', }}
               source={require("../../images/opacityImage.png")}
               resizeMode='stretch'
             >
@@ -477,7 +478,11 @@ export default class DetailStore extends Component {
             flexDirection: "column"
           }}
         >
-          <ActivityIndicator size="large" />
+          {/* <ActivityIndicator size="large" /> */}
+          <Image
+            style={{ width: 60, height: 60 }}
+            source={load}
+          />
         </View>
       );
   }

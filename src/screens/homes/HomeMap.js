@@ -22,6 +22,7 @@ const { height, width } = Dimensions.get("screen");
 import { Item, Card } from "native-base";
 import SearchBar from "react-native-searchbar";
 import ViewStore from "../../api/functionsApi/postViewStore";
+import load from "../../images/load.gif";
 const style = {
   width: 300,
   height: 120,
@@ -94,7 +95,7 @@ export default class HomeMap extends React.Component {
         });
         this.setState({ coords: coords });
       })
-      .catch(error => {});
+      .catch(error => { });
   }
 
   fitBottomTwoMarkers(startLoc, destinationLoc) {
@@ -203,8 +204,8 @@ export default class HomeMap extends React.Component {
               }
             })
           ) : (
-            <View />
-          )}
+              <View />
+            )}
           <MapView.Polyline
             coordinates={this.state.coords}
             strokeWidth={4}
@@ -236,60 +237,75 @@ export default class HomeMap extends React.Component {
             />
             <View style={{ marginTop: 60 }}>
               {this.props.isLoading ? (
-                <ActivityIndicator size="large" />
+                //<ActivityIndicator size="large" />
+                <View
+                  style={{
+                    height, 
+                    width,
+                    backgroundColor: 'white',
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexDirection: "column"
+                  }}
+                >
+                  <Image
+                    style={{ width: 60, height: 60 }}
+                    source={load}
+                  />
+                </View>
               ) : (
-                this.props.dataSearch.map(item => {
-                  return (
-                    <TouchableOpacity
-                      onPress={() => {
-                        let Username = "";
-                        if (this.props.proFile != []) {
-                          Username = this.props.proFile.id;
-                        }
-                        this.props.onFetchInformationStore(
-                          item.Store_ID,
-                          this.props.latitude,
-                          this.props.longitude
-                        );
-                        this.props.onFetchRatingStore(
-                          item.Store_ID,
-                          Username,
-                          1
-                        );
-                        this.props.onFetchPromotionsStore(
-                          item.Store_ID,
-                          Username
-                        );
-                        this.setModalVisible(false);
-                        ViewStore(item.Store_ID, Username);
-                        this.props.navigation.navigate("StoreTab");
-                      }}
-                    >
-                      <View
-                        style={{
-                          flexDirection: "row",
-                          marginLeft: 10,
-                          marginBottom: 10
+                  this.props.dataSearch.map(item => {
+                    return (
+                      <TouchableOpacity
+                        onPress={() => {
+                          let Username = "";
+                          if (this.props.proFile != []) {
+                            Username = this.props.proFile.id;
+                          }
+                          this.props.onFetchInformationStore(
+                            item.Store_ID,
+                            this.props.latitude,
+                            this.props.longitude
+                          );
+                          this.props.onFetchRatingStore(
+                            item.Store_ID,
+                            Username,
+                            1
+                          );
+                          this.props.onFetchPromotionsStore(
+                            item.Store_ID,
+                            Username
+                          );
+                          this.setModalVisible(false);
+                          ViewStore(item.Store_ID, Username);
+                          this.props.navigation.navigate("StoreTab");
                         }}
                       >
-                        <Image
-                          style={{ height: 50, width: 50 }}
-                          source={{ uri: item.Store_ImageLink }}
-                        />
-                        <View style={{ marginLeft: 10 }}>
-                          <Text style={{ fontWeight: "bold" }}>
-                            {" "}
-                            {item.Store_Name}{" "}
-                          </Text>
-                          <Text style={{ fontStyle: "italic" }}>
-                            {item.Store_Street}
-                          </Text>
+                        <View
+                          style={{
+                            flexDirection: "row",
+                            marginLeft: 10,
+                            marginBottom: 10
+                          }}
+                        >
+                          <Image
+                            style={{ height: 50, width: 50 }}
+                            source={{ uri: item.Store_ImageLink }}
+                          />
+                          <View style={{ marginLeft: 10 }}>
+                            <Text style={{ fontWeight: "bold" }}>
+                              {" "}
+                              {item.Store_Name}{" "}
+                            </Text>
+                            <Text style={{ fontStyle: "italic" }}>
+                              {item.Store_Street}
+                            </Text>
+                          </View>
                         </View>
-                      </View>
-                    </TouchableOpacity>
-                  );
-                })
-              )}
+                      </TouchableOpacity>
+                    );
+                  })
+                )}
             </View>
           </Modal>
         </View>

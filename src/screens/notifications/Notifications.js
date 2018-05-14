@@ -7,6 +7,7 @@ import {
   Image,
   FlatList
 } from "react-native";
+import load from "../../images/load.gif"
 export default class Notifications extends Component {
   componentDidMount() {
     this.props.onFetchNotification(
@@ -74,8 +75,17 @@ export default class Notifications extends Component {
       );
     else
       return (
-        <View style={{ flex: 1, backgroundColor: "#F5FCFF" }}>
-          <ActivityIndicator size="large" />
+        <View style={{
+          flex: 1,
+          backgroundColor: "white",
+          alignItems: "center",
+          justifyContent: "center",
+          flexDirection: "column"
+        }}>
+          <Image
+            style={{ width: 60, height: 60 }}
+            source={load}
+          />
         </View>
       );
   }
