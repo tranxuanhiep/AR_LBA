@@ -32,7 +32,7 @@ export default class HomeList extends React.Component {
   getImagePromotion = item => {
     let imageList = item.split(",");
     let link = imageList[0];
-    return <Image source={{ uri: link }} style={styles.imagePromotion} />;
+    return <Image source={{ uri: link.length==0?"https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103595_960_720.png":link }} style={styles.imagePromotion} />;
   };
   getImageTopPromotions = item => {
     let imageList = item.split(",");
