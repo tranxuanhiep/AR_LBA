@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Alert,
-  ActivityIndicator
+  ActivityIndicator,
 } from "react-native";
 import {
   Card,
@@ -25,6 +25,7 @@ import {
 } from "native-base";
 import { promotion } from "../../components/customes/promotion";
 import TimeAgo from "react-native-timeago";
+const { width, height } = Dimensions.get('window');
 export default class PromotionsOfStore extends Component {
   constructor(props) {
     super(props);
@@ -78,7 +79,13 @@ export default class PromotionsOfStore extends Component {
     const propsPromotion = this.props;
     if (this.props.isLoading)
       return (
-        <View style={{ flex: 1, backgroundColor: "#F5FCFF" }}>
+        <View style={{ 
+          flex: 1,
+          backgroundColor: "white",
+          alignItems: "center",
+          justifyContent: "center",
+          flexDirection: "column"
+        }}>
           <ActivityIndicator size="large" />
         </View>
       );

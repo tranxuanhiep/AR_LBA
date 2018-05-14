@@ -38,7 +38,7 @@ export default class TabBar extends React.Component {
                         onPress={() => this.props.navigation.navigate("DetailStore")}
                     >
                         <Image
-                            style={{ height: 30, width: 30 }}
+                            style={{ height: 25, width: 25 }}
                             source={
                                 this.props.navigationState.index === 0
                                     ? require("../../images/TabBar/shopFull.png")
@@ -64,7 +64,7 @@ export default class TabBar extends React.Component {
                         onPress={() => this.props.navigation.navigate("PromotionsOfStore")}
                     >
                         <Image
-                            style={{ height: 30, width: 30 }}
+                            style={{ height: 28, width: 28 }}
                             source={
                                 this.props.navigationState.index === 1
                                     ? require("../../images/TabBar/saleFull.png")
