@@ -121,7 +121,7 @@ export default class DetailStore extends Component {
   render() {
     if (!this.props.isLoadingStore) {
       return (
-        <ScrollView style={{ backgroundColor: "#F5FCFF" }}>
+        <ScrollView style={{ backgroundColor: "Gray" }}>
           <Card>
             <PhotoGrid
               height={300}
