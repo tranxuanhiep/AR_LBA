@@ -48,20 +48,42 @@ public class AROverlayView extends View {
     private int canvasHeight = 0;
 
 
-    public AROverlayView(Context context,String promotion) {
+    public AROverlayView(Context context,String promotion, String type) {
         super(context);
         this.context = context;
         try {
             JSONArray arrayPromotion = new JSONArray(promotion);
-            for(int i=0;i<arrayPromotion.length();i++){
-                JSONObject json_data = arrayPromotion.getJSONObject(i);
-                String address = json_data.getString("Store_Street")+","+json_data.getString("Store_Ward")+","+json_data.getString("Store_District");
-                arPoints.add(new ARPoint(json_data.getString("Store_ID"),json_data.getString("Store_Name")
-                        ,address,json_data.getString("Distance"),json_data.getDouble("Average_Rating"),json_data.getDouble("Store_Latitude")
-                        ,json_data.getDouble("Store_Longitude"),json_data.getInt("NumberOfRating"),1));
+            if(type=="All"){
+                for(int i=0;i<arrayPromotion.length();i++){
+                    JSONObject json_data = arrayPromotion.getJSONObject(i);
+                    String address = json_data.getString("Store_Street")+","+json_data.getString("Store_Ward")+","+json_data.getString("Store_District");
+                    arPoints.add(new ARPoint(json_data.getString("Store_ID"),json_data.getString("Store_Name")
+                            ,address,json_data.getString("Distance"),json_data.getDouble("Average_Rating"),json_data.getDouble("Store_Latitude")
+                            ,json_data.getDouble("Store_Longitude"),json_data.getInt("NumberOfRating"),0,json_data.getInt("StoreCatalog_ID")));
+                }
+            }
+            else if(type=="1") {
+                filterPromotion(1,arrayPromotion);
+            }
+            else if(type=="2") {
+                filterPromotion(2,arrayPromotion);
+            }
+            else if(type=="3") {
+                filterPromotion(3,arrayPromotion);
             }
         } catch (JSONException e) {
             e.printStackTrace();
+        }
+    }
+    public  void filterPromotion(int type, JSONArray arrayPromotion) throws JSONException {
+        for(int i=0;i<arrayPromotion.length();i++){
+            JSONObject json_data = arrayPromotion.getJSONObject(i);
+            if(json_data.getInt("StoreCatalog_ID")==type){
+                String address = json_data.getString("Store_Street")+","+json_data.getString("Store_Ward")+","+json_data.getString("Store_District");
+                arPoints.add(new ARPoint(json_data.getString("Store_ID"),json_data.getString("Store_Name")
+                        ,address,json_data.getString("Distance"),json_data.getDouble("Average_Rating"),json_data.getDouble("Store_Latitude")
+                        ,json_data.getDouble("Store_Longitude"),json_data.getInt("NumberOfRating"),0,json_data.getInt("StoreCatalog_ID")));
+            }
         }
     }
     public double getAltitude(double lat, double lon){
@@ -97,6 +119,7 @@ public class AROverlayView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+
         super.onDraw(canvas);
 
         if (currentLocation == null) {
@@ -133,6 +156,7 @@ public class AROverlayView extends View {
 
 
         for (int i = 0; i < arPoints.size(); i ++) {
+//            if(arPoints.get(i).getType())
             float[] currentLocationInECEF = LocationHelper.WSG84toECEF(currentLocation);
             float[] pointInECEF = LocationHelper.WSG84toECEF(arPoints.get(i).getLocation());
             float[] pointInENU = LocationHelper.ECEFtoENU(currentLocation, currentLocationInECEF, pointInECEF);
@@ -151,9 +175,6 @@ public class AROverlayView extends View {
             if (cameraCoordinateVector[2] < 0) {
                 float x  = (0.5f + cameraCoordinateVector[0]/cameraCoordinateVector[3]) * canvas.getWidth();
                 float y = (0.5f - cameraCoordinateVector[1]/cameraCoordinateVector[3]) * canvas.getHeight();
-//                Log.d("X: ", String.valueOf(x));
-//                Log.d("Y: ", String.valueOf(y));
-                Log.d("altitude: ",arPoints.get(i).getAltitude().toString());
                 float Hight = bitmap.getHeight();
                 float left;
                 float right;

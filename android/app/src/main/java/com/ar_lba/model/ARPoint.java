@@ -13,7 +13,9 @@ public class ARPoint {
     String distance;
     double altitude;
     int numberView;
-    public ARPoint(String ID,String name,String address,String distance,double rate, double lat, double lon,int numberView, double altitude) {
+    int type;
+
+    public ARPoint(String ID, String name, String address, String distance, double rate, double lat, double lon, int numberView, double altitude, int type) {
         this.ID = ID;
         this.name = name;
         this.rate = rate;
@@ -25,7 +27,7 @@ public class ARPoint {
         location.setLatitude(lat);
         location.setLongitude(lon);
         location.setAltitude(altitude);
-
+        this.type=type;
     }
 
     public Double getAltitude(){
@@ -49,5 +51,12 @@ public class ARPoint {
     public String getDistance(){return distance;}
 
     public int getNumberView(){return numberView;}
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
 }
 

@@ -5,6 +5,8 @@ package com.ar_lba;
  */
 
 import android.Manifest;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.hardware.Sensor;
@@ -22,12 +24,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.SurfaceView;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ARActivity extends AppCompatActivity implements SensorEventListener, LocationListener {
+public class ARActivity extends AppCompatActivity implements SensorEventListener, LocationListener,View.OnClickListener {
 
     final static String TAG = "ARActivity";
     private SurfaceView surfaceView;
@@ -36,6 +40,7 @@ public class ARActivity extends AppCompatActivity implements SensorEventListener
     private Camera camera;
     private ARCamera arCamera;
     private TextView tvCurrentLocation;
+    private Button btnFoo,btnAll,btnEnt,btnFas;
 
     private SensorManager sensorManager;
     private final static int REQUEST_CAMERA_PERMISSIONS_CODE = 11;
@@ -49,17 +54,34 @@ public class ARActivity extends AppCompatActivity implements SensorEventListener
     boolean isGPSEnabled;
     boolean isNetworkEnabled;
     boolean locationServiceAvailable;
+    String promotion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ar);
-        String promotion = getIntent().getStringExtra("PROMOTION");
+        promotion = getIntent().getStringExtra("PROMOTION");
         sensorManager = (SensorManager) this.getSystemService(SENSOR_SERVICE);
         cameraContainerLayout = (FrameLayout) findViewById(R.id.camera_container_layout);
         surfaceView = (SurfaceView) findViewById(R.id.surface_view);
+        btnFoo =findViewById(R.id.btnFoo);
+        btnAll =findViewById(R.id.btnAll);
+        btnEnt =findViewById(R.id.btnEnt);
+        btnFas =findViewById(R.id.btnFas);
         tvCurrentLocation = (TextView) findViewById(R.id.tv_current_location);
-        arOverlayView = new AROverlayView(this,promotion);
+        SharedPreferences prefs = getSharedPreferences("TYPEOFCAMERA", MODE_PRIVATE);
+        String restoredText = prefs.getString("type", null);
+        if (restoredText != null) {
+            String type = prefs.getString("type", "All");
+            arOverlayView = new AROverlayView(this,promotion,type);
+        }
+        else {
+            arOverlayView = new AROverlayView(this,promotion,"All");
+        }
+        btnFoo.setOnClickListener(this);
+        btnAll.setOnClickListener(this);
+        btnEnt.setOnClickListener(this);
+        btnFas.setOnClickListener(this);
     }
 
     @Override
@@ -226,14 +248,13 @@ public class ARActivity extends AppCompatActivity implements SensorEventListener
             }
         } catch (Exception ex)  {
             Log.e(TAG, ex.getMessage());
-
         }
     }
 
     private void updateLatestLocation(Location location) {
         if (arOverlayView !=null) {
             arOverlayView.updateCurrentLocation(location);
-            tvCurrentLocation.setText("");
+            tvCurrentLocation.setVisibility(View.GONE);;
         }
     }
 
@@ -255,5 +276,43 @@ public class ARActivity extends AppCompatActivity implements SensorEventListener
     @Override
     public void onProviderDisabled(String s) {
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btnFoo:
+                SharedPreferences.Editor editor = getSharedPreferences("TYPEOFCAMERA", MODE_PRIVATE).edit();
+                editor.putString("type", "1");
+                editor.apply();
+                Log.d("promotion","Running...");
+                finish();
+                startActivity(getIntent());
+                break;
+            case R.id.btnAll:
+                SharedPreferences.Editor editor1 = getSharedPreferences("TYPEOFCAMERA", MODE_PRIVATE).edit();
+                editor1.putString("type", "All");
+                editor1.apply();
+                Log.d("promotion","Running...");
+                finish();
+                startActivity(getIntent());
+                break;
+            case R.id.btnEnt:
+                SharedPreferences.Editor editor2 = getSharedPreferences("TYPEOFCAMERA", MODE_PRIVATE).edit();
+                editor2.putString("type", "3");
+                editor2.apply();
+                Log.d("promotion","Running...");
+                finish();
+                startActivity(getIntent());
+                break;
+            case R.id.btnFas:
+                SharedPreferences.Editor editor3 = getSharedPreferences("TYPEOFCAMERA", MODE_PRIVATE).edit();
+                editor3.putString("type", "2");
+                editor3.apply();
+                Log.d("promotion","Running...");
+                finish();
+                startActivity(getIntent());
+                break;
+        }
     }
 }
