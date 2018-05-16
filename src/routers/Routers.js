@@ -41,10 +41,6 @@ export const StoreTab = TabNavigator(
     DetailStore: { screen: DetailStoreStack },
     PromotionsOfStore: { screen: PromotionsOfStoreStack }
   },
-  // {
-  //   tabBarPosition: "top",
-  //   swipeEnabled: false
-  // }
   {
     tabBarPosition: "top",
     swipeEnabled: false,
@@ -105,12 +101,24 @@ export const FavoriteStack = StackNavigator({
     navigationOptions: {
       header: null
     }
+  },
+  StoreTab: {
+    screen: StoreTab,
+    navigationOptions: {
+      header: null
+    }
   }
 });
 
 export const NotificationStack = StackNavigator({
   Notifications: {
     screen: Notifications,
+    navigationOptions: {
+      header: null
+    }
+  },
+  StoreTab: {
+    screen: StoreTab,
     navigationOptions: {
       header: null
     }
