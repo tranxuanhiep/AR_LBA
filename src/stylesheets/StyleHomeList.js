@@ -86,8 +86,8 @@ export default StyleSheet.create({
         borderColor:'white'
     },
     imageTypeTop:{
-        height:30,
-        width:30,
+        height:20,
+        width:20,
     },
     imagePromotion:{
         width:(width/2)-15,

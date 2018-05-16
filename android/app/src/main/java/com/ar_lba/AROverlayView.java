@@ -105,8 +105,7 @@ public class AROverlayView extends View {
 
         canvasWidth = canvas.getWidth();
         canvasHeight = canvas.getHeight();
-
-        final int radius = 30;
+        
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(Color.BLACK);
@@ -169,6 +168,7 @@ public class AROverlayView extends View {
 
                 float bottom = y - Hight/2 +10;
                 Rect rect = new Rect((int)left,(int)top,(int)right, (int)bottom);
+                String[] addressParts = arPoints.get(i).getAddress().split(",");
                 //draw border
                 canvas.drawRect(rect, paintBG);
                 //draw Image store
@@ -177,9 +177,9 @@ public class AROverlayView extends View {
                 //draw name store
                 canvas.drawText(arPoints.get(i).getName(), left + bitmap.getWidth() ,bottom +Hight/2-20, paint);
                 //draw distance
-                canvas.drawText(arPoints.get(i).getDistance(),left + bitmap.getWidth() + 30*arPoints.get(i).getName().length() ,bottom +Hight/2-20,paintTextAddress);
+                canvas.drawText(arPoints.get(i).getDistance(),left + bitmap.getWidth() + 27*arPoints.get(i).getName().length() ,bottom +Hight/2-20,paintTextAddress);
                 //draw address
-                canvas.drawText(arPoints.get(i).getAddress(),left + bitmap.getWidth() ,bottom +Hight/2+15, paintTextAddress);
+                canvas.drawText(addressParts[0]+", "+addressParts[1]+", "+addressParts[2],left + bitmap.getWidth() ,bottom +Hight/2+15, paintTextAddress);
                 //DRAW RATE
                 double rate  = arPoints.get(i).getRate();
                 int leftrate = 0;
@@ -195,11 +195,21 @@ public class AROverlayView extends View {
                     rate--;
                 }
                 //Draw number viewer
-                canvas.drawText("("+String.valueOf(arPoints.get(i).getNumberView()+" views)"),left + bitmap.getWidth()+leftrate,top-15, paintTextAddress);
+                canvas.drawText("( "+reviewOrReviews(arPoints.get(i).getNumberView())+" )",left+20 + bitmap.getWidth()+leftrate,top-15, paintTextAddress);
             }
         }
     }
-
+    private String reviewOrReviews(int i){
+        if(i==0){
+            return "No review";
+        }
+        else if(i==1) {
+            return i+" review";
+        }
+        else {
+            return i+" reviews";
+        }
+    }
     private String checkTouchOn(MotionEvent event){
         if(canvasHeight == 0 || canvasWidth == 0) return "";
         int ey = (int) event.getY();
