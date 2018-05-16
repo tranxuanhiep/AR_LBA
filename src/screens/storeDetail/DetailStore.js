@@ -94,7 +94,7 @@ export default class DetailStore extends Component {
         starCount: 0
       });
     } else {
-      alert("Please enter your comment first");
+      // alert("Please enter your comment first");
     }
   };
   onStarRatingPress(rating) {

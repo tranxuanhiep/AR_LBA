@@ -71,7 +71,7 @@ export default class PromotionsOfStore extends Component {
         text: undefined
       });
     } else {
-      alert("Please enter your comment first");
+      // alert("Please enter your comment first");
     }
   };
 

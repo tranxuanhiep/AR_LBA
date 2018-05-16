@@ -55,9 +55,9 @@ export class LoginAnimation extends Component {
             readPermissions={["email", "user_birthday", "public_profile"]}
             onLoginFinished={(error, result) => {
               if (error) {
-                alert("login has error: " + result.error);
+                // alert("login has error: " + result.error);
               } else if (result.isCancelled) {
-                alert("login is cancelled.");
+                // alert("login is cancelled.");
               } else {
                 this.props.onSigninFBorGG();
                 this.props.navigation.navigate("HomeMap");
