@@ -31,7 +31,9 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ARActivity extends AppCompatActivity implements SensorEventListener, LocationListener,View.OnClickListener {
+import com.jaredrummler.materialspinner.MaterialSpinner;
+
+public class ARActivity extends AppCompatActivity implements SensorEventListener, LocationListener {
 
     final static String TAG = "ARActivity";
     private SurfaceView surfaceView;
@@ -39,7 +41,7 @@ public class ARActivity extends AppCompatActivity implements SensorEventListener
     private AROverlayView arOverlayView;
     private Camera camera;
     private ARCamera arCamera;
-    private TextView tvCurrentLocation;
+    //private TextView tvCurrentLocation;
     private Button btnFoo,btnAll,btnEnt,btnFas;
 
     private SensorManager sensorManager;
@@ -62,27 +64,88 @@ public class ARActivity extends AppCompatActivity implements SensorEventListener
         setContentView(R.layout.activity_ar);
         promotion = getIntent().getStringExtra("PROMOTION");
         sensorManager = (SensorManager) this.getSystemService(SENSOR_SERVICE);
-        cameraContainerLayout = (FrameLayout) findViewById(R.id.camera_container_layout);
-        surfaceView = (SurfaceView) findViewById(R.id.surface_view);
-        btnFoo =findViewById(R.id.btnFoo);
-        btnAll =findViewById(R.id.btnAll);
-        btnEnt =findViewById(R.id.btnEnt);
-        btnFas =findViewById(R.id.btnFas);
-        tvCurrentLocation = (TextView) findViewById(R.id.tv_current_location);
+        cameraContainerLayout = findViewById(R.id.camera_container_layout);
+        surfaceView = findViewById(R.id.surface_view);
+
+        MaterialSpinner spinner =  findViewById(R.id.spinner);
+        spinner.setItems("All", "Food & Drink", "Fashion", "Entertainment", "Other");
+        spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+            @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+                switch (position){
+                    case 0:
+                        SharedPreferences.Editor editor = getSharedPreferences("TYPEOFCAMERA", MODE_PRIVATE).edit();
+                        editor.putString("type", "All");
+                        editor.putInt("position",position);
+                        editor.apply();
+                        finish();
+                        startActivity(getIntent());
+                        break;
+                    case 1:
+                        SharedPreferences.Editor editor1 = getSharedPreferences("TYPEOFCAMERA", MODE_PRIVATE).edit();
+                        editor1.putString("type", "1");
+                        editor1.putInt("position",position);
+                        editor1.apply();
+                        finish();
+                        startActivity(getIntent());
+                        break;
+                    case 2:
+                        SharedPreferences.Editor editor2 = getSharedPreferences("TYPEOFCAMERA", MODE_PRIVATE).edit();
+                        editor2.putString("type", "2");
+                        editor2.putInt("position",position);
+                        editor2.apply();
+                        finish();
+                        startActivity(getIntent());
+                        break;
+                    case 3:
+                        SharedPreferences.Editor editor3 = getSharedPreferences("TYPEOFCAMERA", MODE_PRIVATE).edit();
+                        editor3.putString("type", "3");
+                        editor3.putInt("position",position);
+                        editor3.apply();
+                        finish();
+                        startActivity(getIntent());
+                        break;
+                    case 4:
+                        SharedPreferences.Editor editor4 = getSharedPreferences("TYPEOFCAMERA", MODE_PRIVATE).edit();
+                        editor4.putString("type", "4");
+                        editor4.putInt("position",position);
+                        editor4.apply();
+                        finish();
+                        startActivity(getIntent());
+                        break;
+                }
+            }
+        });
+
         SharedPreferences prefs = getSharedPreferences("TYPEOFCAMERA", MODE_PRIVATE);
-        String restoredText = prefs.getString("type", null);
-        if (restoredText != null) {
-            String type = prefs.getString("type", "All");
-            arOverlayView = new AROverlayView(this,promotion,type);
+        String typeStore = prefs.getString("type", "null");
+        int position = prefs.getInt("position",0);
+            switch (typeStore){
+                case "All":
+                    arOverlayView = new AROverlayView(this,promotion,"All");
+                    spinner.setSelectedIndex(position);
+                    break;
+                case "1":
+                    arOverlayView = new AROverlayView(this,promotion,"1");
+                    spinner.setSelectedIndex(position);
+                    break;
+                case "2":
+                    arOverlayView = new AROverlayView(this,promotion,"2");
+                    spinner.setSelectedIndex(position);
+                    break;
+                case "3":
+                    arOverlayView = new AROverlayView(this,promotion,"3");
+                    spinner.setSelectedIndex(position);
+                    break;
+                case "4":
+                    arOverlayView = new AROverlayView(this,promotion,"4");
+                    spinner.setSelectedIndex(position);
+                    break;
+                case "null":
+                    arOverlayView = new AROverlayView(this,promotion,"All");
+                    spinner.setSelectedIndex(0);
+                    break;
+            }
         }
-        else {
-            arOverlayView = new AROverlayView(this,promotion,"All");
-        }
-        btnFoo.setOnClickListener(this);
-        btnAll.setOnClickListener(this);
-        btnEnt.setOnClickListener(this);
-        btnFas.setOnClickListener(this);
-    }
 
     @Override
     public void onResume() {
@@ -254,7 +317,7 @@ public class ARActivity extends AppCompatActivity implements SensorEventListener
     private void updateLatestLocation(Location location) {
         if (arOverlayView !=null) {
             arOverlayView.updateCurrentLocation(location);
-            tvCurrentLocation.setVisibility(View.GONE);;
+            //tvCurrentLocation.setVisibility(View.GONE);;
         }
     }
 
@@ -278,41 +341,4 @@ public class ARActivity extends AppCompatActivity implements SensorEventListener
 
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.btnFoo:
-                SharedPreferences.Editor editor = getSharedPreferences("TYPEOFCAMERA", MODE_PRIVATE).edit();
-                editor.putString("type", "1");
-                editor.apply();
-                Log.d("promotion","Running...");
-                finish();
-                startActivity(getIntent());
-                break;
-            case R.id.btnAll:
-                SharedPreferences.Editor editor1 = getSharedPreferences("TYPEOFCAMERA", MODE_PRIVATE).edit();
-                editor1.putString("type", "All");
-                editor1.apply();
-                Log.d("promotion","Running...");
-                finish();
-                startActivity(getIntent());
-                break;
-            case R.id.btnEnt:
-                SharedPreferences.Editor editor2 = getSharedPreferences("TYPEOFCAMERA", MODE_PRIVATE).edit();
-                editor2.putString("type", "3");
-                editor2.apply();
-                Log.d("promotion","Running...");
-                finish();
-                startActivity(getIntent());
-                break;
-            case R.id.btnFas:
-                SharedPreferences.Editor editor3 = getSharedPreferences("TYPEOFCAMERA", MODE_PRIVATE).edit();
-                editor3.putString("type", "2");
-                editor3.apply();
-                Log.d("promotion","Running...");
-                finish();
-                startActivity(getIntent());
-                break;
-        }
-    }
 }

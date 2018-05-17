@@ -71,11 +71,15 @@ public class AROverlayView extends View {
             else if(type=="3") {
                 filterPromotion(3,arrayPromotion);
             }
+            else if(type=="4") {
+                filterPromotion(4,arrayPromotion);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
     public  void filterPromotion(int type, JSONArray arrayPromotion) throws JSONException {
+        Log.d("promotion","_"+type);
         for(int i=0;i<arrayPromotion.length();i++){
             JSONObject json_data = arrayPromotion.getJSONObject(i);
             if(json_data.getInt("StoreCatalog_ID")==type){
@@ -156,7 +160,6 @@ public class AROverlayView extends View {
 
 
         for (int i = 0; i < arPoints.size(); i ++) {
-//            if(arPoints.get(i).getType())
             float[] currentLocationInECEF = LocationHelper.WSG84toECEF(currentLocation);
             float[] pointInECEF = LocationHelper.WSG84toECEF(arPoints.get(i).getLocation());
             float[] pointInENU = LocationHelper.ECEFtoENU(currentLocation, currentLocationInECEF, pointInECEF);
@@ -168,8 +171,16 @@ public class AROverlayView extends View {
             Bitmap ratehalf = BitmapFactory.decodeResource(getResources(),R.drawable.ratehalf);
             Bitmap ratefull = BitmapFactory.decodeResource(getResources(),R.drawable.rate);
             Bitmap rateemtry = BitmapFactory.decodeResource(getResources(),R.drawable.rateemtry);
-            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.avc);
-
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.other);
+            if(arPoints.get(i).getType()==1){
+                 bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.coffee);
+            }
+            else if(arPoints.get(i).getType()==2){
+                 bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.fashion);
+            }
+            else if(arPoints.get(i).getType()==3){
+                 bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.enter);
+            }
             // cameraCoordinateVector[2] is z, that always less than 0 to display on right position
             // if z > 0, the point will display on the opposite
             if (cameraCoordinateVector[2] < 0) {
