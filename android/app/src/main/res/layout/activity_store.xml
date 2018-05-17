@@ -202,7 +202,6 @@
                                 android:layout_width="15dp"
                                 android:layout_height="15dp"
                                 android:src="@drawable/duration"
-
                                 />
                             <TextView
                                 android:id="@+id/tvEstimateKm"
@@ -221,9 +220,9 @@
                             android:background="@drawable/border_radius_3"
                             >
                             <ImageView
-                                android:layout_width="15dp"
-                                android:layout_height="15dp"
-                                android:src="@drawable/duration"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@drawable/distancestore"
                                 />
                             <TextView
                                 android:id="@+id/tvEstimateTime"
@@ -259,10 +258,10 @@
                             android:gravity="center|left"
                             android:background="@drawable/border_radius_3"
                             >
-                            <ImageView
-                                android:layout_width="15dp"
-                                android:layout_height="15dp"
-                                android:src="@drawable/duration"
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Open: "
 
                                 />
                             <TextView
@@ -281,10 +280,10 @@
                             android:gravity="center|left"
                             android:background="@drawable/border_radius_3"
                             >
-                            <ImageView
-                                android:layout_width="15dp"
-                                android:layout_height="15dp"
-                                android:src="@drawable/duration"
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Close: "
                                 />
                             <TextView
                                 android:id="@+id/tvTimeClose"
