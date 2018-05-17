@@ -144,7 +144,7 @@ public class AROverlayView extends View {
 
         Paint paintBG = new Paint(Paint.ANTI_ALIAS_FLAG);
         paintBG.setStyle(Paint.Style.FILL);
-        paintBG.setColor(Color.parseColor("#f5f5f5"));
+        paintBG.setColor(Color.parseColor("#ffffff"));
         paintBG.setShadowLayer(10.0f, 0.0f, 2.0f, 0xff888888);
         paintBG.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
         paintBG.setTextSize(60);
@@ -184,23 +184,33 @@ public class AROverlayView extends View {
             // cameraCoordinateVector[2] is z, that always less than 0 to display on right position
             // if z > 0, the point will display on the opposite
             if (cameraCoordinateVector[2] < 0) {
+                String[] addressParts = arPoints.get(i).getAddress().split(",");
                 float x  = (0.5f + cameraCoordinateVector[0]/cameraCoordinateVector[3]) * canvas.getWidth();
                 float y = (0.5f - cameraCoordinateVector[1]/cameraCoordinateVector[3]) * canvas.getHeight();
                 float Hight = bitmap.getHeight();
                 float left;
                 float right;
-                if(arPoints.get(i).getName().length()>10){
+                if(arPoints.get(i).getName().length()>(addressParts[0].length()+addressParts[1].length() + addressParts[2].length())){
                     left = (x - (30 * arPoints.get(i).getName().length() / 2)) - 80-bitmap.getWidth()/2;
                     right = left + 30 * arPoints.get(i).getName().length() + 80 * 2+bitmap.getWidth()/2;
                 }
-                else {left = (x - (6*rateemtry.getWidth())) - 80-bitmap.getWidth()/2+20;
-                    right = left + 6*rateemtry.getWidth() + 80 * 2+bitmap.getWidth()/2+20;
+                else
+                {
+                    left = (x - (17 * (addressParts[0].length()+addressParts[1].length() + addressParts[2].length()))) - 80-bitmap.getWidth()/2;
+                    right = left + ((17 * (addressParts[0].length()+addressParts[1].length() + addressParts[2].length()))) + 80 * 2+bitmap.getWidth()/2;
                 }
+//                if(arPoints.get(i).getName().length()>10){
+//                    left = (x - (30 * arPoints.get(i).getName().length() / 2)) - 80-bitmap.getWidth()/2;
+//                    right = left + 30 * arPoints.get(i).getName().length() + 80 * 2+bitmap.getWidth()/2;
+//                }
+//                else {left = (x - (6*rateemtry.getWidth())) - 80-bitmap.getWidth()/2+20;
+//                    right = left + 6*rateemtry.getWidth() + 80 * 2+bitmap.getWidth()/2+20;
+//                }
                 float top = y + Hight/2 +10;
 
                 float bottom = y - Hight/2 +10;
                 Rect rect = new Rect((int)left,(int)top,(int)right, (int)bottom);
-                String[] addressParts = arPoints.get(i).getAddress().split(",");
+
                 //draw border
                 canvas.drawRect(rect, paintBG);
                 //draw Image store
@@ -216,7 +226,7 @@ public class AROverlayView extends View {
                 double rate  = arPoints.get(i).getRate();
                 int leftrate = 0;
                 for(int j = 0; j<5;j++){
-                    if(rate>1)
+                    if(rate>=1)
                         canvas.drawBitmap(ratefull,left + bitmap.getWidth()+leftrate,bottom +Hight/2+25,Paintimage);
                     else
                     if(rate>0)
@@ -259,19 +269,21 @@ public class AROverlayView extends View {
             // cameraCoordinateVector[2] is z, that always less than 0 to display on right position
             // if z > 0, the point will display on the opposite
             if (cameraCoordinateVector[2] < 0) {
-
+                String[] addressParts = arPoints.get(i).getAddress().split(",");
                 float x  = (0.5f + cameraCoordinateVector[0]/cameraCoordinateVector[3]) *canvasWidth;
                 float y = (0.5f - cameraCoordinateVector[1]/cameraCoordinateVector[3]) * canvasHeight;
                 float Hight = bitmap.getHeight();
                 float left;
                 float right;
 
-                if(arPoints.get(i).getName().length()>10){
+                if(arPoints.get(i).getName().length()>(addressParts[0].length()+addressParts[1].length() + addressParts[2].length())){
                     left = (x - (30 * arPoints.get(i).getName().length() / 2)) - 80-bitmap.getWidth()/2;
                     right = left + 30 * arPoints.get(i).getName().length() + 80 * 2+bitmap.getWidth()/2;
                 }
-                else {left = (x - (6*rateemtry.getWidth())) - 80-bitmap.getWidth()/2+20;
-                    right = left + 6*rateemtry.getWidth() + 80 * 2+bitmap.getWidth()/2+20;
+                else
+                {
+                    left = (x - (17 * (addressParts[0].length()+addressParts[1].length() + addressParts[2].length()))) - 80-bitmap.getWidth()/2;
+                    right = left + ((17 * (addressParts[0].length()+addressParts[1].length() + addressParts[2].length()))) + 80 * 2+bitmap.getWidth()/2;
                 }
 
                 float top = y + Hight/2 +10;
