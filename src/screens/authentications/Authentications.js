@@ -1,11 +1,5 @@
 import React, { Component } from "react";
-import {
-  View,
-  TouchableOpacity,
-  Text,
-  StyleSheet,
-  Image
-} from "react-native";
+import { View, TouchableOpacity, Text, StyleSheet, Image } from "react-native";
 import { GoogleSignin, GoogleSigninButton } from "react-native-google-signin";
 const FBSDK = require("react-native-fbsdk");
 const { LoginButton, AccessToken, LoginManager } = FBSDK;
@@ -19,7 +13,7 @@ export class LoginAnimation extends Component {
       })
       .catch(err => {
         console.log("WRONG SIGNIN", err);
-      })
+      });
   }
   _signOut() {
     GoogleSignin.revokeAccess()
@@ -47,17 +41,21 @@ export class LoginAnimation extends Component {
               this._signIn();
             }}
           />
-          <Text style={{ marginTop: 10, marginBottom: 10, fontWeight: "bold" }}>
-            ---------------Sign In---------------
+          <Text
+            style={{
+              marginTop: 10,
+              marginBottom: 10,
+              fontWeight: "bold",
+              fontSize: 15
+            }}
+          >
+            OR
           </Text>
           <LoginButton
-            style={{ width: 190, height: 40 }}
             readPermissions={["email", "user_birthday", "public_profile"]}
             onLoginFinished={(error, result) => {
               if (error) {
-                // alert("login has error: " + result.error);
               } else if (result.isCancelled) {
-                // alert("login is cancelled.");
               } else {
                 this.props.onSigninFBorGG();
                 this.props.navigation.navigate("HomeMap");
