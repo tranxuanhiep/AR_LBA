@@ -355,8 +355,8 @@ export default class DetailStore extends Component {
                     color: "#000"
                   }}
                 >
-                  {this.props.informationStore.Store.Store_OpenTime}' –{" "}
-                  {this.props.informationStore.Store.Store_CloseTime}'
+                  {this.props.informationStore.Store.Store_OpenTime}–{" "}
+                  {this.props.informationStore.Store.Store_CloseTime}
                   </Text>
               </View>
             </View>
